@@ -1,0 +1,22 @@
+<view>
+ <view class="expend-list">
+    <block a:if="{{invoice_inventory!=''}}">
+      <view class="expend-item" a:for="{{invoice_inventory}}" a:key="index">
+        <view class="a-expend">
+          <view class="text-box ">
+            <view class="arow arow01">
+              <view class="label">发票类型:{{item.invoice_type}}}</view>
+            </view>
+            <view class="arow arow01">
+             <view class="label">发票号码:{{(item.invoice_no)}}</view>
+              <view class="label-right">发票代码:{{item.invoice_code}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </block>
+    <block a:else>
+      <view class="empty">{{msg}}</view>
+    </block>
+  </view>
+</view>

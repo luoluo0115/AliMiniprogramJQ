@@ -1,0 +1,42 @@
+<import-sjs name="filter" from="../../../utils/filter.sjs"/>
+<view class="account page-content">
+  <view class="area-title ">
+    <view class="area-text">请点击下面银行账户上传回单跟对账单</view>
+  </view>
+  <!--列表-->
+  <block a:for="{{bankList}}" a:key="index">
+    <view class="list_view" onTap="gotoBankDetail" data-index="{{index}}" data-item="{{item}}" id="{{index}}">
+      <view class="van-row">
+        <view class="van-col van-col-4">
+          <image class="img" src="{{bankImage[0].img}}" a:if="{{item.bank_name=='建设银行'}}"/>
+          <image class="img" src="{{bankImage[1].img}}" a:if="{{item.bank_name=='农业银行'}}"/>
+          <image class="img" src="{{bankImage[2].img}}" a:if="{{item.bank_name=='浦发银行'}}"/>
+          <image class="img" src="{{bankImage[3].img}}" a:if="{{item.bank_name=='中国银行'}}"/>
+          <image class="img" src="{{bankImage[4].img}}" a:if="{{item.bank_name=='华夏银行'}}"/>
+          <image class="img" src="{{bankImage[5].img}}" a:if="{{item.bank_name=='交通银行'}}"/>
+          <image class="img" src="{{bankImage[6].img}}" a:if="{{item.bank_name=='招商银行'}}"/>
+          <image class="img" src="{{bankImage[7].img}}" a:if="{{item.bank_name=='中信银行'}}"/>
+          <image class="img" src="{{bankImage[8].img}}" a:if="{{item.bank_name=='工商银行'}}"/>
+          <image class="img" src="{{bankImage[9].img}}" a:if="{{item.bank_name=='兴业银行'}}"/>
+          <image class="img" src="{{bankImage[10].img}}" a:if="{{item.bank_name=='光大银行'}}"/>
+          <image class="img" src="{{bankImage[11].img}}" a:if="{{item.bank_name=='上海银行'}}"/>
+        </view>
+        <view class="van-col van-col-14">
+          <view class="d-block title color-gray">
+            <text>{{item.bank_name}}</text>
+            <text class="third">({{item.bank_account_name}})</text></view>
+        </view>
+        <view class="van-col van-col-6 text-right" >
+          <button type="default" size="mini" catchTap='bindIntro' data-item="{{item}}" class="font-12 bg-">操作介绍</button>
+        </view>
+        <view class="van-col van-col-24 text-left">
+          <text class="price">¥{{filter.numberToFixed(list[index])}}</text>
+        </view>
+        <view class="van-col van-col-24">
+          <text class="four">{{item.bank_account_number}}</text>
+          <view class="d-block sub color-gray">{{item.bank_branch_name}}</view>
+        </view>
+      </view>
+    </view>
+  </block>
+</view>

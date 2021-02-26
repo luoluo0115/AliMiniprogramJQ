@@ -1,0 +1,30 @@
+.registed {
+  padding-top: 30%;
+  background: #fff;
+  padding-bottom: 30%;
+}
+
+.registed .title {
+  padding-bottom: 5%
+}
+
+.registed .van-cell__title {
+  min-width: 60px!important;
+  max-width: 60px!important;
+}
+
+.register-btn {
+  margin-top: 20%;
+  display: block;
+}
+
+.register-btn button {
+  background: #1e6ce8;
+  color: #fff
+}
+
+.am-input-label, .am-input-content, .am-verify-code-line, .am-verify-code-content {
+  font-size: 14px;
+  font-size: var(--am-input-label-font-size, 14px);
+}
+

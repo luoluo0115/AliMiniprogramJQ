@@ -1,0 +1,89 @@
+
+/*手风琴*/
+.am-collapse-item-title-container{
+  font-size: 14px;
+  font-size: var(--am-collapse-title-fontSize,14px);
+}
+/*表格*/
+.table {
+  border: 1px solid #eee;
+  border-right: 0;
+  border-bottom: 0;
+  width: 100%;
+  margin-top: 0;
+}
+  
+  .tr {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  }
+  
+  .th, .td {
+  height: 32px;
+  line-height: 32px;
+  border-bottom: 1px solid #eee;
+  border-right: 1px solid #eee;
+  text-align: center;
+  width: 100%;
+  font-size:12px;
+  }
+  
+  .th {
+  font-weight: 400;
+  background-color: #f9f9f9;
+  }
+  .th0{
+    width:15%;
+    
+  }
+  .th1{
+    width:15%;
+    
+  }
+  .th2{
+    width:20%;
+  }
+  .th3{
+    width:30%;
+  }
+  .th4{
+    width:20%;
+  }
+  .see-btn{
+    width: 45rpx!important;
+    font-size: 10px;
+  }
+  .rowColor{
+    background-color: #f9f9f9;
+  }
+  .item-top{
+    display: inline-block
+  }
+  .item-top .text{
+    font-size: 12px;
+  }
+  .btn-group{
+    padding: 20rpx 0
+  }
+  /*弹窗*/
+.am-list-line{
+  padding: var(--am-list-item-padding,3px);
+}
+.am-list-prefix {
+    padding: 0px;
+    padding: var(--am-list-item-padding,0px);
+}
+.am-list-arrow {
+    margin-left: 2px; 
+    margin-left: var(--am-list-item-arrow-margin,2px);
+    height: 22px;
+    height: var(--am-list-item-arrow-size,22px);
+    width: 14px;
+    width: var(--am-list-item-arrow-size,14px);
+    text-align: right;
+
+}
+.am-icon {
+    --am-icon-size: 16px!important;
+}

@@ -1,0 +1,361 @@
+<import-sjs name="filter" from="../../../utils/filter.sjs"/>
+<view class="analysis-wrapper">
+  <view class="billing-wrapper ">
+    <view class="title">盈利状况</view>
+    <view class="account-wrapper">
+      <view class="van-row  item">
+        <view class=" wrapper-title van-col van-col-8">
+          营业收入
+        </view>
+        <view class="van-col van-col-8 text-center">
+          <text class="d-block text-1e6ce8 font-14">{{dtData.column_val_12==null?"":filter.numberToFixed(dtData.column_val_12)}}</text>
+          <text class="d-block font-12 text-999">本期</text>
+        </view>
+        <view class="van-col van-col-8  text-center">
+          <text class="d-block text-1e6ce8 font-14">{{dtData.column_val_13==null?"":filter.numberToFixed(dtData.column_val_13)}}</text>
+          <text class="d-block font-12 text-999">本年累计</text>
+        </view>
+      </view>
+      <view class="van-row item">
+        <view class=" wrapper-title van-col van-col-8">
+           净利润
+        </view>
+        <view class="van-col van-col-8  text-center">
+          <text  class="d-block text-1e6ce8 font-14">{{dtData.column_val_14==null?"":filter.numberToFixed(dtData.column_val_14)}}</text>
+          <text class="d-block font-12 text-999">本期</text>
+        </view>
+        <view class="van-col van-col-8 text-center">
+          <text class="d-block text-1e6ce8 font-14 ">{{dtData.column_val_15==null?"":filter.numberToFixed(dtData.column_val_15)}}</text>
+          <text class="d-block font-12 text-999">本年累计</text>
+        </view>
+      </view>
+      <view class="van-row item">
+        <view class=" wrapper-title van-col van-col-8">
+          营业收入净利率
+        </view>
+        <view class="van-col van-col-8 text-center">
+          <text class="d-block text-1e6ce8 font-14">{{dtData.column_val_16==null?"":filter.numberToFixed(dtData.column_val_16)}}%</text>
+          <text class="d-block font-12 text-999">本期</text>
+        </view>
+        <view class="van-col van-col-8 text-center">
+          <text class="d-block text-1e6ce8 font-14">{{dtData.column_val_17==null?"":filter.numberToFixed(dtData.column_val_17)}}%</text>
+          <text class="d-block font-12 text-999">本年累计</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <block a:if="{{dtData.column_val_03!=0}}">
+    <view class="billing-wrapper mountNode-canvas">
+      <view class="title">收入预警</view>
+      <view class="pay-container">
+        <f2 onInit="onInitChart" ></f2>
+      </view>
+    </view>
+  </block>
+  <view class="billing-wrapper mountNode-canvas-pay">
+    <view class="title">三大费用</view>
+    <view class="pay-container " >
+      <text>{{ message }}</text>
+      <f2  onInit="initpieChart"></f2>
+    </view>
+    <view class="account-wrapper three-chart">
+      <view class="van-row item">
+        <view class=" wrapper-title van-col van-col-8">
+          销售费用
+        </view>
+        <view class="van-col van-col-8 text-center">
+          <text class="d-block text-1e6ce8 font-14"> {{dtData.column_val_18==null?"":filter.numberToFixed(dtData.column_val_18)}}</text>
+          <text class="d-block text-999 font-12">本期</text>
+        </view>
+        <view class="van-col van-col-8 text-center">
+          <text class="d-block text-1e6ce8 font-14">{{dtData.column_val_19==null?"":filter.numberToFixed(dtData.column_val_19)}}</text>
+          <text class="d-block text-999 font-12">本年累计</text>
+        </view>
+      </view>
+      <view class="van-row item">
+        <view class=" wrapper-title van-col van-col-8">
+          管理费用
+        </view>
+        <view class="van-col van-col-8 text-center">
+          <text class="d-block text-1e6ce8 font-14">{{dtData.column_val_20==null?"":filter.numberToFixed(dtData.column_val_20)}}</text>
+          <text class="d-block text-999 font-12">本期</text>
+        </view>
+        <view class="van-col van-col-8 text-center">
+          <text class="d-block text-1e6ce8 font-14">{{dtData.column_val_21==null?"":filter.numberToFixed(dtData.column_val_21)}}</text>
+          <text class="d-block text-999 font-12">本年累计</text>
+        </view>
+      </view>
+      <view class="van-row item">
+        <view class=" wrapper-title van-col van-col-8">
+          财务费用
+        </view>
+        <view class="van-col van-col-8 text-center">
+          <text class="d-block text-1e6ce8 font-14">{{dtData.column_val_22==null?"":filter.numberToFixed(dtData.column_val_22)}}</text>
+          <text class="d-block text-999 font-12">本期</text>
+        </view>
+        <view class="van-col van-col-8 text-center">
+          <text class="d-block text-1e6ce8 font-14">{{dtData.column_val_23==null?"":filter.numberToFixed(dtData.column_val_23)}}</text>
+          <text class="d-block text-999 font-12">本年累计</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- <block >
+    <view class="billing-wrapper mountNode-canvas-l">
+      <view class="title">费用预警</view>
+      <view class="pay-container">
+        <f2  onInit="initwelfareChart"></f2>
+      </view>
+      <view class="pay-container-l">
+        <canvas id="canvaGauge" width="750" height="500" style="width:750rpx;height:500rpx;" onTouchStart="touchColumn"></canvas>
+        <f2  onInit="initeducationChart" ></f2>
+      </view>
+      <view class="pay-container-ll">
+        <f2 onInit="initBusinessChart"></f2>
+      </view>
+      <view class="pay-container-lll">
+        <f2 onInit="initAdvertisingChart"></f2>
+      </view>
+    </view>
+  </block> -->
+  <view class="billing-wrapper ">
+    <view class="title">税金状况</view>
+    <view class="account-wrapper">
+      <view class="van-row item">
+        <view class=" wrapper-title van-col van-col-8">
+          增值税
+        </view>
+        <view class="van-col van-col-8 text-center">
+          <text class="d-block text-1e6ce8 font-14">{{dtData.column_val_36==null?"":filter.numberToFixed(dtData.column_val_36)}}</text>
+          <text class="d-block text-999 font-12">本期</text>
+        </view>
+        <view class="van-col van-col-8 text-center">
+          <text class="d-block text-1e6ce8 font-14">{{dtData.column_val_37==null?"":filter.numberToFixed(dtData.column_val_37)}}</text>
+          <text class="d-block text-999 font-12">本年累计</text>
+        </view>
+      </view>
+      <view class="van-row item">
+        <view class=" wrapper-title van-col van-col-8">
+          城建税
+        </view>
+        <view class="van-col van-col-8 text-center">
+          <text class="d-block text-1e6ce8 font-14">{{dtData.column_val_38==null?"":filter.numberToFixed(dtData.column_val_38)}}</text>
+          <text class="d-block text-999 font-12">本期</text>
+        </view>
+        <view class="van-col van-col-8 text-center">
+          <text class="d-block text-1e6ce8 font-14">{{dtData.column_val_39==null?"":filter.numberToFixed(dtData.column_val_39)}}</text>
+          <text class="d-block text-999 font-12">本年累计</text>
+        </view>
+      </view>
+      <view class="van-row item">
+        <view class=" wrapper-title van-col van-col-8">
+          教育附加费
+        </view>
+        <view class="van-col van-col-8 text-center">
+          <text class="d-block text-1e6ce8 font-14">{{dtData.column_val_40==null?"":filter.numberToFixed(dtData.column_val_40)}}</text>
+          <text class="d-block text-999 font-12">本期</text>
+        </view>
+        <view class="van-col van-col-8 text-center">
+          <text class="d-block text-1e6ce8 font-14">{{dtData.column_val_41==null?"":filter.numberToFixed(dtData.column_val_41)}}</text>
+          <text class="d-block text-999 font-12">本年累计</text>
+        </view>
+      </view>
+      <view class="van-row item">
+        <view class=" wrapper-title van-col van-col-8">
+          地方教育附加费
+        </view>
+        <view class="van-col van-col-8 text-center">
+          <text class="d-block text-1e6ce8 font-14">{{dtData.column_val_42==null?"":filter.numberToFixed(dtData.column_val_42)}}</text>
+          <text class="d-block text-999 font-12">本期</text>
+        </view>
+        <view class="van-col van-col-8 text-center">
+          <text class="d-block text-1e6ce8 font-14">{{dtData.column_val_43==null?"":filter.numberToFixed(dtData.column_val_43)}}</text>
+          <text class="d-block text-999 font-12">本年累计</text>
+        </view>
+      </view>
+      <view class="van-row item ">
+        <view class=" wrapper-title van-col van-col-8">
+          个税
+        </view>
+        <view class="van-col van-col-8 text-center">
+          <text class="d-block text-1e6ce8 font-14">{{dtData.column_val_44==null?"":filter.numberToFixed(dtData.column_val_44)}}</text>
+          <text class="d-block text-999 font-12">本期</text>
+        </view>
+        <view class="van-col van-col-8 text-center">
+          <text class="d-block text-1e6ce8 font-14">{{dtData.column_val_45==null?"":filter.numberToFixed(dtData.column_val_45)}}</text>
+          <text class="d-block text-999 font-12">本年累计</text>
+        </view>
+      </view>
+      <view class="van-row item">
+        <view class=" wrapper-title van-col van-col-8">
+          生产经营个税
+        </view>
+        <view class="van-col van-col-8 text-center">
+          <text class="d-block text-1e6ce8 font-14">{{dtData.column_val_88==null?"":filter.numberToFixed(dtData.column_val_88)}}</text>
+          <text class="d-block text-999 font-12">本期</text>
+        </view>
+        <view class="van-col van-col-8 text-center">
+          <text class="d-block text-1e6ce8 font-14">{{dtData.column_val_89==null?"":filter.numberToFixed(dtData.column_val_89)}}</text>
+          <text class="d-block text-999 font-12">本年累计</text>
+        </view>
+      </view>
+      <view class="van-row item">
+        <view class=" wrapper-title van-col van-col-8">
+          文化事业建设费
+        </view>
+        <view class="van-col van-col-8 text-center">
+          <text  class="d-block text-1e6ce8 font-14">{{dtData.column_val_46==null?"":filter.numberToFixed(dtData.column_val_46)}}</text>
+          <text  class="d-block text-999 font-12">本期</text>
+        </view>
+        <view class="van-col van-col-8 text-center">
+          <text class="d-block text-1e6ce8 font-14">{{dtData.column_val_47==null?"":filter.numberToFixed(dtData.column_val_47)}}</text>
+          <text class="d-block text-999 font-12">本年累计</text>
+        </view>
+      </view>
+      <view class="van-row item">
+        <view class=" wrapper-title van-col van-col-8">
+          增值税税负率
+        </view>
+        <view class="van-col van-col-8 text-center">
+          <text class="d-block text-1e6ce8 font-14">{{dtData.column_val_48==null?"":filter.numberToFixed(dtData.column_val_48)}}%</text>
+          <text class="d-block text-999 font-12">本期</text>
+        </view>
+        <view class="van-col van-col-8 text-center">
+          <text class="d-block text-1e6ce8 font-14">{{dtData.column_val_49==null?"":filter.numberToFixed(dtData.column_val_49)}}%</text>
+          <text class="d-block text-999 font-12">本年累计</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="billing-wrapper ">
+    <view class="title">财务比率</view>
+    <view class="account-wrapper">
+      <view class="van-row item">
+        <view class=" wrapper-title van-col van-col-8">
+          净利率
+        </view>
+        <view class="van-col van-col-8 text-center">
+          <text class="d-block text-1e6ce8 font-14">{{dtData.column_val_52==null?"":filter.numberToFixed(dtData.column_val_52)}}%</text>
+          <text class="d-block text-999 font-12">本期</text>
+        </view>
+        <view class="van-col van-col-8 text-center">
+          <text class="d-block text-1e6ce8 font-14">{{dtData.column_val_53==null?"":filter.numberToFixed(dtData.column_val_53)}}%</text>
+          <text class="d-block text-999 font-12">本年累计</text>
+        </view>
+      </view>
+      <view class="van-row item">
+        <view class=" wrapper-title van-col van-col-8">
+          毛利率
+        </view>
+        <view class="van-col van-col-8 text-center">
+          <text class="d-block text-1e6ce8 font-14">{{dtData.column_val_50==null?"":filter.numberToFixed(dtData.column_val_50)}}%</text>
+          <text class="d-block text-999 font-12">本期</text>
+        </view>
+        <view class="van-col van-col-8 text-center">
+          <text class="d-block text-1e6ce8 font-14">{{dtData.column_val_51==null?"":filter.numberToFixed(dtData.column_val_51)}}%</text>
+          <text class="d-block text-999 font-12">本年累计</text>
+        </view>
+      </view>
+      <view class="van-row item">
+        <view class=" wrapper-title van-col van-col-8">
+          资产负债率
+        </view>
+        <view class="van-col van-col-8 ">
+          <!--<text>{{filter.numberToFixed(dtData.column_val_56)}}%</text><text>本期</text>-->
+        </view>
+        <view class="van-col van-col-8 text-center">
+          <text class="d-block text-1e6ce8 font-14">{{dtData.column_val_56==null?"":filter.numberToFixed(dtData.column_val_56)}}%</text>
+          <text class="d-block text-999 font-12">期末负债率</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="billing-wrapper ">
+    <view class="title">资产状况</view>
+    <view class="account-wrapper">
+      <view class="van-row item">
+        <view class=" wrapper-title van-col van-col-8">
+          流动资产
+        </view>
+        <view class="van-col van-col-8 text-center">
+          <text class="d-block text-1e6ce8 font-14">{{dtData.column_val_06==null?"":filter.numberToFixed(dtData.column_val_06)}}</text>
+          <text class="d-block text-999 font-12">年初余额</text>
+        </view>
+        <view class="van-col van-col-8 text-center">
+          <text class="d-block text-1e6ce8 font-14"> {{dtData.column_val_07==null?"":filter.numberToFixed(dtData.column_val_07)}}</text>
+          <text class="d-block text-999 font-12">期末余额</text>
+        </view>
+      </view>
+      <view class="van-row item">
+        <view class=" wrapper-title van-col van-col-8">
+          非流动资产
+        </view>
+        <view class="van-col van-col-8 text-center">
+          <text class="d-block text-1e6ce8 font-14">{{dtData.column_val_08==null?"":filter.numberToFixed(dtData.column_val_08)}}</text>
+          <text class="d-block text-999 font-12">年初余额</text>
+        </view>
+        <view class="van-col van-col-8 text-center">
+          <text class="d-block text-1e6ce8 font-14">{{dtData.column_val_09==null?"":filter.numberToFixed(dtData.column_val_09)}}</text>
+          <text class="d-block text-999 font-12">期末余额</text>
+        </view>
+      </view>
+      <view class="van-row text-center item">
+        <view class=" wrapper-title van-col van-col-8">
+          资产合计
+        </view>
+        <view class="van-col van-col-8 text-center">
+          <text class="d-block text-1e6ce8 font-14">{{dtData.column_val_10==null?"":filter.numberToFixed(dtData.column_val_10)}}</text>
+          <text class="d-block text-999 font-12">年初余额</text>
+        </view>
+        <view class="van-col van-col-8 text-center">
+          <text class="d-block text-1e6ce8 font-14">{{dtData.column_val_11==null?"":filter.numberToFixed(dtData.column_val_11)}}</text>
+          <text class="d-block text-999 font-12">期末余额</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="billing-wrapper ">
+    <view class="title">资金状况</view>
+    <view class="account-wrapper ">
+      <view class="van-row item">
+        <view class=" wrapper-title van-col van-col-8">
+          资金收入
+        </view>
+        <view class="van-col van-col-8 text-center">
+          <text class="d-block text-1e6ce8 font-14">{{dtData.column_val_30==null?"":filter.numberToFixed(dtData.column_val_30)}}</text>
+          <text class="d-block text-999 font-12">本期</text>
+        </view>
+        <view class="van-col van-col-8 text-center">
+          <text class="d-block text-1e6ce8 font-14">{{dtData.column_val_31==null?"":filter.numberToFixed(dtData.column_val_31)}}</text>
+          <text class="d-block text-999 font-12">本年累计</text>
+        </view>
+      </view>
+      <view class="van-row item">
+        <view class=" wrapper-title van-col van-col-8">
+          资金支付
+        </view>
+        <view class="van-col van-col-8 text-center">
+          <text class="d-block text-1e6ce8 font-14">{{dtData.column_val_32==null?"":filter.numberToFixed(dtData.column_val_32)}}</text>
+          <text class="d-block text-999 font-12">本期</text>
+        </view>
+        <view class="van-col van-col-8 text-center ">
+          <text class="d-block text-1e6ce8 font-14">{{dtData.column_val_33==null?"":filter.numberToFixed(dtData.column_val_33)}}</text>
+          <text class="d-block text-999 font-12">本年累计</text>
+        </view>
+      </view>
+      <view class="van-row item">
+        <view class=" wrapper-title van-col van-col-8">
+          资金收支
+        </view>
+        <view class="van-col van-col-8 text-center">
+          <text class="d-block text-1e6ce8 font-14">{{dtData.column_val_34==null?"":filter.numberToFixed(dtData.column_val_34)}}</text>
+          <text class="d-block text-999 font-12">本期</text>
+        </view>
+        <view class="van-col van-col-8 text-center">
+          <text class="d-block text-1e6ce8 font-14">{{dtData.column_val_35==null?"":filter.numberToFixed(dtData.column_val_35)}}</text>
+          <text class="d-block text-999 font-12">本年累计</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

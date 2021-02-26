@@ -1,0 +1,56 @@
+<import-sjs name="filter" from="../../../utils/filter.sjs"/>
+<view>
+  <view class="text-center btn-group">
+    <button size="mini" class="top-btn bg-1e6ce8" onTap="bindDateChange" type="primary">起始:{{begin_month}}</button>
+    <button size="mini" class="top-btn bg-1e6ce8" onTap="bindDateChangeEnd" type="primary">结束:{{end_month}}</button>
+    <!-- <button size="mini" class="top-btn bg-1e6ce8" onTap="DownPDF" type="primary">下载电子凭证</button> -->
+  </view>
+  <view class="table">
+    <view class="tr">
+      <view class="th th1">摘要</view>
+      <view class="th th2">会计科目</view>
+      <view class="th th3">借方金额</view>
+      <view class="th th4">贷方金额</view>
+    </view>
+    <block a:if="{{dtVoucherNo!=''}}">
+      <block a:for="{{dtVoucherNo}}" a:key="index" a:for-index="dtIndex">
+        <view class='tr top'>
+          <view class="td th1">日期:{{item.voucher_date}}</view>
+          <view class="td th2" a:if="{{item.voucher_bill_qty>0}}" onTap="previewImage" data-item="{{item}}" data-src="{{FileOssUrl}}">
+                        凭证字号：记-{{item.voucher_no}} 
+                        附单据:
+            <text class="color-blue d-inline-block"> {{item.voucher_bill_qty}}
+            </text>
+            <icon class=" iconfont iconpic-line d-inline-block color-blue"></icon>
+          </view>
+          <view class="td th2" a:else>
+                        凭证字号：记-{{item.voucher_no}} 
+                        附单据:
+            <text >{{item.voucher_bill_qty}}</text>
+          </view>
+        </view>
+        <block a:for="{{voucherTable}}" a:key="child" a:for-item="group">
+          <view class='tr' a:if="{{group.voucher_no==item.voucher_no}}">
+            <view class="td th1">{{group.voucher_desc}}</view>
+            <view class="td th2">{{group.code_name }}</view>
+            <view class="td th3">{{filter.numberToFixed(group.amt_dr==null?'0':group.amt_dr)}}</view>
+            <view class="td th4">{{filter.numberToFixed(group.amt_cr==null?'0':group.amt_cr)}}</view>
+          </view>
+          <block >
+            <view class="tr btm" a:if="{{index+1==voucherTable.length}}">
+              <view class="th th1" style="text-align:left;text-indent:10rpx">合计:{{sumlist[dtIndex].sumDX}}</view>
+              <view class="th th3">{{filter.numberToFixed(sumlist[dtIndex].sum)}}</view>
+              <view class="th th4">{{filter.numberToFixed(sumlist[dtIndex].sum)}}</view>
+            </view>
+          </block>
+        </block>
+      </block>
+    </block>
+    <block a:else>
+      <view class="empty">
+        <icon class="iconfont iconkong"></icon>
+        <view class="color-gray">暂无数据</view>
+      </view>
+    </block>
+  </view>
+</view>

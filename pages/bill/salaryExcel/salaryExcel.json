@@ -1,0 +1,7 @@
+{
+  "defaultTitle": "工资表",
+  "usingComponents": {
+    "list": "mini-ali-ui/es/list/index",
+    "list-item": "mini-ali-ui/es/list/list-item/index"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "defaultTitle": "税金计算器",
+  "backgroundColor": "#f5f5f5",
+  "usingComponents": {
+    "popup": "mini-ali-ui/es/popup/index",
+    "tabs": "mini-ali-ui/es/tabs/index",
+    "tab-content": "mini-ali-ui/es/tabs/tab-content/index",
+    "list": "mini-ali-ui/es/list/index",
+    "list-item": "mini-ali-ui/es/list/list-item/index"
+  }
+}

@@ -1,0 +1,26 @@
+.flex-item-5{
+ 
+}
+.company-content{
+  display: flex
+}
+.iconkehuguanli{
+  flex: 1;
+}
+.companyText{
+  font-size: 24rpx;
+  overflow : hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  flex: 8;
+  line-height: 1;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  word-break: break-all; /* 追加这一行代码 */
+  height: 38rpx;
+  line-height: 38rpx
+
+}
+.date-text{
+  padding-left: 5rpx
+}

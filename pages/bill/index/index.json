@@ -1,0 +1,16 @@
+{
+  "defaultTitle": "拍票中心",
+  "pullRefresh": true,
+  "usingComponents": {
+    "flex": "mini-ali-ui/es/flex/index",
+    "flex-item": "mini-ali-ui/es/flex/flex-item/index",
+    "tag": "mini-ali-ui/es/tag/index",
+    "title": "mini-ali-ui/es/title/index",
+    "container": "mini-ali-ui/es/container/index",
+    "topwrapper": "/components/topwrapper/topwrapper",
+    "modal": "mini-ali-ui/es/modal/index",
+    "list": "mini-ali-ui/es/list/index",
+    "list-item": "mini-ali-ui/es/list/list-item/index",
+    "popup": "mini-ali-ui/es/popup/index"
+  }
+}

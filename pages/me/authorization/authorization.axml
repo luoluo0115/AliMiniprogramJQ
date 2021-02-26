@@ -1,0 +1,131 @@
+<import-sjs name="filter" from="../../../utils/filter.sjs"/>
+<tabs tabs="{{tabs2}}" swipeable='{{false}}' tabsName="active" onTabClick="handleTabClick" onChange="handleTabChange" activeTab="{{active}}" tabBarUnderlineWidth="20px">
+  <block a:for="{{tabs2}}">
+    <tab-content key="{{index}}" tabId="{{index}}" activeTab="{{active}}" a:if="{{index === 0}}" style="height:100%">
+      <view class="tab-content" style="height:100%">
+        <view class="page-content">
+          <view class="company-info">
+            <view class="item">
+							1. 法人本人可以自助认证本人名下的公司，需要上传公司营业执照，输入身份证号码;
+            </view>
+            <view class="item">
+							2. 系统将对企业营业执照进行四要素认证(企业名称，社会信用号码，法人姓名，法人身份证号码）;
+            </view>
+            <view class="item">
+							3. 通过认证后您才可以进行资料上传或者您的员工申请授权后您短信验证码核准后才能进行资料上传;
+            </view>
+          </view>
+          <button class="submit-btn mt-10 large" type="primary" onTap="chooseImg">营业执照上传认证</button>
+          <view class="mt-10 mb-10" a:if="{{resultShow}}">
+            <view class="mb-10">
+              <list-item class="font-12">
+                <text class="font-12">单位名称:</text>
+                <view slot="extra"> {{resultList.enterprise_name}}</view>
+              </list-item>
+              <list-item class="font-12">
+                <text class="font-12">社会信用代码:</text>
+                <view slot="extra"> {{resultList.social_credit_no}}</view>
+              </list-item>
+              <list-item class="font-12">
+                <text class="font-12">法定代表人:</text>
+                <view slot="extra"> {{resultList.legal_person}}</view>
+              </list-item>
+              <list-item class="font-12">
+                <text class="font-12">公司类型:</text>
+                <view slot="extra"> {{resultList.enterprise_type}}</view>
+              </list-item>
+              <view class="upload-list ">
+                <view class=" border-bottom item ">
+                  <picker onChange="bindIdTypeChange" value="{{index}}" range="{{idTypeList}}">
+                    <view class="van-row">
+                      <view class="van-col van-col-8 ">证件类型:</view>
+                      <view class="van-col van-col-16 text-right text-666">{{resultList.id_type}}
+                        <icon class="iconfont iconxiajiantou- font-12"></icon></view>
+                    </view>
+                  </picker>
+                </view>
+              </view>
+              <list-item class="font-12" a:if="{{resultList.id_type =='居民身份证'}}">
+                <text class="font-12">身份证号:</text>
+                <view slot="extra">
+                  <input placeholder="请输入身份证号" value="{{resultList.id_no}}" maxlength="18" type="idcard" input-align="right" onInput="idnoInput" class="font-12 text-right" />
+                </view>
+              </list-item>
+              <list-item class="font-12" a:if="{{resultList.id_type!='居民身份证'}}">
+                <text class="font-12">上传证件:</text>
+                <view slot="extra">
+                  <image src="{{imgPathZJ}}" mode="widthFix" class="img-id_type"/>
+                  <text  onTap="chooseImgZJ"><icon class="iconfont icontianjiatupian text-999 font-24 " ></icon></text>
+                </view>
+              </list-item>
+            </view>
+            <button class="submit-btn JQBtn  " type="primary" onTap="{{resultList.id_type !='居民身份证'?'goVerify':'goAuthAlipay'}}">{{resultList.id_type !='居民身份证'?'提交审核':'开始认证'}}</button>
+          </view>
+          <view class="table" a:if="{{verifyCustList !=''}}">
+            <view class="tr">
+              <view class="th th0">操作</view>
+              <view class="th th1">企业名称</view>
+              <view class="th th3">法人</view>
+              <view class="th th2">认证状态</view>
+              <view class="th th3">认证时间</view>
+            </view>
+            <view class='tr' a:for="{{verifyCustList}}" a:key="index">
+              <view class="td th0" onTap="deleteVerify">
+                <icon a:if="{{item.confirm_status=='N'}}" class="iconfont icondelete icon-btn" data-item="{{item}}"></icon>
+              </view>
+              <view class="td th1">{{item.enterprise_name}}</view>
+              <view class="td th3">{{item.legal_person}}</view>
+              <view class="td th2" onTap="{{item.confirm_status =='N'?'verifyEdit':''}}" data-item="{{item}}">{{item.confirm_status_desc}}
+                <icon a:if="{{item.confirm_status =='N'}}" class="iconfont iconflow-Mark d-inline-block color-blue"></icon></view>
+              <view class="td th3">{{item.confirm_time==null?"":item.confirm_time}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </tab-content>
+    <tab-content key="{{index}}" tabId="{{index}}" activeTab="{{active}}" a:elif="{{index === 1}}">
+      <view class="tab-content" style="height:100%">
+        <view class="section">
+          <view class="page-content">
+            <view class="mb-10 from-wrapper">
+              <view class="verify">
+                <view class="label font-12">公司名称</view>
+                <input type="text" class="font-12" placeholder="请输入公司名称" value="{{ enterprise_name }}" onInput="enterprisenameInput"/>
+              </view>
+              <view class="verify">
+                <view class="label font-12">法人代表</view>
+                <input type="number" class="font-12" maxlength="11" placeholder="请输入法人代表"value="{{ legal_person }}" onInput="legalpersonInput" />
+              </view>
+              <view class="verify font-12">
+                <view class="label font-12">法人手机号</view>
+                <input type="number" class="font-12" maxlength="11" placeholder="请输入法人手机号" value="{{ phone }}" onInput="phoneInput" />
+              </view>
+              <view class="verify">
+                <view class="label font-12">短信验证码</view>
+                <input type="number" class="font-12" placeholder="请输入短信验证码" onInput="smscodeInput" value="{{ smscode }}" />
+                <view class="send-tips {{isClick?'disabled':''}} font-12" onTap="{{isClick?'':'getCode'}}">{{btntext}}</view>
+              </view>
+              <view class="verify ">
+                <view class="label font-12">申请人姓名</view>
+                <input type="number" class="font-12" maxlength="11" placeholder="请输入申请人姓名" value="{{ username }}" onInput="usernameInput" />
+              </view>
+            </view>
+            <button class="submit-btn mt-10 large {btnDisabled?'gray-bg':''}}" type="primary" onTap="{{!btnDisabled?'VerifyEmp':''}}">申请授权</button>
+            <view class="table" a:if="{{custList !=''}}">
+              <view class="tr">
+                <view class="th th1">企业名称</view>
+                <view class="th th2">增值税申报类型</view>
+                <view class="th th3">法人</view>
+              </view>
+              <view class='tr' a:for="{{custList}}" a:key="index">
+                <view class="td th1">{{item.customer_name}}</view>
+                <view class="td th2">{{item.tax_type}}</view>
+                <view class="td th3">{{item.legal_person}}</view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </tab-content>
+  </block>
+</tabs>

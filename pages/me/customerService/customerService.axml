@@ -1,0 +1,47 @@
+<import-sjs name="filter" from="../../../utils/filter.sjs"/>
+<view class="customer-wrapper">
+  <block a:if="{{commonInfo.sex=='女'}}">
+    <image class="img" src="{{imgWoman}}" mode="widthFix" lazy-load="false" onError="" onLoad=""/>
+  </block>
+  <block a:else>
+    <image class="img" src="{{imgMan}}" mode="widthFix" lazy-load="false" onError="" onLoad=""/>
+  </block>
+  <view class="customer-text">
+    <view class="title">专属顾问{{commonInfo.display_name}}为您服务</view>
+    <view class="sub-title">{{commonInfo.service_mp}}</view>
+  </view>
+   <button class="btn submit-btn plain mt-10"  onTap="onClickConfirm">电话顾问</button>
+</view>
+<view class="wechart-wrapper">
+  <view class="scroll">
+    <scroll-view scroll-into-view="{{toView}}" style="height: 100%;" upper-threshold="20" bindscrolltoupper="scrollEvent" scroll-y="true" enable-back-to-top="true" class="message-list">
+      <!-- 每一行 -->
+      <view class="row" a:for="{{messages}}" a:key="index" id="row_{{index}}">
+        <!-- 日期 -->
+        <view class="datetime" a:if="{{item.msgTime != ''}}">{{item.msgTime}}</view>
+        <!-- 头像与内容文本 -->
+        <view class="body" style="flex-flow: {{item.myself == 1 ? 'row' : 'row-reverse'}}">
+          <view class="avatar-container">
+            <image class="avatar" src="{{item.avatarUrl}}" />
+          </view>
+          <!-- 画对话框 -->
+          <view class="triangle {{item.myself == 0 ? 'tr-mr-r' : 'tr-mr-l'}}"></view>
+          <view class="content {{item.myself == 0 ? 'msg-bg' : ''}}" a:if="{{item.msgType == 'text'}}">
+            <view>{{item.msgText}}</view>
+          </view>
+          <view class="triangle {{item.myself == 0 ? 'tr-mr-r' : 'tr-mr-l'}}"></view>
+          <view class="content {{item.myself == 0 ? 'msg-bg' : ''}}" a:if="{{item.msgType == 'miniprogrampage'}}">
+            <view>{{filter.splitContent(item.msgText,0)}}</view>
+            <view bindtap="onSwitchTab" data-url="{{filter.splitContent(item.msgText,2)}}" class="switchtab">点击查看</view>
+          </view>
+          <view class="content {{item.myself == 0 ? 'msg-bg' : ''}}" a:if="{{item.msgType == 'imageto'}}">
+            <image class="picture" mode='widthFix' src="{{item.msgText}}" data-src="{{item.msgText}}" bindtap="previewImg" />
+          </view>
+          <view class="content {{item.myself == 0 ? 'msg-bg' : ''}}" a:if="{{item.msgType == 'imagefrom'}}">
+            <image class="picture" mode='widthFix' src="{{item.msgText}}" data-src="{{item.msgText}}" bindtap="previewImg" />
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>

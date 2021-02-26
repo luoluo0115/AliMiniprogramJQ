@@ -1,0 +1,39 @@
+<import-sjs name="filter" from="../../../utils/filter.sjs"/>
+<tabs tabs="{{tabs2}}" swipeable='{{false}}' tabsName="active" onTabClick="handleTabClick" onChange="handleTabChange" activeTab="{{active}}" tabBarUnderlineWidth="20px">
+  <block a:for="{{tabs2}}">
+    <tab-content key="{{index}}" tabId="{{index}}" activeTab="{{active}}">
+      <view class="tab-content" style="height:100%">
+        <view class="page__bd page__bd_spacing">
+          <view class="message-list">
+            <block a:if="{{MessageList!=''}}">
+              <view class="message-item" a:for="{{MessageList}}" a:key="index" onTap="{{item.is_read==false ?'readMessage':''}}" data-message_user_id="{{item.message_user_id}}">
+                <view class="list-title van-row">
+                  <view class="van-col van-col-20">
+                  消息标题: {{item.message_title}}
+                  </view>
+                  <view class="van-col van-col-4 text-right">
+                    <view class="van-tag primary " a:if="{{item.is_read==true}}">已读</view>
+                    <view class="van-tag van-tag-plain text-fa1139 " a:if="{{item.is_read==false}}">未读</view>
+                  </view>
+                </view>
+                <view class="van-row list-content">
+                  <view class="van-col van-col-12 label">消息来源:{{item.message_source}}</view>
+                  <view class="van-col van-col-12 label text-right">消息类型:{{item.message_type}}</view>
+                  <view class="van-col van-col-24 label">消息内容:{{item.message_content}}</view>
+                  <view class="van-col van-col-12 label">推送时间:{{filter.formatTime(item.creation_date,'yyyy-MM-dd')}}</view>
+                  <view class="van-col van-col-12 label text-right">阅读时间:{{filter.formatTime(item.read_time,'yyyy-MM-dd')}}</view>
+                </view>
+              </view>
+            </block>
+            <block a:else>
+              <view class="empty">
+                <icon class="iconfont iconkong "></icon>
+                <view class="color-gray">{{msg}}</view>
+              </view>
+            </block>
+          </view>
+        </view>
+      </view>
+    </tab-content>
+  </block>
+</tabs>

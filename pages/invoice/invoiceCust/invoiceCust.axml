@@ -1,0 +1,60 @@
+<import-sjs name="filter" from="../../../utils/filter.sjs"/>
+<view class="page-content invoice">
+  <form onSubmit="bindSave">
+    <view class="invoice-item">
+      <view class="area-title ">
+        <view class="area-text ">客户信息</view>
+      </view>
+      <view class="invoice-info-list font-12">
+        <list>
+          <list-item class="font-12">
+            <text class="font-12">客户名称</text>
+            <view slot="extra">
+            <input name="customer_name" class="font-12" type="text" onInput="handleFieldChange" placeholder="请输入客户名称" value="{{invoiceCustList.customer_name}}" data-fieldName="customer_name"/>
+            </view>
+          </list-item>
+          <list-item class="font-12">
+            <text class="font-12">税务代码</text>
+            <view slot="extra" >
+            <input name="customer_tax_code" class="font-12" type="text" placeholder="请输入税务代码" value="{{invoiceCustList.customer_tax_code}}" data-fieldName="customer_tax_code" onInput="handleFieldChange"/>
+            </view>
+          </list-item>
+          <list-item class="font-12">
+            <text class="font-12">开户银行</text>
+            <view slot="extra">
+            <input name="customer_bank_name" class="font-12" type="text" placeholder="请输入开户银行" value="{{invoiceCustList.customer_bank_name}}" data-fieldName="customer_bank_name" onInput="handleFieldChange"/>
+            </view>
+          </list-item>
+          <list-item class="font-12">
+            <text class="font-12">银行账号</text>
+            <view slot="extra">
+              <input  name="customer_bank_account" class="font-12"  data-fieldName="customer_bank_account" value="{{ invoiceCustList.customer_bank_account}}" type="text" placeholder="请输入银行账号" onInput="handleFieldChange"/>
+            </view>
+          </list-item>
+          <list-item class="font-12">
+            <text class="font-12">电话</text>
+            <view slot="extra">
+            <input name="customer_phone" class="font-12" type="number" placeholder="请输入电话" value="{{invoiceCustList.customer_phone}}" data-fieldName="customer_phone" onInput="handleFieldChange"/>
+            </view>
+          </list-item>
+          <list-item class="font-12">
+            <text class="font-12">详细地址</text>
+            <view slot="extra">
+              <input name="customer_address"  class="font-12"  data-fieldName="customer_address" value="{{ invoiceCustList.customer_address }}" type="text" placeholder="请输入详细地址" onInput="handleFieldChange"/>
+            </view>
+          </list-item>
+          <list-item class="font-12">
+            <text class="font-12">备注</text>
+            <view slot="extra">
+              <input name="remark" class="font-12"  data-fieldName="remark" value="{{ invoiceCustList.remark }}" type="text" placeholder="请输入备注" onInput="handleFieldChange"/>
+            </view>
+          </list-item>
+        </list>
+      </view>
+      <view class="mb-10 ">
+        <button class="submit-btn large text-fff mt-10" formType="submit">保存</button>
+        <button class="submit-btn large text-fff mt-10 delete" onTap="deleteCust" a:if="{{invoiceCustList.im_cust_customer_id>0 && fType !='1'}}">删除</button>
+      </view>
+    </view>
+  </form>
+</view>

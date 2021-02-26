@@ -1,0 +1,13 @@
+{
+  "defaultTitle": "公司信息",
+  "backgroundColor": "#f5f5f5",
+  "usingComponents": {
+    "tabs": "mini-ali-ui/es/tabs/index",
+    "tab-content": "mini-ali-ui/es/tabs/tab-content/index",
+    "collapse": "mini-ali-ui/es/collapse/index",
+    "collapse-item": "mini-ali-ui/es/collapse/collapse-item/index",
+    "modal": "mini-ali-ui/es/modal/index",
+    "list": "mini-ali-ui/es/list/index",
+    "list-item": "mini-ali-ui/es/list/list-item/index"
+  }
+}

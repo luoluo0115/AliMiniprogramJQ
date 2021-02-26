@@ -1,0 +1,33 @@
+.theader-title {
+  text-align: center;
+  background: #f8f8f8;
+  color: #666666;
+  font-size: 12px;
+  padding: 20rpx;
+}
+
+.tbody-title {
+  text-align: center;
+  color: #666666;
+  font-size: 12px;
+  border-bottom: 1px solid #f1f1f1;
+  padding:30rpx 20rpx;
+}
+.tbody-cell {
+  text-align: center;
+  color: #666666;
+  font-size: 12px;
+  border-bottom: 1px solid #f1f1f1;
+  padding:20rpx 20rpx;
+}
+.icon-wrapper{
+  position: relative
+}
+.icon-wrapper .iconfont{
+  position: absolute;
+  top: -4rpx;
+  right: 0
+}
+.hidden-content{
+  display: none
+}

@@ -1,0 +1,274 @@
+<import-sjs name="filter" from="../../../utils/filter.sjs"/>
+<view>
+  <tabs tabs="{{tabs2}}" swipeable='{{false}}' tabsName="active" tabBarActiveTextColor="#1e6ce8" tabBarUnderlineColor="#1e6ce8" activeTab="{{active}}" capsule="{{false}}" tabBarUnderlineWidth="20px" stickyBar="{{true}}" onTabClick="handleTabClick" onChange="handleTabChange">
+    <block a:for="{{tabs2}}">
+      <tab-content key="{{index}}" tabId="{{index}}" activeTab="{{active}}" a:if="{{index === 0}}" style="height:100%">
+        <view class="tab-content " style="height:100%;">
+          <view class="text-center btn-group" a:if="{{curr_status=='N'}}">
+            <button size="mini" class="top-btn bg-1e6ce8" onTap="gotoAddSalary" type="primary">新增</button>
+            <button size="mini" class="top-btn bg-1e6ce8" onTap="copySalary" type="primary">复制上月</button>
+            <button size="mini" class="top-btn bg-1e6ce8" onTap="generateSalary" type="primary">生成薪资</button>
+            <!-- <button size="mini" class="top-btn bg-1e6ce8" onTap="gotoUpload" type="primary">上传</button> -->
+            <button size="mini" class="top-btn bg-1e6ce8" onTap="gotoSalaryExcel" type="primary">工资表</button>
+          </view>
+          <block a:if="{{salaryList.length>0}}">
+            <collapse className="demo-collapse" collapseKey="collapse1" onChange="onChange">
+              <collapse-item header="{{item.emp_name}}-({{item.income_category}})" a:for="{{salaryList}}" a:key="indexsalary" itemKey="{{indexsalary}}" collapseKey="collapse1">
+                <view class="pl-16 pr-16">
+                  <view class="item-content">
+                    <view class="tag-btn-group" a:if="{{curr_status=='N'}}">
+                      <button size="mini" class="tag-btn" data-item="{{item}}" onTap="gotoEditSalary" type="primary">修改</button>
+                      <button size="mini" class="tag-btn" data-item="{{item}}" onTap="deleteSalary" type="primary">删除</button>
+                    </view>
+                    <block a:if="{{item.income_category=='月工资'}}">
+                      <view class="userinfor van-row">
+                        <view class="van-col-24 van-col item">
+                          <view class="van-col-12 van-col text-333 pl-10">所得项目分类</view>
+                          <view class="van-col-12 van-col text-right text-666">{{item.income_category}}</view>
+                        </view>
+                        <view class="van-col-24 van-col item">
+                          <view class="van-col-12 van-col text-333 pl-10">基本工资</view>
+                          <view class="van-col-12 van-col text-right text-666">{{item.base_salary}}</view>
+                        </view>
+                        <view class="van-col-24 van-col item">
+                          <view class="van-col-12 van-col text-333 pl-10">岗位工资</view>
+                          <view class="van-col-12 van-col text-right text-666">{{item.job_salary}}</view>
+                        </view>
+                        <view class="van-col-24 van-col item">
+                          <view class="van-col-12 van-col text-333 pl-10">加班工资</view>
+                          <view class="van-col-12 van-col text-right text-666">{{item.oevrtime_salary}}</view>
+                        </view>
+                        <view class="van-col-24 van-col item">
+                          <view class="van-col-12 van-col text-333 pl-10">奖金工资</view>
+                          <view class="van-col-12 van-col text-right text-666">{{item.bonus_salary}}</view>
+                        </view>
+                        <view class="van-col-24 van-col item">
+                          <view class="van-col-12 van-col text-333 pl-10">补贴工资</view>
+                          <view class="van-col-12 van-col text-right text-666">{{item.allowance_salary}}</view>
+                        </view>
+                        <view class="van-col-24 van-col item">
+                          <view class="van-col-12 van-col text-333 pl-10">扣除工资</view>
+                          <view class="van-col-12 van-col text-right text-666">{{item.deduct_salary}}</view>
+                        </view>
+                        <view class="van-col-24 van-col item">
+                          <view class="van-col-12 van-col text-333 pl-10">个人养老保险</view>
+                          <view class="van-col-12 van-col text-right text-666">{{item.personal_pension_insurance}}</view>
+                        </view>
+                        <view class="van-col-24 van-col item">
+                          <view class="van-col-12 van-col text-333 pl-10">个人医疗保险</view>
+                          <view class="van-col-12 van-col text-right text-666">{{item.personal_medical_insurance}}</view>
+                        </view>
+                        <view class="van-col-24 van-col item">
+                          <view class="van-col-12 van-col text-333 pl-10">个人失业保险</view>
+                          <view class="van-col-12 van-col text-right text-666">{{item.personal_unemployment_insurance}}</view>
+                        </view>
+                        <view class="van-col-24 van-col item">
+                          <view class="van-col-12 van-col text-333 pl-10">个人公积金</view>
+                          <view class="van-col-12 van-col text-right text-666">{{item.income_tax}}</view>
+                        </view>
+                        <view class="van-col-24 van-col item">
+                          <view class="van-col-12 van-col text-333 pl-10">个税</view>
+                          <view class="van-col-12 van-col text-right text-666">{{item.personal_housing_fund}}</view>
+                        </view>
+                        <view class="van-col-24 van-col item">
+                          <view class="van-col-12 van-col text-333 pl-10">税前工资</view>
+                          <view class="van-col-12 van-col text-right text-666">{{item.income_amt}}</view>
+                        </view>
+                        <!-- <view class="van-col-24 van-col item">
+                          <view class="van-col-12 van-col text-333 pl-10">薪资发放方式</view>
+                          <view class="van-col-12 van-col text-right text-666">{{item.salary_pay_method}}</view>
+                        </view> -->
+                        <view class="van-col-24 van-col item">
+                          <view class="van-col-12 van-col text-333 pl-10">抵扣额</view>
+                          <view class="van-col-12 van-col text-right text-666">{{item.tax_deduct_amount}}</view>
+                        </view>
+                        <view class="van-col-24 van-col item">
+                          <view class="van-col-12 van-col text-333 pl-10">专项附加扣除汇总</view>
+                          <view class="van-col-12 van-col text-right text-666">{{item.total_plus_deduct_amt}}</view>
+                        </view>
+                        <view class="van-col-24 van-col item">
+                          <view class="van-col-12 van-col text-333 pl-10">备注</view>
+                          <view class="van-col-12 van-col text-right text-666">{{item.remark}}</view>
+                        </view>
+                      </view>
+                    </block>
+                    <block a:if="{{item.income_category=='劳务报酬所得'}}">
+                      <view class="userinfor  van-row">
+                        <view class="van-col-24 van-col item">
+                          <view class="van-col-12 van-col text-333 pl-10">所得项目分类</view>
+                          <view class="van-col-12 van-col text-right text-666">{{item.income_category}}</view>
+                        </view>
+                        <view class="van-col-24 van-col item">
+                          <view class="van-col-12 van-col text-333 pl-10">劳务工资</view>
+                          <view class="van-col-12 van-col text-right text-666">{{item.base_salary}}</view>
+                        </view>
+                        <view class="van-col-24 van-col item">
+                          <view class="van-col-12 van-col text-333 pl-10">个税</view>
+                          <view class="van-col-12 van-col text-right text-666">{{item.income_tax}}</view>
+                        </view>
+                        <view class="van-col-24 van-col item">
+                          <view class="van-col-12 van-col text-333 pl-10">税前工资</view>
+                          <view class="van-col-12 van-col text-right text-666">{{item.income_amt}}</view>
+                        </view>
+                        <view class="van-col-24 van-col item">
+                          <view class="van-col-12 van-col text-333 pl-10">备注</view>
+                          <view class="van-col-12 van-col text-right text-666">{{item.remark}}</view>
+                        </view>
+                      </view>
+                    </block>
+                    <block a:if="{{item.income_category=='数月奖金'}}">
+                      <view class="userinfor  van-row">
+                        <view class="van-col-24 van-col item">
+                          <view class="van-col-12 van-col text-333 pl-10">所得项目分类</view>
+                          <view class="van-col-12 van-col text-right text-666">{{item.income_category}}</view>
+                        </view>
+                        <view class="van-col-24 van-col item">
+                          <view class="van-col-12 van-col text-333 pl-10">奖金工资</view>
+                          <view class="van-col-12 van-col text-right text-666">{{item.bonus_salary}}</view>
+                        </view>
+                        <view class="van-col-24 van-col item">
+                          <view class="van-col-12 van-col text-333 pl-10">个税</view>
+                          <view class="van-col-12 van-col text-right text-666">{{item.income_tax}}</view>
+                        </view>
+                        <view class="van-col-24 van-col item">
+                          <view class="van-col-12 van-col text-333 pl-10">税前工资</view>
+                          <view class="van-col-12 van-col text-right text-666">{{item.income_amt}}</view>
+                        </view>
+                        <view class="van-col-24 van-col item">
+                          <view class="van-col-12 van-col text-333 pl-10">备注</view>
+                          <view class="van-col-12 van-col text-right text-666">{{item.remark}}</view>
+                        </view>
+                      </view>
+                    </block>
+                  </view>
+                </view>
+              </collapse-item>
+            </collapse>
+          </block>
+          <block a:else>
+            <view class="empty">
+              <icon class="iconfont iconkong "></icon>
+            </view>
+          </block>
+        </view>
+      </tab-content>
+      <tab-content key="{{index}}" tabId="{{index}}" activeTab="{{active}}" a:elif="{{index === 1}}">
+        <view class="tab-content "style="height:100%;">
+          <view class="text-center btn-group" a:if="{{curr_status=='N'}}">
+            <button size="mini" class="top-btn bg-1e6ce8" onTap="gotoAddEmp" type="primary">新增</button>
+          </view>
+          <block a:if="{{employeeList.length>0}}">
+            <collapse className="demo-collapse" collapseKey="collapse2" onChange="onChange">
+              <collapse-item header="{{item.emp_name}}" a:for="{{employeeList}}" a:key="indexemployee" itemKey="{{indexemployee}}" collapseKey="collapse2">
+                <view class="pl-16 pr-16">
+                  <view class="item-content">
+                    <view class="tag-btn-group" a:if="{{curr_status=='N'}}">
+                      <button size="mini" class="tag-btn" data-item="{{item}}" onTap="gotoEditEmp" type="primary">修改</button>
+                      <button size="mini" class="tag-btn" data-item="{{item}}" onTap="deleteEmp" type="primary">删除</button>
+                    </view>
+                    <view class="userinfor van-row">
+                      <view class="van-col-24 van-col item">
+                        <view class="van-col-12 van-col text-333 pl-10">员工姓名</view>
+                        <view class="van-col-12 van-col text-right text-666">{{item.emp_name}}</view>
+                      </view>
+                      <view class="van-col-24 van-col item">
+                        <view class="van-col-12 van-col text-333 pl-10">任职日期</view>
+                        <view class="van-col-12 van-col text-right text-666">{{filter.formatTime(item.ard_date,'yyyy-MM-dd')}}</view>
+                      </view>
+                      <view class="van-col-24 van-col item">
+                        <view class="van-col-12 van-col text-333 pl-10">证件类型</view>
+                        <view class="van-col-12 van-col text-right text-666">{{item.identification_type}}</view>
+                      </view>
+                      <view class="van-col-24 van-col item">
+                        <view class="van-col-12 van-col text-333 pl-10">证件号码</view>
+                        <view class="van-col-12 van-col text-right text-666">{{item.identification_number}}</view>
+                      </view>
+                      <view class="van-col-24 van-col item">
+                        <view class="van-col-12 van-col text-333 pl-10">是否有效</view>
+                        <view class="van-col-12 van-col text-right text-666">{{item.enabled == true ? '是':'否'}}</view>
+                      </view>
+                      <view class="van-col-24 van-col item">
+                        <view class="van-col-12 van-col text-333 pl-10">基本工资</view>
+                        <view class="van-col-12 van-col text-right text-666">{{filter.numberToFixed(item.base_salary)}}</view>
+                      </view>
+                    </view>
+                  </view>
+                </view>
+              </collapse-item>
+            </collapse>
+          </block>
+          <block a:else>
+            <view class="empty">
+              <icon class="iconfont iconkong "></icon>
+            </view>
+          </block>
+        </view>
+      </tab-content>
+      <tab-content key="{{index}}" tabId="{{index}}" activeTab="{{active}}" a:else>
+        <view class="tab-content" style="height:100%;">
+          <view class="text-center btn-group van-row" a:if="{{curr_status=='N'}}">
+            <view class="van-row">
+              <view class="van-col-24 van-col">
+                <button size="mini" class="top-btn bg-1e6ce8 " onTap="bindDateChange" type="primary">社保公积金月份:{{account_month}}</button>
+              </view>
+              <view class="van-col-8 van-col">
+                <view class="font-11 item-top-sub">上传社保收据</view>
+                <button size="mini" class="top-btn bg-1e6ce8" onTap="chooseImgSocial" type="primary">社保</button>
+              </view>
+              <view class="van-col-8 van-col">
+                <view class="font-11 item-top-sub">上传社保缴费证明(PDF)</view>
+                <button size="mini" class="top-btn bg-1e6ce8" onTap="choosePDFSocialWeb" type="primary">上传社保缴费证明</button>
+              </view>
+              <view class="van-col-8 van-col">
+                <view class="font-11 item-top-sub">上传公积金收据</view>
+                <button size="mini" class="top-btn bg-1e6ce8" onTap="chooseImgHousingFund" type="primary">公积金</button>
+              </view>
+            </view>
+          </view>
+          <view class="table" a:if="{{socialList.length>0}}">
+            <view class="tr">
+              <view class="th th0">操作</view>
+              <view class="th th1">票据月份</view>
+              <view class="th th2">票据类型</view>
+              <view class="th th3">总额</view>
+              <view class="th th4">单位金额</view>
+            </view>
+            <view class="tr {{(item.bill_non_tax_amt+item.bill_tax_amt!=item.trans_amount ||(item.process_flag=='E')) ? 'color-red':''}}" a:for="{{socialList}}" a:key="index">
+              <view class="th th0">
+                <view a:if="{{curr_status=='N'}}" data-item="{{item}}" onTap="deleteSocial" class="d-inline-block">
+                  <icon class="iconfont icondelete icon-btn"></icon>
+                </view>
+                <view a:if="{{curr_status=='N'}}" data-item="{{item}}" onTap="editSocial" class="d-inline-block">
+                  <icon class="iconfont iconflow-Mark icon-btn"style="margin-left:10px"></icon>
+                </view>
+              </view>
+              <view class="td th1">{{item.file_month}}</view>
+              <view class="td th2" data-list="{{FileOssUrl + item.upload_file_guid}}" data-src="{{FileOssUrl + item.upload_file_guid}}" onTap="previewImage">{{item.file_small_category}}
+                <icon class="iconfont iconpic-line d-inline-block color-blue"></icon></view>
+              <view class="td th3">{{filter.numberToFixed(item.trans_amount)}}</view>
+              <view class="td th4">{{filter.numberToFixed(item.bill_non_tax_amt)}}</view>
+            </view>
+          </view>
+        </view>
+      </tab-content>
+    </block>
+  </tabs>
+  <modal show="{{showModal}}" onModalClose="onModalClose" showClose="true" header="true">
+    <view slot="header" class="font-14 text-left">编辑社保金额</view>
+    <list-item class="font-12">
+      <text class="font-12">总额:</text>
+      <view slot="extra"> {{trans_amount}}</view>
+    </list-item>
+    <list-item class="font-12">
+      <text class="font-12">个人金额:</text>
+      <view slot="extra"> {{bill_tax_amt}}</view>
+    </list-item>
+    <list-item class="font-12">
+      <text class="font-12">单位金额:</text>
+      <view slot="extra">
+        <input onInput="handleFieldChange" class="input font-12 text-right" type="digit" placeholder="请输入社保单位金额" value="{{bill_non_tax_amt}}" data-fieldName="bill_non_tax_amt"/>
+      </view>
+    </list-item>
+    <button type="primary" class="submit-btn mt-10 {{btnDisabled?'gray-bg':''}}" onTap="{{!btnDisabled?'bindSave':''}}">保存</button>
+  </modal>
+</view>

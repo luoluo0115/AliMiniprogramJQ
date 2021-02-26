@@ -1,0 +1,282 @@
+<import-sjs name="filter" from="../../../utils/filter.sjs"/>
+<view >
+  <view class="personal-header">
+    <topwrapper customerlist="{{customer_info_id_list}}" customerindex="{{index}}" pickerDate="{{pickerDate}}" a:if="{{topwrapper==true}}" onPickerDateEvent="onPickerDateEvent" onPickerCompanyEvent="onPickerCompanyEvent" ref="refCompanyInfo"></topwrapper>
+  </view>
+  <view class="section ">
+    <view class="page">
+      <view class="page-content">
+        <view class="steps-wrapper">
+          <view class="steps-header">
+            <view class="swiper-tab steps-arrow">
+              <block a:for="{{stepsArray}}" a:key="index">
+                <view class="swiper-tab-item {{index < currentVal?'active':''}}">
+                  <view class="{{index==currentVal-1?'activeCircle':''}}">
+                    <view class="i-center">
+                      <icon a:if="{{item.name=='传票'}}" class='iconfont iconSAAS-daochushuju'></icon>
+                      <icon a:if="{{item.name=='记账'}}" class='iconfont iconSAAS-xiangmufuwu'></icon>
+                      <icon a:if="{{item.name=='审核'}}" class='iconfont iconSAAS-dingdanguanli'></icon>
+                      <icon a:if="{{item.name=='报税'}}" class='iconfont iconSAAS-caishuifuwu'></icon>
+                      <icon a:if="{{item.name=='缴款'}}" class='iconfont iconSAAS-caishuiguanli_huaban1'></icon>
+                    </view>
+                  </view>
+                  <view class="num">{{item.name}}</view>
+                  <view class="time">{{item.time}}</view>
+                </view>
+              </block>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!--列表-->
+  <view class="section  ">
+    <view class="page">
+      <view class="page-content grids-content bg-fff">
+        <view class="title ">
+          <view class="text">
+            <view class="flex-cell font-12 ">
+              <view class="icon-title flex-item-1 font-14">资料上传</view>
+              <view class="icon-eye text-right color-gray flex-item-2">
+                余额:{{filter.numberToFixed(amt)}} 票据数:{{file_qty}}
+              </view>
+              <view class="icon-eye text-right color-gray flex-item-1">
+                <button type="primary" size="mini" class="font-10 confim-btn {{btnDisabled?'gray-bg':''}}" onTap="{{!btnDisabled?'Affirm':''}}" data-type="{{recv_status}}" a:if="{{isConfirmStat}}">汇总确认</button>
+                <button type="primary" size="mini" class="font-10 confim-btn {{btnDisabled?'gray-bg':''}}" onTap="{{!btnDisabled?'AffirmTaxPayDiv':''}}" data-type="{{recv_status}}" a:if="{{isConfirmPay}}">缴款确认</button>
+              </view>
+            </view>
+          </view>
+        </view>
+        <!--列表-->
+        <view class="list-content">
+          <flex wrap="wrap">
+            <view class="item">
+              <navigator url="/pages/bill/Income/Income" class="p-15">
+                <view class="title">收入
+                  <text class="icon-eye">{{tax_invoice_method}}</text></view>
+                <icon class='iconfont iconcaishuijinrong'></icon>
+                <view class="sub mt-10">票数:{{income_bill_qty}}</view>
+                <view class="sub mt-10">总额: {{filter.numberToFixed(income_total_amt)}}</view>
+              </navigator>
+            </view>
+            <view class="item">
+              <navigator url="../expend/expend" class="p-15">
+                <view class="title">支出</view>
+                <icon class='iconfont iconnashuichouhuayouhua'></icon>
+                <view class="sub mt-10">票数:{{expense_bill_qty}}</view>
+                <view class="sub mt-10">总额:{{filter.numberToFixed(expense_total_amt)}}</view>
+              </navigator>
+            </view>
+            <view class="item">
+              <navigator url="../bank/bank" class="p-15">
+                <view class="title">银行</view>
+                <icon class='iconfont iconshuishouweifa'></icon>
+                <view class="sub mt-10">单数:{{bank_bill_qty}}</view>
+                <view class="sub mt-10">余额:{{filter.numberToFixed(bank_balance_amt)}}</view>
+              </navigator>
+            </view>
+            <view class="item">
+              <navigator url="../salary/salary" class="p-15">
+                <view class="title">工资
+                  <text class="icon-eye">{{personnel_agency}}</text></view>
+                <icon class='iconfont icongeshuishezhi'></icon>
+                <view class="sub mt-10">人数:{{salary_person_qty}}</view>
+                <view class="sub mt-10">金额:{{filter.numberToFixed(salary_total_amt)}}</view>
+              </navigator>
+            </view>
+            <view class="item" a:if="{{tax_type=='Y'}}">
+              <navigator url="../receipts/receipts" class="p-15">
+                <view class="title">认证
+                  <text class="icon-eye">{{tax_certification_method}}</text></view>
+                <icon class='iconfont iconshuiwuganbuweijijubao'></icon>
+                <view class="sub mt-10">票数:{{verify_bill_qty}}</view>
+                <view class="sub mt-10">总额:{{filter.numberToFixed(verify_total_amt)}}</view>
+              </navigator>
+            </view>
+            <view class="item cancel">
+              <navigator url="../tax/tax" class="p-15">
+                <view class="title">税单
+                  <text class="icon-eye">(查阅)</text></view>
+                <icon class='iconfont iconjiaocuntiqumingxi'></icon>
+                <view class="sub mt-10">单数:{{tax_paid_bill_qty}}</view>
+                <view class="sub mt-10">总额:{{filter.numberToFixed(tax_paid_total_amt)}}</view>
+              </navigator>
+            </view>
+            <view class="item cancel">
+              <navigator url="../asset/asset" class="p-15">
+                <view class="title">固资
+                  <text class="icon-eye">(查阅)</text></view>
+                <icon class='iconfont iconqingdan'></icon>
+                <view class="sub mt-10">数量:{{fa_asset_qty}}</view>
+                <view class="sub mt-10">总额:{{filter.numberToFixed(fa_total_amt)}}</view>
+              </navigator>
+            </view>
+            <view class="item cancel" a:if="{{amortization_qty > 0 || tax_type=='N'}}">
+              <navigator url="../amortization/amortization" class="p-15">
+                <view class="title">待摊
+                  <text class="icon-eye">(查阅)</text></view>
+                <icon class='iconfont iconzhengce'></icon>
+                <view class="sub mt-10">数量:{{amortization_qty}}</view>
+                <view class="sub mt-10">总额:{{filter.numberToFixed(amortization_total_amt)}}</view>
+              </navigator>
+            </view>
+            <view class="item cancel">
+              <navigator url="../taxation/taxation" class="p-15">
+                <view class="title">税金
+                  <text class="icon-eye">(查阅)</text></view>
+                <icon class='iconfont iconshuishouxuanchuan'></icon>
+                <view class="sub mt-10"></view>
+                <view class="sub mt-10">总额:{{filter.numberToFixed(tax_payable_total_amt)}}</view>
+              </navigator>
+            </view>
+          </flex>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!--弹窗-->
+  <modal show="{{showModal}}" onModalClose="close" onMaskClick="close" showClose="trye">
+    <view slot="header" class="font-14 text-left">本月预估</view>
+  	<view class="font-10 color-red text-left">重要提醒：根据《会计档案管理办法》您拍摄或上传的原始票据请您按年按月分类保存30年，不要随意抛弃。</view>
+    <list-item class="font-12">
+      <text class="font-12">预计累计利润：</text>
+      <view slot="extra"> {{curr_total_profit}}</view>
+    </list-item>
+    <list-item class="font-12">
+      <text class="font-12">预计应缴税款：</text>
+      <view slot="extra"> {{total_tax}}</view>
+    </list-item>
+    <list-item class="font-12">
+      <text class="font-12">预估凭证数：</text>
+      <view slot="extra"> {{est_voucher_qty}}</view>
+    </list-item>
+    <list-item class="font-12">
+      <text class="font-12">上月调整凭证数：</text>
+      <view slot="extra"> {{act_voucher_qty}}</view>
+    </list-item>
+    <list-item class="font-12">
+      <text class="font-12">申报服务费：</text>
+      <view slot="extra"> {{base_service_amt}}</view>
+    </list-item>
+    <list-item class="font-12">
+      <text class="font-12">记账服务费：</text>
+      <view slot="extra"> {{est_service_amt-base_service_amt}}</view>
+    </list-item>
+    <list-item class="font-12">
+      <text class="font-12">本月({{nian}}/{{yue}})服务费总计：</text>
+      <view slot="extra"> {{est_service_amt}}</view>
+    </list-item>
+    <list-item class="font-12" a:if="{{taxMoney>0}}">
+      <text class="font-12">按次开票{{taxName}}:</text>
+      <view slot="extra"> {{taxMoney}}</view>
+    </list-item>
+    <list-item class="font-12" a:if="{{bank_bill_fee>0}}">
+      <text class="font-12">银行取单费:</text>
+      <view slot="extra"> {{bank_bill_fee}}</view>
+    </list-item>
+    <list-item class="font-12" a:if="{{is_hr_agent=='Y'}}">
+      <text class="font-12">人事代理费:</text>
+      <view slot="extra"> {{hr_fee}}</view>
+    </list-item>
+    <block a:if="{{couponLength>0}}">
+      <list-item class="font-12" a:if="{{coupon_amount=='0'}}" onClick="goCoupon">
+        <text class="font-12">优惠券:</text>
+        <view slot="extra"> {{couponLength}}张可用</view>
+      </list-item>
+      <list-item class="font-12" a:else arrow="true" onClick="goCoupon">
+        <text class="font-12">优惠券:</text>
+        <view slot="extra"> {{filter.numberToFixed(coupon_amount)}}</view>
+      </list-item>
+    </block>
+    <list-item class="font-12">
+      <text class="font-12">服务费总计:</text>
+      <view slot="extra"> {{((est_service_amt-coupon_amount>0?est_service_amt-coupon_amount:0)+other_cost)}}</view>
+    </list-item>
+    <list-item class="font-12">
+      <text class="font-12">账户余额({{balance_amt}})付费:</text>
+      <view slot="extra"> {{balancepayment}}</view>
+    </list-item>
+    <list-item class="font-12" a:if="{{agentpayment>0}}">
+      <text class="font-12">{{pay_customer_name}}余额({{pay_balance_amt}})代付:</text>
+      <view slot="extra"> {{agentpayment}}</view>
+    </list-item>
+    <list-item class="font-12" a:if="{{!isbalance_amt}}">
+      <text class="font-12">支付费用:</text>
+      <view slot="extra"> {{codepayment}}</view>
+    </list-item>
+    <button type="primary" class="submit-btn mt-10" ontap="{{!payDisabled?'AffirmPay':''}}">{{isbalance_amt?'确认付款':'立即付款'}}</button>
+  </modal>
+  <!--优惠券弹窗-->
+  <popup show="{{showCoupon}}" position="bottom" onClose="onClose">
+    <view class="bg-fff">
+      <form onSubmit="userCoupon" onReset="noCoupon">
+        <view class="page-content ">
+          <button class="nouserCoupon" formType="reset">暂不使用优惠券</button>
+          <!--<view class="nouserCoupon"></view> -->
+          <radio-group class="radio-group" onChange="onChange" name="lib">
+            <view class="coupons-item " a:for="{{couponUseList}}" key="label-{{index}}" style="background-image:url('{{item.wait_image_path}}');">
+              <view class="coupons-item-box">
+                <block a:if="{{item.coupon_category=='减免'}}">
+                  <view class="money-left">
+                    <text class="free-txt">免</text>
+                  </view>
+                </block>
+                <block a:else>
+                  <view class="money-left">
+                    <text>¥</text>{{item.coupon_amount}}
+                  </view>
+                </block>
+                <view class="money-right">
+                  <view class="money-hold">{{item.coupon_desc}}</view>
+                  <view class="money-data">有效期: {{item.get_time}} - {{item.end_date}}</view>
+                </view>
+                <view class="money-home">
+                  <radio value="{{index}}" checked="{{item.checked}}" disabled="{{item.disabled}}" />
+                </view>
+              </view>
+            </view>
+          </radio-group>
+          <button class="user-btn" formType="submit">立即使用</button>
+        </view>
+      </form>
+    </view>
+  </popup>
+  <!--扣款确认-->
+  <modal show="{{showTax}}" onModalClose="closeTax" onMaskClick="closeTax" showClose="trye">
+    <view slot="header" class="font-14 text-left">扣款确认</view>
+    <list-item class="font-12">
+      <text class="font-12">本期应纳税额：</text>
+      <view slot="extra"> {{filter.numberToFixed(currMonthlyTax.curr_payment_vat)}}</view>
+    </list-item>
+    <list-item class="font-12">
+      <text class="font-12">城市维护建设税：</text>
+      <view slot="extra"> {{filter.numberToFixed(currMonthlyTax.city_construction_tax)}}</view>
+    </list-item>     
+    <list-item class="font-12">
+      <text class="font-12">地方教育费附加：</text>
+      <view slot="extra"> {{filter.numberToFixed(currMonthlyTax.local_education_supplementary_tax)}}</view>
+    </list-item>
+    <list-item class="font-12">
+      <text class="font-12">教育费附加：</text>
+      <view slot="extra"> {{filter.numberToFixed(currMonthlyTax.education_supplementary_tax)}}</view>
+    </list-item>
+    <list-item class="font-12">
+      <text class="font-12">企业所得税：</text>
+      <view slot="extra"> {{filter.numberToFixed(currMonthlyTax.curr_income_tax)}}</view>
+    </list-item>
+    <view class="table price" a:if="{{currMonthlyTax.dtIndividualtax!=''}}">
+      <view class="tr">
+        <view class="th th1" style='width:50%'>股东姓名</view>
+        <view class="th th2" style='width:50%'>生产经营个税</view>
+      </view>
+      <view class='tr top' a:for="{{currMonthlyTax.dtIndividualtax}}" a:key="index">
+        <view class="td th1" style='width:50%'>{{item.stockhold_name}}</view>
+        <view class="td th2" style='width:50%'>
+				{{filter.numberToFixed(item.declarer_individual_tax)}}
+        </view>
+      </view>
+    </view>
+    <button type="primary" class="submit-btn mt-10 {{btnDisabled?'gray-bg':''}}" a:if="{{isConfirmPay}}"  ontap="{{!btnDisabled?'AffirmTaxPay':''}}" data-type="{{recv_status}}">缴款确认</button>
+  </modal>
+</view>

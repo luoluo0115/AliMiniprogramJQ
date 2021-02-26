@@ -1,0 +1,59 @@
+
+.personal-header{
+    padding: 5% 0 10%;
+    margin-bottom: 16%;
+    background: #1e6ce8;
+    border-bottom-left-radius: 25rpx;
+    border-bottom-right-radius: 25rpx;
+}
+.personal-wrapper{
+    margin: 0% 16px -22%;
+}
+.personal-header .flex-cell {
+    border-radius: 15px;
+    background: #ffffff;
+}
+.personal-header .img {
+    position: relative;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+.personal-header .user-profile__avatar{
+    width: 128rpx;
+    height: 128rpx;
+}
+
+.personal-header .weui-cell{
+    border-radius: 15px;
+    background: #ffffff;
+}
+.personal-header .img{
+    position: relative;
+    margin-right: 10px;
+    border-radius:50% 
+}
+
+.personal-header .infor .title{
+    font-size: 14px;
+    color: #333333;
+    margin-bottom:5rpx
+}    
+.personal-header .infor .subtext{
+    font-size: 12px;
+    color: #AAAAAA;
+    margin-bottom:5rpx
+    
+}  
+
+.list-item{
+  font-size: 12px
+}
+.am-title-text{
+   font-weight: 400;
+}
+.list-content  .iconfont{
+  font-size: 20px;
+  margin-right: 0.1rem;
+  top: 2px;
+  position: relative;
+}

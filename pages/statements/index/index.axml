@@ -1,0 +1,66 @@
+<import-sjs name="filter" from="../../../utils/filter.sjs"/>
+<view class="account">
+  <view class="personal-header">
+    <topwrapper customerlist="{{customer_info_id_list}}" customerindex="{{index}}" pickerDate="{{pickerDate}}" a:if="{{topwrapper==true}}" onPickerDateEvent="onPickerDateEvent" onPickerCompanyEvent="onPickerCompanyEvent" ref="refCompanyInfo"></topwrapper>
+  </view>
+  <view class="section invoice-wrapper">
+    <view class="page-content">
+      <view class="account-wrapper sheet-top">
+        <view class="van-row  text-center">
+          <view class="item van-col van-col-24 ">
+            <navigator url="../../statements/incomeAndIsByMonth/incomeAndIsByMonth?q_type=i&&title=每月收入明细" class="van-col van-col-12">
+              <view class="text-bold text-1e6ce8 font-16">{{year_accumulated_income}}</view>
+              <text>收入总额</text>
+            </navigator>
+            <navigator url="../../statements/incomeAndIsByMonth/incomeAndIsByMonth?q_type=s&&title=每月利润明细" class="van-col van-col-12">
+              <view class="text-bold text-1e6ce8 font-16">{{year_accumulated_is}}</view>
+              <text>利润总额</text>
+            </navigator>
+          </view>
+          <view class="item van-col van-col-24">
+            <navigator url="../../statements/receivable/receivable" class="van-col van-col-12">
+              <view class="text-bold text-1e6ce8 font-16">{{amt_end_Receivable}}</view>
+              <text>应收</text>
+            </navigator>
+            <navigator url="../../statements/pay/pay" class="van-col van-col-12">
+              <view class="text-bold text-1e6ce8 font-16">{{amt_end_pay}}</view>
+              <text>应付</text>
+            </navigator>
+          </view>
+          <view class="item van-col van-col-24">
+            <navigator url="../../statements/advanceAccountReceivable/advanceAccountReceivable" class="van-col van-col-12">
+              <view class="text-bold text-1e6ce8 font-16">{{advanceAccountReceivable}}</view>
+              <text>预收</text>
+            </navigator>
+            <navigator url="../../statements/advanceAccountPayable/advanceAccountPayable" class="van-col van-col-12">
+              <view class="text-bold text-1e6ce8 font-16">{{advanceAccountPayable}}</view>
+              <text>预付</text>
+            </navigator>
+          </view>
+          <view class="item van-col van-col-24">
+            <navigator url="../../statements/bankCashDetail/bankCashDetail" class="van-col van-col-12">
+              <view class="text-bold text-1e6ce8 font-16">{{bank_and_cash}}</view>
+              <text>货币资金</text>
+            </navigator>
+            <view class="van-col van-col-12">
+              <view class="text-bold text-1e6ce8 font-16">{{paid_in_capital}}</view>
+              <text>实收资本</text>
+            </view>
+          </view>
+        </view>
+      </view>
+      <!--列表-->
+     
+      <view class="weui-grids grids-wrapper">
+        <grid 
+        onGridItemClick="onItemClick" 
+        columnNum="{{3}}" list="{{gridsList}}" 
+        infinite="{{true}}" 
+        gridName="newGridName" 
+        circular="{{true}}" 
+        infiniteHeight="240rpx" 
+        />
+      </view>
+    </view>
+  </view>
+</view>

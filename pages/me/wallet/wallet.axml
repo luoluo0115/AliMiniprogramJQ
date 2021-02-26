@@ -1,0 +1,49 @@
+<import-sjs name="filter" from="../../../utils/filter.sjs"/>
+<view class="account ">
+  <view class="top-wrapper"></view>
+  <view class="section ">
+    <view class="page-content">
+      <view class="account-wrapper">
+        <view class="sub">余额(元)</view>
+        <view class="title mt-10">{{filter.numberToFixed(balance_amt)}}</view>
+        <view class="goRecord" onTap="goRecord">交易记录</view>
+      </view>
+    </view>
+  </view>
+  <!--列表-->
+  <view class="section grids-content">
+    <view class="page-content">
+      <view class="grids-wrapper">
+        <view class="title ">
+          <text class="text d-inline-block">账户充值</text>
+          <text a:if="{{customer_name!=''}}" class="d-inline-block color-blue">({{customer_name}})</text>
+        </view>
+        <view class="setMeal-list">
+          <view class="van-row">
+            <view class="van-col van-col-12" a:for="{{setMealList}}" a:key="index" onTap='onTapSetMeal' data-id="{{index}}" data-deposit_amt="{{item.deposit_amt}}" data-cust_deposit_prod_id="{{item.cust_deposit_prod_id}}" data-account_amt="{{item.account_amt}}" data-product_name="{{item.product_name}}">
+              <block a:if="{{item.product_name !='其它金额'}}">
+                <view class="itembg {{index===activeId?'active':''}}">
+                  <image  src="{{item.product_file}}" mode="aspectFill" class="img-bg"/>
+                </view>
+              </block>
+              <block a:else>
+                <view class="itembg minH {{index===activeId?'active':''}}">
+                  <image src="{{item.product_file}}" mode="aspectFill" class="img-bg"/>
+                  <input value="{{ custom_amt }}" type="number" placeholder="输入金额" border="{{ false }}" onInput='amountChange' class="otherInput font-14" />
+                </view>
+              </block>
+            </view>
+          </view>
+          <view class="checkout-list">
+            <view class="d-inline-block">
+              <checkbox value="{{ checked }}" checked="{{ checked }}" onChange="onChange" class="checkout-item d-inline-block">
+              </checkbox>
+            </view>
+            <view class="payinfo d-inline-block mt-10 mb-10" onTap="goRule" data-type="active-rule">充值协议</view>
+          </view>
+          <view class="payment-btn" onTap="goRecharge">马上充值:{{deposit_amt}}元</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

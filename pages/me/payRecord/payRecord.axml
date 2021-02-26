@@ -1,0 +1,25 @@
+<import-sjs name="filter" from="../../../utils/filter.sjs"/>
+<view class="page-content">
+  <view class="expend-list">
+    <block a:if="{{custAccountTrans!=''}}">
+      <view class="expend-item" a:for="{{custAccountTrans}}" a:key="index">
+        <view class="list-title">支付流水号: {{item.trans_money_no==null?'':item.trans_money_no}}</view>
+        <view class="van-row list-content">
+          <view class="van-col van-col-12 label">交易方向:{{item.trans_direction_desc==null?'':item.trans_direction_desc}}</view>
+          <view class="van-col van-col-12 label">交易类别:{{item.trans_category==null?'':item.trans_category}}</view>
+          <view class="van-col van-col-12 label">交易支付方式:{{item.trans_money_method==null?'':item.trans_money_method}}</view>
+          <view class="van-col van-col-12 label">交易金额:{{filter.numberToFixed(item.trans_amount)}}</view>
+          <view class="van-col van-col-12 label">充值金额:{{filter.numberToFixed(item.trans_deposit_amt)}}</view>
+          <view class="van-col van-col-12 label">交易时间:{{filter.formatTime(item.trans_date,'yyyy-MM-dd hh:mm')}}</view>
+          <view class="van-col van-col-24 label">交易描述:{{item.trans_desc}}</view>
+        </view>
+      </view>
+    </block>
+    <block a:else>
+      <view class="empty">
+        <icon class="./iconfont/iconkong:before "></icon>
+        <view class="color-gray">{{NoData}}</view>
+      </view>
+    </block>
+  </view>
+</view>

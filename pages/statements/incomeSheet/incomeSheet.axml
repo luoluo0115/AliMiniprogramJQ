@@ -1,0 +1,39 @@
+<import-sjs name="filter" from="../../../utils/filter.sjs"/>
+<view >
+  <view class="van-row theader-title text-center">
+    <view class="van-col van-col-8 text-left">项目</view>
+    <view class="van-col van-col-7 ">本月金额</view>
+    <view class="van-col van-col-7 text-right">本年累计金额</view>
+    <view class="van-col van-col-2"></view>
+  </view>
+  <view class="tbody-content" a:if="{{incomesheetdata.length>0}}" >
+    <block a:for="{{incomesheetdata}}" a:key="index" a:for-item="item">
+      <block a:if="{{item.item_type=='D'}}">
+        <view class="van-row tbody-title text-center bg-f9f9f9">
+          <view class="van-col van-col-8 text-333  text-left">{{item.item_report_name}}</view>
+          <view class="van-col van-col-7 text-999">{{filter.numberToFixed(item.month_data)}}</view>
+          <view class="van-col van-col-7 text-right text-999">{{filter.numberToFixed(item.year_accumulated)}}</view>
+          <view class="van-col van-col-2"></view>
+        </view>
+      </block>
+      <block a:else>
+        <view class="van-row tbody-title text-center " onTap="onChange" data-item_type="{{item.item_type}}" data-index="{{index}}">
+          <view class="van-col van-col-8 text-333 text-left">{{item.item_report_name}}</view>
+          <view class="van-col van-col-7 text-999">{{filter.numberToFixed(item.month_data)}}</view>
+          <view class="van-col van-col-7 text-right text-999">{{filter.numberToFixed(item.year_accumulated)}}</view>
+          <view class="van-col van-col-2 icon-wrapper text-999">
+            <icon class="iconfont {{selectedFlag[index] ? 'iconshangjiantou-' : 'iconxiajiantou- '}}"></icon>
+          </view>
+        </view>
+        <view class="{{selectedFlag[index] ? '' : 'hidden-content'}}" >
+          <view class="van-row tbody-cell text-center  bg-fff"  a:for="{{incomesheetdetaildata}}" a:for-item="cell" a:key="index" >
+            <view class="van-col van-col-8 text-333 text-left">{{cell.item_report_name}}</view>
+            <view class="van-col van-col-7 text-999">{{filter.numberToFixed(cell.month_data)}}</view>
+            <view class="van-col van-col-7 text-right text-999">{{filter.numberToFixed(cell.year_accumulated)}}</view>
+            <view class="van-col van-col-2"></view>
+          </view>
+        </view>
+      </block>
+    </block>
+  </view>
+</view>

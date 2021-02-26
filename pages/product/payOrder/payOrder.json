@@ -1,0 +1,11 @@
+{
+  "defaultTitle": "订单详情",
+  "usingComponents": {
+    "flex": "mini-ali-ui/es/flex/index",
+    "flex-item": "mini-ali-ui/es/flex/flex-item/index",
+    "popup": "mini-ali-ui/es/popup/index",
+    "list": "mini-ali-ui/es/list/index",
+    "list-item": "mini-ali-ui/es/list/list-item/index",
+    "list-secondary": "mini-ali-ui/es/list/list-secondary/index"
+  }
+}

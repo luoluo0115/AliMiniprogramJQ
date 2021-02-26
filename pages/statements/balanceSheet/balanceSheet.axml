@@ -1,0 +1,39 @@
+<import-sjs name="filter" from="../../../utils/filter.sjs"/>
+<view >
+  <view class="van-row theader-title text-center">
+    <view class="van-col van-col-8 text-left">项目</view>
+    <view class="van-col van-col-7 ">年初余额</view>
+    <view class="van-col van-col-7 text-right">期末余额</view>
+    <view class="van-col van-col-2"></view>
+  </view>
+  <view class="tbody-content">
+    <block a:for="{{balancesheetdata}}" a:key="index" a:for-item="item">
+      <block a:if="{{item.item_type=='C'||item.item_type=='F'||item.item_type=='H'}}">
+        <view class="van-row tbody-title text-center bg-f9f9f9">
+          <view class="van-col van-col-8 text-333  text-left">{{item.item_report_name}}</view>
+          <view class="van-col van-col-7 text-999">{{filter.numberToFixed(item.year_begin)}}</view>
+          <view class="van-col van-col-7 text-right text-999">{{filter.numberToFixed(item.year_end)}}</view>
+          <view class="van-col van-col-2"></view>
+        </view>
+      </block>
+      <block a:else>
+        <view class="van-row tbody-title text-center " onTap="onChange" data-item_type="{{item.item_type}}" data-index="{{index}}">
+          <view class="van-col van-col-8 text-333 text-left">{{item.item_report_name}}</view>
+          <view class="van-col van-col-7 text-999">{{filter.numberToFixed(item.year_begin)}}</view>
+          <view class="van-col van-col-7 text-right text-999">{{filter.numberToFixed(item.year_end)}}</view>
+          <view class="van-col van-col-2 icon-wrapper text-999">
+            <icon class="iconfont {{selectedFlag[index] ? 'iconshangjiantou-' : 'iconxiajiantou- '}}"></icon>
+          </view>
+        </view>
+        <view class="{{selectedFlag[index] ? '' : 'hidden-content'}}" >
+          <view class="van-row tbody-cell text-center bg-fff"  a:for="{{balancesheetdatadetail}}" a:for-item="cell" a:key="index" >
+            <view class="van-col van-col-8 text-333 text-left">{{cell.item_report_name}}</view>
+            <view class="van-col van-col-7 text-999">{{filter.numberToFixed(cell.year_begin)}}</view>
+            <view class="van-col van-col-7 text-right text-999">{{filter.numberToFixed(cell.year_end)}}</view>
+            <view class="van-col van-col-2"></view>
+          </view>
+        </view>
+      </block>
+    </block>
+  </view>
+</view>

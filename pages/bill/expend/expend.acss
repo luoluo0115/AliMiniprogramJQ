@@ -1,0 +1,70 @@
+.van-tabs__line {
+  background-color: #1e6ce8!important;
+}
+.grids-content .title{
+  font-size:28rpx;
+  line-height: 2;
+  color: #333;
+}
+.grids-content .sub{
+  font-size:24rpx;
+  color: #666;
+}
+
+.grids-wrapper{
+  background: #f9f9f9;
+  padding:0 20rpx 20rpx;
+  font-size: 24rpx;
+  color: #999;
+  border-radius: 8rpx;
+  margin-top:20rpx
+
+}
+.card-header{
+  color: #333;
+  font-size: 30rpx;
+  border-bottom: 1px solid #eee;
+  line-height: 78rpx;
+  height: 78rpx;
+  margin-bottom: 20rpx;
+  align-items: center;
+}
+.card-header .mask{
+  background-color: #1e6ce8;
+  border-top-right-radius: 100%;
+  border-bottom-right-radius: 100%;
+  padding-right: 7rpx;
+  align-items: center;
+  line-height: normal;
+  padding: 2rpx 0rpx;
+  padding: var(--tag-padding,2rpx 0rpx);
+  width: 40rpx;
+  text-align: center;
+  color: #fff;
+  color: var(--tag-text-color,#fff);
+  font-size: 10px;
+  font-size: var(--tag-font-size,10px);
+}
+.card-header text{
+  display: inline-block;
+  position: relative;
+  top: 4rpx;
+  padding-left: 10rpx;
+}
+.card-header .top-btn{
+  margin-top: 6px
+}
+.card-bottom{
+  border-top: 1px solid #eee;
+  margin-top: 20rpx;
+  padding-top: 20rpx;
+}
+.card-bottom.text-left{
+  font-size: 24rpx;
+  color: #333;
+}
+.detail-btn{
+  margin-right: 10rpx;
+}
+
+

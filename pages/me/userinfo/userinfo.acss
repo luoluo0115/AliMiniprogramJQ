@@ -1,0 +1,12 @@
+.am-modal-content {
+    padding: 15px 0;
+    padding: var(20px --am-modal-content-padding-h,15px 0px);
+}
+.from-wrapper .verify:last-child {
+  border-bottom: none
+}
+.am-list-extra {
+  -webkit-box-flex: 3;
+  -webkit-flex: 3;
+  flex: 3;
+}

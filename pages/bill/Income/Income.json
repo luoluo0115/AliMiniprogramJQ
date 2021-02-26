@@ -1,0 +1,13 @@
+{
+  "defaultTitle": "公司收入",
+  "usingComponents": {
+    "popup": "mini-ali-ui/es/popup/index",
+    "flex": "mini-ali-ui/es/flex/index",
+    "flex-item": "mini-ali-ui/es/flex/flex-item/index",
+    "tag": "mini-ali-ui/es/tag/index",
+    "title": "mini-ali-ui/es/title/index",
+    "list": "mini-ali-ui/es/list/index",
+    "list-item": "mini-ali-ui/es/list/list-item/index",
+    "list-secondary": "mini-ali-ui/es/list/list-secondary/index"
+  }
+}

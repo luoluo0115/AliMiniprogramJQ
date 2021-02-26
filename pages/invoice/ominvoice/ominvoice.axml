@@ -1,0 +1,47 @@
+<import-sjs name="filter" from="../../../utils/filter.sjs"/>
+<view>
+  <view class="van-row num-wrapper">
+    <view class="van-col van-col-8">
+      <view class="num">
+        <text class="color-red">{{invoice_total_items}}</text></view>
+      <text class="num-title">认证票数</text>
+    </view>
+    <view class="van-col van-col-8">
+      <view class="num">
+        <text class="color-red">{{filter.numberToFixed(invoice_total_tax)}}</text></view>
+      <text class="num-title">认证税额</text>
+    </view>
+    <view class="van-col van-col-8">
+      <view class="num">
+        <text class="color-red">{{filter.numberToFixed(invoice_total_amt)}}</text></view>
+      <text class="num-title">认证金额</text>
+    </view>
+  </view>
+
+  <view class="expend-list">
+    <block a:if="{{withReceiptsList!=''}}">
+      <view class="expend-item" a:for="{{withReceiptsList}}" a:key="index">
+        <view class="title">销方名称: {{item.vendor_name}}</view>
+        <view class="a-expend">
+          <view class="text-box">
+            <view class="arow arow01">
+              <view class="label">发票类型:{{item.accounting_type}}</view>
+              <view class="label-right">税额:{{filter.numberToFixed(item.invoice_tax)}}</view>
+            </view>
+            <view class="arow arow01">
+              <view class="label">发票号码:{{item.invoice_no}}</view>
+              <view class="label-right">金额:{{filter.numberToFixed(item.invoice_amt)}}</view>
+            </view>
+            <view class="arow arow01">
+              <view class="label">开票日期:{{filter.formatTime(item.invoice_date,'yyyy-MM-dd')}}</view>
+              <view class="label-right">认证日期:{{filter.formatTime(item.verify_date,'yyyy-MM-dd')}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </block>
+    <block a:else>
+      <view class="empty">{{msg}}</view>
+    </block>
+  </view>
+</view>

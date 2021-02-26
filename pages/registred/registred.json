@@ -1,0 +1,10 @@
+{
+  "defaultTitle": "注册",
+  "usingComponents": {
+    "list": "mini-ali-ui/es/list/index",
+    "input-item": "mini-ali-ui/es/input-item/index",
+    "am-icon": "mini-ali-ui/es/am-icon/index",
+    "title": "mini-ali-ui/es/title/index",
+    "verify-code": "mini-ali-ui/es/verify-code/index"
+  }
+}

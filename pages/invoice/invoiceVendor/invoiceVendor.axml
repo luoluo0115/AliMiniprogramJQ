@@ -1,0 +1,55 @@
+<import-sjs name="filter" from="../../../utils/filter.sjs"/>
+<view class="page-content invoice">
+  <form onSubmit="bindSave">
+    <view class="invoice-item">
+      <view class="area-title ">
+        <view class="area-text ">销方信息</view>
+      </view>
+      <view class="invoice-info-list font-12">
+        <list>
+          <list-item class="font-12">
+            <text class="font-12">销方名称</text>
+            <view slot="extra">
+              <input name="vendor_name" disabled class="font-12" type="text" onInput="handleFieldChange" placeholder="请输入客户名称" value="{{CustVendorList.vendor_name}}" data-fieldName="customer_name" />
+            </view>
+          </list-item>
+          <list-item class="font-12">
+            <text class="font-12">销方税务代码</text>
+            <view slot="extra" >
+              <input name="vendor_tax_code" disabled class="font-12"  type="text" placeholder="请输入销方税务代码" value="{{CustVendorList.vendor_tax_code}}" data-fieldName="customer_tax_code" onInput="handleFieldChange"/>
+            </view>
+          </list-item>
+          <list-item class="font-12">
+            <text class="font-12">销方开户银行</text>
+            <view slot="extra">
+              <input name="vendor_bank_name" disabled class="font-12"  type="text" placeholder="请输入销方开户银行" value="{{CustVendorList.vendor_bank_name}}" data-fieldName="customer_bank_name" onInput="handleFieldChange"/>
+            </view>
+          </list-item>
+          <list-item class="font-12">
+            <text class="font-12">
+              <text class="text-fa1139">*</text>销方电话</text>
+            <view slot="extra">
+              <input  name="vendor_phone" class="font-12"  data-fieldName="vendor_phone" value="{{ CustVendorList.vendor_phone}}" type="text" placeholder="请输入销方电话" onInput="handleFieldChange"/>
+            </view>
+          </list-item>
+          <list-item class="font-12">
+            <text class="font-12">
+              <text class="text-fa1139">*</text>详细地址</text>
+            <view slot="extra">
+              <input name="vendor_address" class="font-12"  data-fieldName="customer_address" value="{{ CustVendorList.vendor_address }}" type="text" placeholder="请输入详细地址" onInput="handleFieldChange"/>
+            </view>
+          </list-item>
+          <list-item class="font-12">
+            <text class="font-12">备注</text>
+            <view slot="extra">
+              <input name="remark" class="font-12"  data-fieldName="remark" value="{{ invoiceCustList.remark }}" type="text" placeholder="请输入备注" onInput="handleFieldChange"/>
+            </view>
+          </list-item>
+        </list>
+      </view>
+      <view class="mb-10 mt-10">
+        <button class="submit-btn large text-fff" formType="submit">保存</button>
+      </view>
+    </view>
+  </form>
+</view>

@@ -1,0 +1,25 @@
+<import-sjs name="filter" from="../../../utils/filter.sjs"/>
+<view class="page-content">
+  <view class="pay-header">
+    <view class="van-row">
+      <view class="van-col van-col-16 left">
+        <view class="title">其他应付</view>
+        <view class="price">{{filter.numberToFixed(sumPayData.amt_begin)}}</view>
+      </view>
+      <view class="van-col van-col-8 right ">
+        {{sumPayData.account_month}}
+      </view>
+    </view>
+  </view>
+  <view class="pay-content">
+    <view class="pay-title">其他应付明细</view>
+    <view class="pay-detail">
+      <block a:if="{{apData.length>0}}">
+        <list-item class="font-12" a:for="{{apData}}" a:key="index" a:if="{{item.amt_end_cr != null}}">
+          <text class="font-12">{{item.customer_name}}:</text>
+          <view slot="extra">{{filter.numberToFixed(item.total)}}</view>
+        </list-item>
+      </block>
+    </view>
+  </view>
+</view>

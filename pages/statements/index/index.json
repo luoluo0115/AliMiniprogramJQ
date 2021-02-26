@@ -1,0 +1,15 @@
+{
+  "defaultTitle": "报表中心",
+  "pullRefresh": true,
+  "usingComponents": {
+    "flex": "mini-ali-ui/es/flex/index",
+    "flex-item": "mini-ali-ui/es/flex/flex-item/index",
+    "tag": "mini-ali-ui/es/tag/index",
+    "title": "mini-ali-ui/es/title/index",
+    "container": "mini-ali-ui/es/container/index",
+    "topwrapper":"/components/topwrapper/topwrapper",
+    "modal": "mini-ali-ui/es/modal/index",
+    "popup": "mini-ali-ui/es/popup/index",
+    "grid":"mini-ali-ui/es/grid/index"
+  }
+}

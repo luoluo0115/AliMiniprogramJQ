@@ -1,0 +1,35 @@
+<view >
+  <view class="personal-header">
+    <view class="personal-wrapper">
+      <view class="flex-cell p-16">
+        <view class="img">
+            <image
+              class="user-profile__avatar"
+              src="{{userInfo.avatar}}"
+              mode="scaleToFill"
+            />
+        </view>
+        <view class="flex-item-3 infor">
+            <view class="title">{{customerList.customer_name}}</view>
+            <view class="subtext">
+              {{customerList.enterprise_type}} 
+              <tag size="sm"  type="primary" ghost="true">{{customerList.tax_levy_method}}</tag>
+            </view>
+            <view class="subtext">{{customerList.tax_type}} </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="bg-fff list-content pt-10">
+    <view  a:for="{{itemsThumb}}" a:key="index"  onTap="onUrlGo" data-url="{{item.url}}" data-title="{{item.title}}"> 
+       <title
+      hasLine="true"
+      type="arrow"
+      className="list-item"
+      > <icon class="iconfont {{item.iconname}}"></icon> {{item.title}}</title>
+    </view>
+   
+  </view>
+  
+
+</view>

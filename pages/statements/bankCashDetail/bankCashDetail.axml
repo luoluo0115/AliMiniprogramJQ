@@ -1,0 +1,21 @@
+<import-sjs name="filter" from="../../../utils/filter.sjs"/>
+<view class="pay-content">
+  <view class="pay-title van-row">
+    <view class="van-col-12 van-col text-left">货币类型</view>
+    <view class="van-col-12 van-col text-right">金额</view>
+  </view>
+  <view class="pay-detail">
+    <block a:if="{{dt.length>0}}">
+      <list-item class="font-12" a:for="{{dt}}" a:key="index" a:if="{{item.amt_end != null}}">
+        <text class="font-12">{{item.code_name}}</text>
+        <view slot="extra">{{filter.numberToFixed(item.amt_end)}}</view>
+      </list-item>
+    </block>
+    <block a:else>
+      <view class="empty">
+        <icon class="iconfont iconkong "></icon>
+        <view class="color-gray">{{msg}}</view>
+      </view>
+    </block>
+  </view>
+</view>

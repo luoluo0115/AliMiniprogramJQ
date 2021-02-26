@@ -1,0 +1,34 @@
+<import-sjs name="filter" from="../../../utils/filter.sjs"/>
+<view>
+  <view class="text-center btn-group">
+    <button size="mini" class="top-btn bg-1e6ce8" onTap="bindDateChange" type="primary">年份:{{account_year}}</button>
+    <button size="mini" class="top-btn bg-1e6ce8" onTap="btnPDF" type="primary">生成电子账册</button>
+  </view>
+  <block a:if="{{LogList!=''}}">
+    <view class="table">
+      <view class="tr">
+        <view class="th th0">操作</view>
+        <view class="th th1">文件名称</view>
+        <view class="th th2">时间</view>
+        <view class="th th3">操作人员</view>
+      </view>
+      <view class='tr' a:for="{{LogList}}" a:key="index" a:for-index="dtIndex">
+        <view class="td th0 color-blue" a:if="{{item.file_time !=null}}" onTap="DownPDF" data-item="{{item}}" data-account_data_download_log_id="{{item.account_data_download_log_id}}">
+          下载
+        </view>
+        <view class="td th0 color-blue" a:if="{{item.file_time ==null}}">
+          待生成
+        </view>
+        <view class="td th1">{{item.file_name}}</view>
+        <view class="td th2">{{filter.formatTime(item.file_time)}}</view>
+        <view class="td th3">{{item.created_by}}</view>
+      </view>
+    </view>
+  </block>
+  <block a:else>
+    <view class="empty">
+      <icon class="iconfont iconkong "></icon>
+      <view class="color-gray">暂无数据</view>
+    </view>
+  </block>
+</view>

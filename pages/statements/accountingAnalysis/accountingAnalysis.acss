@@ -1,0 +1,136 @@
+.page{
+    position: relative
+}
+.pay-f2{
+    position: relative;
+    height: 150px;
+}
+.billing-wrapper{
+    position: relative;
+    margin-bottom:10px ;
+    background: #fff;
+   
+}
+.mountNode-canvas{
+    height: 220px;
+}
+.mountNode-canvas-pay{
+}
+.mountNode-canvas-l{
+    height: 800px;
+}
+.title{
+  text-align: left;
+  margin-left:30rpx;
+  padding: 30rpx 0;
+  font-size: 14px;
+  color: #666;
+  
+}
+.title:before {   
+    content: "";   
+    border-left:3px solid #1e6ce8;
+    height: 8px;
+    padding-right: 3px;   
+  }  
+  .pay-container {
+    position: absolute;
+    top: 20px;
+   
+    left:0;
+    right:0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+  } 
+  .pay-container-l{
+    position: absolute;
+    top: 200px;
+   
+    left:0;
+    right:0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+  } 
+  .pay-container-ll{
+    position: absolute;
+    top: 400px;
+   
+    left:0;
+    right:0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+  } 
+  .pay-container-lll{
+    position: absolute;
+    top: 600px;
+   
+    left:0;
+    right:0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+  } 
+
+  ff-canvas{
+    width:100%;
+    height: 200px;
+  }
+
+.three-chart{
+   margin-top: 120px;
+  }
+  /*资产状况*/
+.account-wrapper{
+    font-size: 14px;
+    padding: 10rpx 0
+}
+.account-wrapper .item{
+    padding:30rpx 0;
+     border-bottom:1px dashed #EAE7E7; 
+     text-align: center
+}
+
+.account-wrapper .weui-flex strong,.account-wrapper .weui-flex text{
+    display: block;
+    line-height: 1.6;
+}
+.account-wrapper .weui-flex strong{
+    color: #1a1e25;
+    font-size: 14px
+}
+.account-wrapper .weui-flex text{
+    color:#AAAAAA ;
+    font-size: 12px
+}
+.account-wrapper .weui-flex .weui-flex__item{
+    text-align: center;
+}
+.wrapper-title{
+    color: #666;
+    margin-top: 10px;
+
+}
+
+.s{
+    position: relative;
+    top: 10px; 
+}
+.f2-chart {
+  width: 100%;
+}
+canvas.guage {
+  border-radius: 5px;
+  background-color:#1890ff;
+  background-image: linear-gradient(#246BFF, #2797FF);
+}

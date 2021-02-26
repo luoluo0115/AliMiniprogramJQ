@@ -1,0 +1,21 @@
+<view>
+  <view class="registed">
+    <view class="page-content from-wrapper">
+      <title class="text-center m-10 title font-24">巧记账</title>
+      <view class="verify">
+        <view class="label"><icon class="iconfont iconkehuguanli"></icon> 用户名</view>
+        <input type="text" class="font-12" placeholder="请输入用户名" onInput="nameInput" value="{{userName}}"/>
+      </view>
+      <view class="verify">
+        <view class="label"><icon class="iconfont icondianhua"></icon> 手机号</view>
+        <input type="number" class="font-12" maxlength="11"  placeholder="请输入手机号" onInput="phoneInput" />
+      </view>
+      <view class="verify">
+        <view class="label"><icon class="iconfont iconflow-Mark"></icon> 验证码</view>
+        <input type="number" class="font-12"  placeholder="请输入验证码" onInput="codeInput" value="{{code}}"/>
+        <view class="send-tips font-12 {{isClick?'disabled':''}}" onTap="{{isClick?'':'getCode'}}">{{btntext}}</view>
+      </view>
+      <button type="primary" class="mt-10 submit-btn" onTap="goTo">注册</button>
+    </view>
+  </view>
+</view>

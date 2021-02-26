@@ -1,0 +1,23 @@
+<view class="invoice page-content">
+    <view class="area-title ">
+      <view class="area-text">常用快递地址</view>
+    </view>
+    <view class="van-row grids-wrapper" a:for="{{ExpressList}}" a:key="index" data-index="{{index}}" data-item="{{item}}" onTap="expressChange">
+      <view class="van-col van-col-24">
+        <text space="emsp">{{item.express_contact_name}}</text>
+        {{item.express_contact_phone}}
+      </view>
+      <view class="van-col van-col-24">
+        {{item.express_address}}
+      </view>
+      <view class="van-col van-col-24 card-bottom">
+        <view class="van-tag primary mr-10 font-12" data-item="{{item}}" catchTap="deleteExp">删除</view>
+        <view class="van-tag primary font-12 " data-type="Edit" data-item="{{item}}" catchTap="goEdit">修改</view>
+      </view>
+    </view>      
+    <view class="van-row upload-btn">
+          <view class="van-col van-col-24">
+              <button class="submit-btn large d-block primary text-fff" data-type="Add" onTap="goAdd" >新增快递地址</button>
+          </view>
+      </view>
+</view>

@@ -1,0 +1,41 @@
+.invoice-list .item{
+  background:#f9f9f9;
+  margin-bottom: 20rpx;
+  color: #333;
+  padding:  30rpx 30rpx 10rpx;
+  font-size: 14px;
+  overflow: hidden
+}
+.title{
+}
+.time{
+  color:#666;
+  font-size: 24rpx;
+
+}
+.right{
+ text-align: right
+}
+.hr{
+  border-top: 1px solid #eee;
+  margin-top: 20rpx;
+  padding-top: 10rpx;
+}
+.demo-margin-right{
+  margin-left: 10rpx;
+}
+.van-tag{
+    padding: 0 .5em;
+    padding: var(--tag-padding,0 .5em);
+}
+
+.send-btn {
+  background-color: #1e6ce8 !important;
+  color: #fff !important;
+}
+.pay-content {
+    margin-top: 0.3rem;
+    font-size: 12px;
+    border: 1px solid #efefef;
+    border-radius: 5px
+}

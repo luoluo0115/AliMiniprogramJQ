@@ -1,0 +1,74 @@
+<import-sjs name="filter" from="../../../utils/filter.sjs"/>
+<view >
+  <list>
+    <list-item class="font-12">
+      <text class="font-12">姓名</text>
+      <view slot="extra"> {{userInfo.user_name}}</view>
+    </list-item>
+    <list-item class="font-12">
+      <text class="font-12">电话</text>
+      <view slot="extra"> {{userInfo.user_phone}}</view>
+    </list-item>
+    <list-item class="font-12">
+      <text class="font-12">邮件</text>
+      <view slot="extra">
+        <view a:if="{{userInfo.user_mail !=null && userInfo.user_mail !=''}}">
+              {{userInfo.user_mail}}
+          <view class="van-tag primary">已认证</view>
+        </view>
+        <view a:else>
+          <button type="warn" size="mini" onTap="goEmail" class="font-12">去绑定</button>
+        </view>
+      </view>
+    </list-item>
+    <list-item class="font-12">
+      <text class="font-12">手机</text>
+      <view slot="extra">
+        {{userInfo.cell_phone}}
+        <view class="van-tag primary" a:if="{{userInfo.cell_phone !=null && userInfo.cell_phone !=''}}">已认证</view>
+      </view>
+    </list-item>
+    <list-item class="font-12">
+      <text class="font-12">微信号</text>
+      <view slot="extra"> {{userInfo.user_wechat}}</view>
+    </list-item>
+    <list-item class="font-12">
+      <text class="font-12">QQ号码</text>
+      <view slot="extra"> {{userInfo.user_qq}}</view>
+    </list-item>
+    <list-item class="font-12">
+      <text class="font-12">推荐码</text>
+      <view slot="extra"> 	
+        {{userInfo.referral_code}}
+        <button size="mini" a:if="{{userInfo.referral_code !=null && userInfo.referral_code !=''}}" onTap="onShareAppMessage" open-type="share">分享</button>
+      </view>
+    </list-item>
+  </list>
+  <view class="table" a:if="{{custList !=''}}">
+    <view class="tr">
+      <view class="th" style="width:50%">企业名称</view>
+      <view class="th" style="width:30%">增值税申报类型</view>
+      <view class="th" style="width:20%">法人</view>
+    </view>
+    <view class='tr' a:for="{{custList}}" a:key="index">
+      <view class="td" style="width:50%">{{item.customer_name}}</view>
+      <view class="td" style="width:30%">{{item.tax_type}}</view>
+      <view class="td" style="width:20%">{{item.legal_person}}</view>
+    </view>
+  </view>
+</view>
+<modal show="{{showEmail}}" onModalClick="confirm" onModalClose="onClose" showClose="true">
+  <view slot="header">邮箱认证</view>
+  <view class="from-wrapper">
+    <view class="verify">
+      <view class="label">邮箱号</view>
+      <input value="{{ email }}" type="text" class="font-14 text-left" placeholder="请输入邮箱号" onInput="emailInput" />
+    </view>
+    <view class="verify" >
+      <view class="label">验证码</view>
+      <input type="number" class="font-14" placeholder="请输入验证码" onInput="codeInput" value="{{code}}"/>
+      <view class="send-tips {{isClick?'disabled':''}}" onTap="{{isClick?'':'getCode'}}">{{btntext}}</view>
+    </view>
+  </view>
+  <view slot="footer">确定</view>
+</modal>

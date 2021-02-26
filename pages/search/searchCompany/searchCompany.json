@@ -1,0 +1,7 @@
+{
+  "defaultTitle": "拍票中心",
+  "backgroundColor": "#f5f5f5",
+  "usingComponents": {
+     "search-bar": "mini-ali-ui/es/search-bar/index"
+  }
+}

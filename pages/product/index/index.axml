@@ -1,0 +1,42 @@
+<view class="page">
+  <view class="page-content">
+    <swiper class="demo-swiper" previousMargin="0" nextMargin="0" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" vertical="{{vertical}}" interval="{{interval}}" circular="{{circular}}">
+      <block a:for="{{bannerList}}">
+        <swiper-item key="swiper-item-{{index}}">
+          <view class="swiper-item">
+            <image class="image side-image" onTap="goBanner" data-item="{{item}}" data-name="banner" mode="widthFix" src="{{item.picture_url}}" onError="imageError" style="width:100%"/>
+          </view>
+        </swiper-item>
+      </block>
+    </swiper>
+    <view class="pro-list mt-10">
+      <view class="pro-title text-333">服务产品</view>
+      <view a:for="{{productList}}" a:key="*this" onTap="{{item.is_final=='Y'?'onTapProductDetail':'onTapProductList'}}" data-pre_product_id="{{item.pre_product_id}}">
+        <flex class="pro-item">
+          <view class="pro-flex inline">
+            <image class="image" mode="aspectFill" style="width:96px;height:96px;border-radius:5px" src="{{item.backgroup_image}}" lazy-load="true" />
+          </view>
+          <view class="pro-flex font-12">
+            <view class="sub">
+              <text class="text-demo-text" decode="true" number-of-lines="3">{{item.product_summary}}</text>
+            </view>
+            <view class="flex-cell info">
+              <view class="flex-item-2 text-left text-fa1139 ">
+                <view class="font-16 d-inline-block ">￥{{item.product_price}}
+                  <text class="font-10">{{item.is_price_impact=='Y' ? '起' : ''}}
+                  </text>
+                </view>
+              </view>
+              <view class="flex-item-2">
+                <view class="userNum d-inline-block font-12">{{item.puchase_qty}}人已付款</view>
+              </view>
+              <view class="flex-item-1">
+                <button size="mini" type="primary" shape="capsule" class="btn">购买</button>
+              </view>
+            </view>
+          </view>
+        </flex>
+      </view>
+    </view>
+  </view>
+</view>

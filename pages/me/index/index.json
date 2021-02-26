@@ -1,0 +1,11 @@
+{
+  "defaultTitle": "个人中心",
+  "backgroundColor": "#f5f5f5",
+  "usingComponents": {
+    "popup": "mini-ali-ui/es/popup/index",
+    "flex": "mini-ali-ui/es/flex/index",
+    "flex-item": "mini-ali-ui/es/flex/flex-item/index",
+    "tag": "mini-ali-ui/es/tag/index",
+    "title": "mini-ali-ui/es/title/index"
+  }
+}

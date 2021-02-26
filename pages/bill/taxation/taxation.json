@@ -1,0 +1,12 @@
+{
+  "defaultTitle": "企业税金计提表",
+  "backgroundColor": "#f5f5f5",
+  "usingComponents": {
+    "popup": "mini-ali-ui/es/popup/index",
+    "tag": "mini-ali-ui/es/tag/index",
+    "title": "mini-ali-ui/es/title/index",
+    "list": "mini-ali-ui/es/list/index",
+    "list-item": "mini-ali-ui/es/list/list-item/index",
+    "list-secondary": "mini-ali-ui/es/list/list-secondary/index"
+  }
+}

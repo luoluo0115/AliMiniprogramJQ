@@ -1,0 +1,50 @@
+/*表格*/
+
+.table {
+border: 1px solid #eee;
+border-right: 0;
+border-bottom: 0;
+width: 100%;
+margin-top: 0;
+}
+
+.tr {
+width: 100%;
+display: flex;
+justify-content: space-between;
+}
+
+.th, .td {
+height: 64rpx;
+line-height: 64rpx;
+border-bottom: 1px solid #eee;
+border-right: 1px solid #eee;
+text-align: center;
+width: 100%;
+font-size:12px;
+}
+.td {
+  font-size:20rpx;
+  
+}
+.th {
+font-weight: 400;
+background-color: #f9f9f9;
+}
+.th0{
+  width:10%;
+  
+}
+.th1{
+  width:50%;
+  
+}
+.th2{
+  width:20%;
+}
+.th3{
+  width:20%;
+}
+.th4{
+  width:20%;
+}

@@ -1,0 +1,77 @@
+  <import-sjs name="filter" from="../../../utils/filter.sjs"/>
+  <view >
+    <list>
+      <list-item class="font-12">
+        <text class="font-12">公司</text>
+        <view slot="extra"> {{customerList.customer_name}}</view>
+      </list-item>
+      <list-item class="font-12">
+        <text class="font-12">税号</text>
+        <view slot="extra"> {{customerList.tax_code}}</view>
+      </list-item>
+      <list-item class="font-12">
+        <text class="font-12">企业类型</text>
+        <view slot="extra"> {{customerList.enterprise_type}}</view>
+      </list-item>
+      <list-item class="font-12">
+        <text class="font-12">基本税种</text>
+        <view slot="extra"> {{customerList.tax_type}}</view>
+      </list-item>
+      <list-item class="font-12">
+        <text class="font-12">征收方式</text>
+        <view slot="extra"> {{customerList.tax_levy_method}}</view>
+      </list-item>
+      <list-item class="font-12">
+        <text class="font-12">法人</text>
+        <view slot="extra"> {{customerList.legal_person}}</view>
+      </list-item>
+      <list-item class="font-12">
+        <text class="font-12">注册日期</text>
+        <view slot="extra"> {{customerList.register_date}}</view>
+      </list-item>
+      <list-item class="font-12">
+        <text class="font-12">注册资金</text>
+        <view slot="extra"> {{customerList.register_amount}}万</view>
+      </list-item>
+      <list-item class="font-12">
+        <text class="font-12">注册地址</text>
+        <view slot="extra"> {{customerList.register_addr}}</view>
+      </list-item>
+      <list-item class="font-12">
+        <text class="font-12">实际经营地址</text>
+        <view slot="extra"> {{customerList.actual_addr}}</view>
+      </list-item>
+      <list-item class="font-12">
+        <text class="font-12">税局</text>
+        <view slot="extra"> {{customerList.tax_bureau}}</view>
+      </list-item>
+      <list-item class="font-12">
+        <text class="font-12">专管员</text>
+        <view slot="extra"> {{customerList.tax_contact}}</view>
+      </list-item>
+      <list-item class="font-12">
+        <text class="font-12">专管员电话</text>
+        <view slot="extra"> {{customerList.tax_phone}}</view>
+      </list-item>
+      <list-item class="font-12">
+        <text class="font-12">账务资料上传截止日期</text>
+        <view slot="extra"> 每月{{customerList.material_schedule==null?5:customerList.material_schedule}}日之前,节假日顺延</view>
+      </list-item>
+    </list>
+    <view class="table mt-10 mb-10" a:if="{{custContactList !=''}}">
+      <view class="tr">
+        <view class="th th0">操作</view>
+        <view class="th th1">姓名</view>
+        <view class="th th2">电话</view>
+        <view class="th th3">授权时间</view>
+      </view>
+      <view class='tr' a:for="{{custContactList}}" a:key="index">
+        <view class="th th0" onTap="CancelAuth">
+          <button size="mini" class="see-btn" data-item="{{item}}" onTap="CancelAuth">取消授权</button>
+        </view>
+        <view class="td th1">{{item.name}}</view>
+        <view class="td th2">{{item.mp}}</view>
+        <view class="td th3">{{filter.formatTime(customerList.creation_date,'yyyy-MM-dd hh:mm')}}</view>
+      </view>
+    </view>
+  </view>

@@ -1,0 +1,8 @@
+{
+  "defaultTitle": "上传银行流水",
+  "usingComponents": {
+    "popup": "mini-ali-ui/es/popup/index",
+    "tabs": "mini-ali-ui/es/tabs/index",
+    "tab-content": "mini-ali-ui/es/tabs/tab-content/index"
+  }
+}

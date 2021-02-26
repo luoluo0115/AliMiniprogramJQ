@@ -1,0 +1,296 @@
+<import-sjs name="filter" from="../../../utils/filter.sjs"/>
+<view>
+  <tabs tabs="{{tabs2}}" tabsName="active" onTabClick="handleTabClick" onChange="handleTabChange" activeTab="{{active}}" tabBarUnderlineWidth="20px" swipeable="{{false}}">
+    <block a:for="{{tabs2}}">
+      <tab-content key="{{index}}" tabId="{{index}}" activeTab="{{active}}" a:if="{{tabs2[index].title == '开票详情'}}" style="height: 100%;">
+        <view class="tab-content" style="height: 100%;">
+          <view class="page-content  area-container center-container">
+            <view class="invoice">
+              <view class="invoice-item">
+                <view class="area-title ">
+                  <view class="area-text ">抬头信息</view>
+                </view>
+                <view class="invoice-info-list">
+                  <list>
+                    <list-item class="font-12">
+                      <text class="font-12">单位名称</text>
+                      <view slot="extra">{{custCustomerList.customer_name}}</view>
+                    </list-item>
+                    <list-item class="font-12">
+                      <text class="font-12">税号</text>
+                      <view slot="extra">{{custCustomerList.customer_tax_code}}</view>
+                    </list-item>
+                    <list-item class="font-12" a:if="{{isShowMore}}">
+                      <text class="font-12">单位地址</text>
+                      <view slot="extra">{{custCustomerList.customer_address}}</view>
+                    </list-item>
+                    <list-item class="font-12" a:if="{{isShowMore}}">
+                      <text class="font-12">单位电话</text>
+                      <view slot="extra">{{custCustomerList.customer_phone}}</view>
+                    </list-item>
+                    <list-item class="font-12" a:if="{{isShowMore}}">
+                      <text class="font-12">开户银行</text>
+                      <view slot="extra">{{custCustomerList.customer_bank_name}}</view>
+                    </list-item>
+                    <list-item class="font-12" a:if="{{isShowMore}}">
+                      <text class="font-12">银行账号</text>
+                      <view slot="extra">{{custCustomerList.customer_bank_account}}</view>
+                    </list-item>
+                  </list>
+                </view>
+                <view class="upload-btn text-center">
+                  <view class="van-tag primary submit-btn mt-10" onTap="moreChange">查看更多
+                    <icon class="iconfont {{isShowMore?'iconshangjiantou-':'iconxiajiantou-'}}" />
+                  </view>
+                </view>
+                <view class="area-title ">
+                  <view class="area-text">开票信息</view>
+                </view>
+                <view class="invoice-info-list">
+                  <list>
+                    <list-item class="font-12">
+                      <text class="font-12">企业类型</text>
+                      <view slot="extra">{{enterprise_type}}</view>
+                    </list-item>
+                    <list-item class="font-12">
+                      <text class="font-12">项目类型</text>
+                      <view slot="extra">{{nvoice_item_type}}</view>
+                    </list-item>
+                    <list-item class="font-12">
+                      <text class="font-12">发票类型</text>
+                      <view slot="extra">{{invoice_type}}</view>
+                    </list-item>
+                  </list>
+                </view>
+                <block a:for="{{detailForm}}" a:key="index">
+                  <view class="area-title ">
+                    <view a:if="{{index == 0}}">
+                      <view class="area-text">发票项目</view>
+                    </view>
+                    <view a:else>
+                      <view class="area-text">发票项目({{index}})</view>
+                      <view class="text-right">
+                      </view>
+                    </view>
+                  </view>
+                  <view class="invoice-info-list">
+                    <list>
+                      <list-item class="font-12">
+                        <text class="font-12">
+                          <text class="text-fa1139">*</text>商品税目名称及税率</text>
+                        <view slot="extra">{{detailForm[index].tax_name}}</view>
+                      </list-item>
+                      <list-item class="font-12">
+                        <text class="font-12">
+                          <text class="text-fa1139">*</text>项目名称</text>
+                        <view slot="extra">*{{detailForm[index].invoice_item_type}}*{{detailForm[index].item_name}}</view>
+                      </list-item>
+                      <list-item class="font-12">
+                        <text class="font-12">规格型号</text>
+                        <view slot="extra">{{detailForm[index].item_spec}}</view>
+                      </list-item>
+                      <list-item class="font-12">
+                        <text class="font-12">
+                          <text class="text-fa1139">*</text>数量</text>
+                        <view slot="extra">{{detailForm[index].item_qty}}</view>
+                      </list-item>
+                      <list-item class="font-12">
+                        <text class="font-12">单位</text>
+                        <view slot="extra">{{detailForm[index].item_unit}}</view>
+                      </list-item>
+                      <list-item class="font-12">
+                        <text class="font-12">
+                          <text class="text-fa1139">*</text>单价(不含税)</text>
+                        <view slot="extra">{{detailForm[index].item_price}}</view>
+                      </list-item>
+                      <list-item class="font-12">
+                        <text class="font-12">单价(含税)</text>
+                        <view slot="extra">{{detailForm[index].item_tax_price}}</view>
+                      </list-item>
+                      <list-item class="font-12">
+                        <text class="font-12">
+                          <text class="text-fa1139">*</text>含税金额</text>
+                        <view slot="extra">{{detailForm[index].item_total_amt}}</view>
+                      </list-item>
+                    </list>
+                  </view>
+                </block>
+                <view class="area-title ">
+                  <view class="area-text">销方信息</view>
+                </view>
+                <view class="invoice-info-list">
+                  <list>
+                    <list-item class="font-12">
+                      <text class="font-12">名称</text>
+                      <view slot="extra">{{CustVendorList.vendor_name}}</view>
+                    </list-item>
+                    <list-item class="font-12">
+                      <text class="font-12">纳税人识别号</text>
+                      <view slot="extra">{{CustVendorList.vendor_tax_code}}</view>
+                    </list-item>
+                    <list-item class="font-12">
+                      <text class="font-12">地 址 、电 话</text>
+                      <view slot="extra">{{CustVendorList.vendor_address}} {{CustVendorList.vendor_phone}}</view>
+                    </list-item>
+                    <list-item class="font-12">
+                      <text class="font-12">开户行及账号</text>
+                      <view slot="extra">{{CustVendorList.vendor_bank_name}} {{CustVendorList.vendor_bank_account}}</view>
+                    </list-item>
+                  </list>
+                </view>
+                <block a:if="{{invoice_type !='增值税电子普通发票'}}">
+                  <view class="area-title ">
+                    <text class="area-text">快递地址</text>
+                    <view class="text-right">
+                      <block a:for="{{invoiceTakeMethodList}}" a:key="index">
+                        <view class="van-tag  round text-right pur-btn {{item.checked==true?'primary':'van-tag-plain  text-999'}}" data-id='{{item.code_name}}'>{{item.code_name}}</view>
+                      </block>
+                    </view>
+                  </view>
+                  <view class="invoice-info-list" a:if="{{isTakeExpress}}">
+                    <list>
+                      <list-item class="font-12">
+                        <text class="font-12">收件单位</text>
+                        <view slot="extra">{{formData.express_corp_name}}</view>
+                      </list-item>
+                      <list-item class="font-12">
+                        <text class="font-12">收件地址</text>
+                        <view slot="extra">{{formData.express_address}}</view>
+                      </list-item>
+                      <list-item class="font-12">
+                        <text class="font-12">收件人姓名</text>
+                        <view slot="extra">{{formData.express_contact_name}}</view>
+                      </list-item>
+                      <list-item class="font-12">
+                        <text class="font-12">收件人电话</text>
+                        <view slot="extra">{{formData.express_contact_phone}}</view>
+                      </list-item>
+                    </list>
+                  </view>
+                </block>
+                <block a:else>
+                  <view class="area-title ">
+                    <view class="area-text">电子发票发送邮件地址：{{formData.invoice_mail == null ? to_email : formData.invoice_mail}}</view>
+                  </view>
+                </block>
+                <view class="area-title ">
+                  <view class="area-text">备注</view>
+                </view>
+                <view class="invoice-info-list">
+                  <list>
+                    <list-item class="font-12">
+                      <text class="font-12">备注</text>
+                      <view slot="extra">{{formData.remark}}</view>
+                    </list-item>
+                  </list>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </tab-content>
+      <tab-content key="{{index}}" tabId="{{index}}" activeTab="{{active}}" a:if="{{tabs2[index].title == '发票列表'}}" style="height: 100%;">
+        <view class="tab-content" style="height: 100%;">
+          <view class="expend-list">
+            <block a:if="{{invoiceScrapList!=''}}">
+              <view class="expend-item" a:for="{{invoiceScrapList}}" a:key="index">
+                <view class="title van-row">
+                  <view class="van-col van-col-16 ">单位名称:{{item.customer_name}}</view>
+                  <view class="van-col van-col-8 text-right">
+                    <view class="van-tag plain-7966FE demo-margin-right">{{item.invoice_status_desc}}</view>
+                  </view>
+                </view>
+                <view class="a-expend">
+                  <view class="van-row">
+                    <view class="van-col van-col-12 time">发票类型:{{item.invoice_type}}</view>
+                    <view class="van-col van-col-12 time">项目类型:{{item.invoice_item_type}}</view>
+                    <view class="van-col van-col-12 time">申请日期:{{item.reqeust_date}}</view>
+                    <view class="van-col van-col-12 time">开票金额:{{filter.numberToFixed(item.invoice_amount)}}</view>
+                    <view class="van-col van-col-12 time">发票号码:{{item.invoice_no}}</view>
+                    <view class="van-col van-col-12 time">发票代码:{{item.invoice_code}}</view>
+                    <view class="van-col van-col-24 time">发票日期:{{item.invoice_date}}</view>
+                    <block a:if="{{item.im_cust_req_scrap_id > 0}}">
+                      <view class="van-col van-col-12 time hr">作废类型:
+                        <view class="van-tag van-tag-plain text-1e6ce8" a:if="{{item.scrap_category !=''}}">{{item.scrap_category}}</view></view>
+                      <view class="van-col van-col-12 time hr">作废状态:
+                        <view class="van-tag van-tag-plain text-999" a:if="{{item.s_ststus_desc !=''}}">{{item.s_ststus_desc}}</view></view>
+                      <view class="van-col van-col-24 time">作废原因:{{item.scrap_reason}}</view>
+                      <view class="van-col van-col-24 time">作废提交时间:{{item.scrap_submit_date==null?'':item.scrap_submit_date}}</view>
+                    </block>
+                    <view class="van-col van-col-24 text-right hr">
+                      <view a:if="{{item.is_downfile=='Y'}}" class="van-tag primary demo-margin-right" onTap="downInvoiceFile" data-item="{{item}}">下载发票</view>
+                      <block a:if="{{item.s_ststus=='S'}}">
+                        <view class="van-tag demo-margin-right primary" onTap="scrapApplyCancel" data-item="{{item}}">
+												取消作废
+                        </view>
+                      </block>
+                      <block a:if="{{(item.s_ststus=='N' || item.s_ststus=='X') && item.invoice_type!='增值税电子普通发票'}}">
+                        <view class="van-tag demo-margin-right primary" onTap="scrapApplyDiv" data-item="{{item}}" data-im_cust_inv_info_id="{{item.im_cust_inv_info_id}}">申请作废</view>
+                      </block>
+                      <block a:if="{{(item.s_ststus=='N' || item.s_ststus=='X') && item.invoice_type=='增值税电子普通发票'}}">
+                        <view class="van-tag demo-margin-right primary" onTap="scrapApplyHCDiv" data-item="{{item}}" data-im_cust_inv_info_id="{{item.im_cust_inv_info_id}}">申请红冲</view>
+                      </block>
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </block>
+            <block a:else>
+              <view class="empty">
+                <icon class="iconfont iconkong"></icon>
+                <view class="color-gray">{{msg}}</view>
+              </view>
+            </block>
+          </view>
+        </view>
+      </tab-content>
+    </block>
+  </tabs>
+</view>
+<!--弹窗-->
+<modal show="{{showScrap}}" onModalClose="closeScrap" onMaskClick="closeScrap" showClose="trye">
+  <view slot="header" class="font-14 text-left" style="margin-top: -8px">发票作废/红冲申请</view>
+  <view slot="header" class="font-10 text-left text-fa1139">当月发票请申请作废,隔月发票申请红冲.</view>
+  <view class="showModal-content">
+    <picker onChange="bindScrapCategoryChange" data-idx="{{index}}" value="{{scrapCategoryList[index].name}}" range-key="{{'name'}}" range="{{scrapCategoryList}}">
+      <view class="row-wrap">
+        <view class="label">作废类型</view>
+        <view class="label-right text-right text-666 font-12">{{scrap_category}}
+          <icon class="iconfont iconnext font-12"></icon></view>
+      </view>
+    </picker>
+    <list-item class="font-12">
+      <text class="font-12">作废理由</text>
+      <view slot="extra">
+        <textarea name="scrap_reason" value="{{scrap_reason}}" class="font-12 text-right" placeholder-class="font-12 text-right" placeholder="请输入作废理由" maxlength="200" data-fieldName="scrap_reason" onInput="handleFieldChange" />
+      </view>
+    </list-item>
+    <list-item class="font-12">
+      <text class="font-12">备注信息</text>
+      <view slot="extra">
+        <!--<input placeholder="请输入备注" data-fieldName="remark" value="{{remark}}" class="font-12 text-right" type="text" onInput="handleFieldChange" /> -->
+        <textarea name="remark" value="{{remark}}" class="font-12 text-right" placeholder-class="font-12 text-right" placeholder="请输入备注" maxlength="200" data-fieldName="remark" onInput="handleFieldChange" />
+      </view>
+    </list-item>
+  </view>
+  <button type="primary" class="submit-btn mt-10  {{btnDisabled?'gray-bg':''}}" onTap="{{!btnDisabled?'postScrapApply':''}}">提交</button>
+</modal>
+<modal show="{{showHC}}" onModalClose="closeScrap" onMaskClick="closeScrap" showClose="trye">
+  <view slot="header" class="font-14 text-left" style="margin-top: -8px">电子发票红冲申请</view>
+  <view class="showModal-content">
+    <list-item class="font-12">
+      <text class="font-12">红冲理由</text>
+      <view slot="extra">
+        <textarea name="scrap_reason" value="{{scrap_reason}}" class="font-12 text-right" placeholder-class="font-12 text-right" placeholder="请输入红冲理由" maxlength="200" data-fieldName="scrap_reason" onInput="handleFieldChange" />
+      </view>
+    </list-item>
+    <list-item class="font-12">
+      <text class="font-12">备注信息</text>
+      <view slot="extra">
+        <!--<input placeholder="请输入备注" data-fieldName="remark" value="{{remark}}" class="font-12 text-right" type="text" onInput="handleFieldChange" /> -->
+        <textarea name="remark" value="{{remark}}" class="font-12 text-right" placeholder-class="font-12 text-right" placeholder="请输入备注" maxlength="200" data-fieldName="remark" onInput="handleFieldChange" />
+      </view>
+    </list-item>
+  </view>
+  <button type="primary" class="submit-btn mt-10  {{btnDisabled?'gray-bg':''}}" onTap="{{!btnDisabled?'postScrapApply':''}}">提交</button>
+</modal> 

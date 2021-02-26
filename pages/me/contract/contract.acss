@@ -1,0 +1,22 @@
+.invoice-list .item{
+  background:#fff;
+  margin-bottom: 20rpx;
+  color: #333;
+  padding:  30rpx 30rpx 10rpx;
+  font-size: 12px;
+}
+.time{
+  color:#666;
+  font-size: 20rpx;
+}
+.right{
+ text-align: right
+}
+.hr{
+  border-top: 1px solid #eee;
+  margin-top: 20rpx;
+  padding-top: 10rpx;
+}
+.demo-margin-right{
+  margin-left: 10rpx;
+}

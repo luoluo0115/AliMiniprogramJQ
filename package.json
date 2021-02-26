@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@antv/my-f2": "^2.1.4",
+    "mini-ali-ui": "^1.2.4",
+    "mini-html-parser2": "^0.2.0"
+  }
+}

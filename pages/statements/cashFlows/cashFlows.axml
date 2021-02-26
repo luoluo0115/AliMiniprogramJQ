@@ -1,0 +1,21 @@
+<import-sjs name="filter" from="../../../utils/filter.sjs"/>
+<view>
+  <view class="pay-content">
+    <block a:for="{{categorydata}}" a:key="index" a:for-item="item">
+      <view class="pay-title" a:if="{{(item.item_category != '期初')&&(item.item_category != '本期')&&(item.item_category != '期末')}}">
+        <view class="van-row">
+          <view class="van-col van-col-12">{{item.item_category}}</view>
+          <view class="van-col van-col-12 text-right">本年累计金额</view>
+        </view>
+      </view>
+      <view class="pay-detail">
+        <block a:if="{{cashdata.length>0}}">
+          <list-item class="font-12" a:for="{{cashdata}}" a:for-item="cell"  a:key="index" a:if="{{cell.item_category == item.item_category}}">
+            <text class="font-12">{{cell.item_report_name}}:</text>
+            <view slot="extra">{{filter.numberToFixed(cell.year_accumulated)}}</view>
+          </list-item>
+        </block>
+      </view>
+    </block>
+  </view>
+</view>

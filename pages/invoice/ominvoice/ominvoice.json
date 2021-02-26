@@ -1,0 +1,9 @@
+{
+  "defaultTitle": "进项发票汇总",
+  "backgroundColor": "#f5f5f5",
+  "usingComponents": {
+    "popup": "mini-ali-ui/es/popup/index",
+    "list": "mini-ali-ui/es/list/index",
+    "list-item": "mini-ali-ui/es/list/list-item/index"
+  }
+}

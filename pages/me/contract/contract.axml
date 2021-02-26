@@ -1,0 +1,36 @@
+<import-sjs name="filter" from="../../../utils/filter.sjs"/>
+<view class="section">
+  <view class="invoice-list">
+    <view class="item" a:for="{{contractList}}" a:key="index">
+      <view class="van-row">
+        <view class="van-col van-col-16">合约名称:{{item.contract_name}}</view>
+        <view class="van-col van-col-8 text-right">
+          <block a:if="{{item.status=='Q'}}">
+            <view class="van-tag van-tag-plain demo-margin-right text-1e6ce8 font-10">完成</view>
+          </block>
+          <block a:else>
+            <view class="van-tag van-tag-plain demo-margin-right text-999 font-10">待签</view>
+          </block>
+        </view>
+        <view class="van-col van-col-12 time">合约编号:{{item.contract_no}}</view>
+        <view class="van-col van-col-12 time text-right">合约类型:{{item.contract_type}}</view>
+        <view class="van-col van-col-24 time">甲方:{{item.customer_name}}</view>
+        <view class="van-col van-col-12 time">甲方联系人:{{item.contact_person}}</view>
+        <view class="van-col van-col-12 time text-right">甲方法人:{{item.legal_perosn}}</view>
+        <view class="van-col van-col-12 time">签约方式:{{item.sign_method}}</view>
+        <view class="van-col van-col-24 time">乙方:{{item.contract_corp_name}}</view>
+        <view class="van-col van-col-24 text-right hr">
+          <block a:if="{{item.status=='Q'}}">
+            <view class="van-tag primary demo-margin-right prim" onTap="archiveFile" data-item="{{item}}">查看</view>
+          </block>
+          <block a:if="{{item.status=='A'}}">
+            <view class="van-tag primary demo-margin-right" onTap="see" data-item="{{item}}">预览</view>
+          </block>
+          <block a:if="{{item.status=='A'}}">
+            <view class="van-tag primary demo-margin-right" onTap="sign" data-item="{{item}}" data-pre_contract_info_id="{{item.pre_contract_info_id}}">签约</view>
+          </block>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

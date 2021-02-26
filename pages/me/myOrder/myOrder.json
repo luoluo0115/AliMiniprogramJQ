@@ -1,0 +1,11 @@
+{
+  "defaultTitle": "我的订单",
+  "backgroundColor": "#f5f5f5",
+  "usingComponents": {
+    "tabs": "mini-ali-ui/es/tabs/index",
+    "tab-content": "mini-ali-ui/es/tabs/tab-content/index",
+    "popup": "mini-ali-ui/es/popup/index",
+    "list": "mini-ali-ui/es/list/index",
+    "list-item": "mini-ali-ui/es/list/list-item/index"
+  }
+}

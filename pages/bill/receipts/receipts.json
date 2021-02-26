@@ -1,0 +1,11 @@
+{
+  "defaultTitle": "进项认证",
+  "usingComponents": {
+    "popup": "mini-ali-ui/es/popup/index",
+    "tabs": "mini-ali-ui/es/tabs/index",
+    "tab-content": "mini-ali-ui/es/tabs/tab-content/index",
+    "collapse": "mini-ali-ui/es/collapse/index",
+    "collapse-item": "mini-ali-ui/es/collapse/collapse-item/index",
+    "am-icon": "mini-ali-ui/es/am-icon/index"
+  }
+}

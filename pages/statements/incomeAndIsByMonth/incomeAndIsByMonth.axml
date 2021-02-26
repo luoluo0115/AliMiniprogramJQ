@@ -1,0 +1,16 @@
+<import-sjs name="filter" from="../../../utils/filter.sjs"/>
+<view>
+   <f2 onInit="onInitChart"></f2>
+  <view class="pay-content">
+      <view class="pay-title  van-row  text-center">
+          <view class=" van-col van-col-12">时间</view>
+          <view class=" van-col van-col-12 ">金额</view>
+      </view>
+      <view class="pay-detail">
+       <view class="van-row pay-item" a:for="{{drReturn}}" a:key="index">
+          <view class=" van-col van-col-12 text-left">{{item.month}}月</view>
+          <view class=" van-col van-col-12 text-right">{{filter.numberToFixed(item.val)}}</view>
+      </view>
+      </view>
+  </view>
+</view>

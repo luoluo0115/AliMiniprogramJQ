@@ -1,0 +1,50 @@
+<import-sjs name="filter" from="../../../utils/filter.sjs"/>
+<view>
+  <view class="van-row num-wrapper">
+    <view class="van-col van-col-8">
+      <view class="num">
+        <text class="color-red">{{zInvoiceQty}}</text></view>
+      <text class="num-title">上传数量</text>
+    </view>
+    <view class="van-col van-col-8">
+      <view class="num">
+        <text class="color-red">{{filter.numberToFixed(zInvoiceTax)}}</text></view>
+      <text class="num-title">税额</text>
+    </view>
+    <view class="van-col van-col-8">
+      <view class="num">
+        <text class="color-red">{{filter.numberToFixed(zInvoiceTax+zInvoiceAmount)}}</text></view>
+      <text class="num-title">价税合计</text>
+    </view>
+  </view>
+  <view class="text-right btn-group">
+    <button size="mini" type="primary" class="top-btn bg-1e6ce8" a:if="{{curr_status=='N'}}" onTap="chooseFileWeb">文件上传</button>
+    <button size="mini" type="primary" class="top-btn bg-1e6ce8" a:if="{{curr_status=='N'}}" onTap="deleteFileData">清除数据</button>
+  </view>
+  <view class="expend-list">
+    <block a:if="{{invoiceFileList!=''}}">
+      <view class="expend-item" a:for="{{invoiceFileList}}" a:key="index">
+        <view class="title">发票类型: {{type_desc}}</view>
+        <view class="a-expend">
+          <view class="text-box">
+            <view class="arow arow01">
+              <view class="label">购买方:{{item.buyer_name}}</view>
+              <view class="label-right">金额:{{filter.numberToFixed(item.total_amount)}}</view>
+            </view>
+            <view class="arow arow01">
+              <view class="label">发票号码:{{item.invoice_no}}</view>
+              <view class="label-right">税额:{{filter.numberToFixed(item.tax_amount)}}</view>
+            </view>
+            <view class="arow arow01">
+              <view class="label">开票日期:{{filter.formatTime(item.invoice_date,'yyyy-MM-dd')}}</view>
+              <view class="label-right">价税合计:{{filter.numberToFixed((item.total_amount+item.tax_amount))}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </block>
+    <block a:else>
+      <view class="empty">{{msg}}</view>
+    </block>
+  </view>
+</view>

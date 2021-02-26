@@ -1,0 +1,94 @@
+<view >
+  <view class="upload-list bg-fff">
+    <view class="border-bottom item">
+      <view class="van-row">
+        <view class="van-col van-col-8" >付款方式</view>
+        <view class="van-col van-col-16 text-right" >
+          <radio-group name="payCategory" onChange="radioChange" class="d-inline-block">
+            <label  class="mr-10"><radio value="个人垫付" checked />个人垫付</label> 
+            <label><radio value="公司转账" />公司转账</label>
+          </radio-group>
+        </view>
+      </view>
+    </view>
+    <view class=" border-bottom item" a:if="{{payCategory == '个人垫付'}}">
+      <picker onChange="bindEmpNameChange" value="{{listEmp[empIndex].hr_employee_id}}" range-key="{{'emp_name'}}" range="{{listEmp}}">
+        <view class="van-row">
+          <view class="van-col van-col-8">人员选择</view>
+          <view class="van-col van-col-16 text-right text-666">{{listEmp[empIndex].emp_name}}<icon class="iconfont iconxiajiantou- font-12"></icon></view>
+        </view>
+      </picker>
+    </view>
+    <!--<view class="text-left border-bottom item">{{expense_desc}}</view> -->
+    <view class=" border-bottom item">
+      <view class="van-row">
+        <view class="van-col van-col-8">费用说明</view>
+        <view class="van-col van-col-16 text-right">
+						{{expense_desc}}
+        </view>
+      </view>
+    </view>
+    <view class="border-bottom item" a:if="{{expense_name == '差旅费'}}">
+      <view class="van-row">
+        <view class="van-col van-col-8">是否混贴</view>
+        <view class="van-col van-col-16 text-right">
+          <radio-group name="payCategory" onChange="radioHTChange" class="d-inline-block">
+            <label>
+              <radio value="2" />是</label>
+            <label>
+              <radio value="0" checked />否</label>
+          </radio-group>
+        </view>
+      </view>
+    </view>
+    <view class=" border-bottom item">
+      <view class="van-row">
+        <view class="van-col van-col-8">选择发票</view>
+        <view class="van-col van-col-16 text-right">
+          <button  size="mini" class="top-btn bg-1e6ce8 mt-5" type="primary"  onTap="chooseImg">拍票上传</button>
+          <button  size="mini" class="top-btn bg-1e6ce8 mt-5" type="primary"  onTap="chooseFileWeb">发票上传(PDF)</button>
+        </view>
+      </view >
+    </view>
+  </view>
+  <view class="expend-list">
+    <block a:if="{{expendFileList!=''}}">
+      <view class="expend-item" a:for="{{expendFileList}}" a:key="index">
+        <view class="title van-row">
+            <view class="van-col van-col-18">
+              <text>垫付人/垫付公司:{{item.bill_pay_name}}</text>
+            </view>
+            <view class="van-col van-col-6 text-right" a:if="{{curr_status=='N'}}" >
+              <view class="pay-btn delete"  onTap="deleteFile" data-item="{{item}}" data-id="{{item.process_recv_file_id}}" >删除</view>
+            </view>
+        </view>
+        <view class="a-expend">
+          <view class="img-box">
+            <image mode="aspectFit" src="{{FileOssUrl + item.upload_file_guid}}" data-list="{{FileOssUrl + item.upload_file_guid}}" data-src="{{FileOssUrl + item.upload_file_guid}}" onTap="previewImage" class="img" />
+          </view>
+          <view class="text-box {{(item.bill_non_tax_amt+item.bill_tax_amt!=item.trans_amount ||(item.process_flag=='E')) ? 'color-red':''}}">
+            <view class="arow arow01">
+              <view class="label">开票日期:{{item.invoice_date==null?'':item.invoice_date}}</view>
+              <view class="label-right">金额:{{(item.bill_non_tax_amt==null?'':item.bill_non_tax_amt)}}</view>
+            </view>
+            <view class="arow arow01">
+              <view class="label">费用明细:{{item.file_small_category==null?'':item.file_small_category}}</view>
+              <view class="label-right">税额:{{(item.bill_tax_amt==null?'':item.bill_tax_amt)}}</view>
+            </view>
+            <view class="arow arow01">
+              <view class="label">发票类型:{{item.bill_type==null?'':item.bill_type}}</view>
+              <view class="label-right">价税合计:{{item.trans_amount==null?'':(item.trans_amount)}}</view>
+            </view>
+            <view class="arow ">
+              <view class="label">付款方式:{{item.bill_pay_category==null?'':item.bill_pay_category}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </block>
+    <block a:else>
+      <view class="empty">{{msg}}</view>
+    </block>
+  </view>
+</view>
+ 

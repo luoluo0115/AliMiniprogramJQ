@@ -1,0 +1,11 @@
+{
+  "defaultTitle": "其他产品",
+  "usingComponents": {
+    "flex": "mini-ali-ui/es/flex/index",
+    "flex-item": "mini-ali-ui/es/flex/flex-item/index",
+    "popup": "mini-ali-ui/es/popup/index",
+     "vtabs": "mini-ali-ui/es/vtabs/index",
+    "vtab-content": "mini-ali-ui/es/vtabs/vtab-content/index",
+     "search-bar": "mini-ali-ui/es/search-bar/index"
+  }
+}

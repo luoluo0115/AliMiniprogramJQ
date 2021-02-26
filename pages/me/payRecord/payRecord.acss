@@ -1,0 +1,25 @@
+.expend-list {
+  width: 100%;
+}
+
+.expend-item {
+  background-color: #fff;
+  margin-top: 20rpx;
+  overflow: hidden;
+  border-radius: 10rpx;
+  padding: 15rpx;
+}
+.expend-list .list-title {
+  font-size: 22rpx;
+  color: #333;
+  padding: 0.15rem 0 0.15rem 0;
+  border-bottom: 1px solid #eee;
+}
+.expend-list   .list-content{
+  padding: 20rpx 0;
+}
+.expend-list  .label{
+  font-size: 20rpx;
+  color: #666;
+  line-height: 1.6;
+}

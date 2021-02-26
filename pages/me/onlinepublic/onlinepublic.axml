@@ -1,0 +1,122 @@
+<import-sjs name="filter" from="../../../utils/filter.sjs"/>
+<view class="page-content">
+  <view class="pay-header">
+    <view class="van-row">
+      <view class="van-col van-col-16 left">
+        <view class="title"> 网上公示年份:</view>
+      </view>
+      <view class="van-col van-col-8 right ">
+         <picker onChange="bindCompanyChange" value="{{customerindex}}" range="{{customerlist}}" range-key="customer_name">
+            <view class="company-content font-12 text-right ">
+               <text class="iconfont iconrili d-inline-block "></text>
+              <view class="picker companyText d-inline-block ">
+                  {{customerlist[customerindex].customer_name}}
+              </view>
+            </view>
+          </picker>
+      </view>
+    </view>
+  </view>
+  <view class="pay-content">
+    <list-item class="font-12">
+        <text class="font-12">财务确认人</text>
+        <view slot="extra">{{item.contract_no}}</view>
+      </list-item>
+      <list-item class="font-12">
+        <text class="font-12">财务确认时间</text>
+        <view slot="extra">{{item.contract_no}}
+        </view>
+      </list-item>
+      <list-item class="font-12">
+        <text class="font-12">客服完成时间</text>
+        <view slot="extra">{{item.contract_no}}
+        </view>
+      </list-item>
+      <list-item class="font-12">
+        <text class="font-12">客服备注</text>
+        <view slot="extra">{{item.contract_no}}
+        </view>
+      </list-item>
+      <view class="text-right mt-10 mb-10 ">
+        <button size="mini" class="send-btn mr-5">查看</button>
+        <button size="mini" onTap="scrapApplyDiv" class="send-btn mr-5">上传</button>
+      </view>
+  </view>
+  <view class="empty">
+    <icon class="iconfont iconkong "></icon>
+    <view class="color-gray">暂无数据</view>
+  </view>
+</view>
+<!--弹窗-->
+  <modal show="{{showScrap}}" onModalClose="closeScrap" onMaskClick="closeScrap" showClose="trye">
+    <view class="showModal-content">
+      <list-item class="font-12">
+        <text class="font-12">客户名称</text>
+        <view slot="extra">
+          <input placeholder="请输入客户名称" data-fieldName="remark" value="{{remark}}" class="font-12 text-right" type="text" onInput="handleFieldChange" />
+        </view>
+      </list-item>
+      <list-item class="font-12">
+        <text class="font-12">网上公示年份</text>
+        <view slot="extra">
+          <view class="picker-date text-right" onTap="bindDateChange">
+            <text class="date-text"> {{pickerDate}}</text>
+          </view>
+        </view>
+      </list-item>
+      <list-item class="font-12">
+        <text class="font-12">确认完成文件</text>
+        <view slot="extra">
+          <text onTap="chooseImgZJ">
+            <icon class="iconfont icontianjiatupian text-999 font-24 "></icon>
+          </text>
+        </view>
+      </list-item>
+      <list-item class="font-12">
+        <text class="font-12">备注信息</text>
+        <view slot="extra">
+          <!--<input placeholder="请输入备注" data-fieldName="remark" value="{{remark}}" class="font-12 text-right" type="text" onInput="handleFieldChange" /> -->
+          <textarea name="remark" value="{{remark}}" class="font-12 text-right" placeholder-class="font-12 text-right" placeholder="请输入备注" maxlength="200" data-fieldName="remark" onInput="handleFieldChange" />
+        </view>
+      </list-item>
+    </view>
+    <button type="primary" class="submit-btn mt-10  {{btnDisabled?'gray-bg':''}}" onTap="{{!btnDisabled?'postScrapApply':''}}">提交</button>
+  </modal>
+<!-- <view class="section">
+  <view class="invoice-list">
+    <view class="item">
+      <view class="van-row">
+        <view class="van-col van-col-24 font-14 title">客户名称:贵公司公司公司过</view>
+        <view class="van-col van-col-12 time">
+          <text class="d-inline-block font-12">确认完成标志: </text>
+          <view class="van-tag plain-7966FE  d-inline-block" >完成</view>
+        </view>
+        <view class="van-col van-col-12 d-inline-block">
+          <picker onChange="bindCompanyChange" value="{{customerindex}}" range="{{customerlist}}" range-key="customer_name">
+            <view class="company-content font-12 text-right text-666">
+              网上公示年份:
+              <view class="picker companyText d-inline-block ">
+                  {{customerlist[customerindex].customer_name}}
+              </view>
+               <text class="iconfont iconrili d-inline-block "></text>
+            </view>
+          </picker>
+        </view>
+        <view class="van-col van-col-12 time">财务确认人:{{item.contract_no}}</view>
+        <view class="van-col van-col-12 time text-right">财务确认时间:{{item.contract_type}}</view>
+        <view class="van-col van-col-24 time">客服姓名:{{item.customer_name}}</view>
+        <view class="van-col van-col-12 time">客服完成时间:{{item.contact_person}}</view>
+        <view class="van-col van-col-12 time text-right">客服备注:{{item.legal_perosn}}</view>
+        <view class="van-col van-col-24 text-right hr">
+          <button size="mini" class="send-btn ">查看</button>
+          <button size="mini" onTap="scrapApplyDiv" class="send-btn ">上传</button>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="empty">
+    <icon class="iconfont iconkong "></icon>
+    <view class="color-gray">暂无数据</view>
+  </view>
+  
+</view> -->

@@ -1,0 +1,31 @@
+<import-sjs name="filter" from="../../../utils/filter.sjs"/>
+<view>
+  <view class="expend-list">
+    <block a:if="{{invoice_tax_type!=''}}">
+      <view class="expend-item" a:for="{{invoice_tax_type}}" a:key="index">
+        <view class="van-row title">
+          <view class="van-col van-col-18">
+               发票类型: {{item.invoice_category}}
+          </view>
+          <view class="van-col van-col-6 text-right">
+            <view class="van-tag plain-1e6ce8 delete">{{item.invoice_item_type}}</view>
+          </view>
+        </view>
+        <view class="a-expend">
+          <view class="text-box ">
+            <view class="arow arow01">
+              <view class="label">核定税率:{{item.approved_tax_rate}}%</view>
+              <view class="label-right">发票限额:{{filter.numberToFixed(item.invoice_limit_amt)}}</view>
+            </view>
+            <view class="arow arow01">
+              <view class="label">核定税种:{{item.approved_tax_type}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </block>
+    <block a:else>
+      <view class="empty">{{msg}}</view>
+    </block>
+  </view>
+</view>

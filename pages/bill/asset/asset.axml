@@ -1,0 +1,78 @@
+<import-sjs name="filter" from="../../../utils/filter.sjs"/>
+<tabs tabs="{{tabs2}}" tabsName="activeTab2" onTabClick="handleTabClick" onChange="handleTabChange" activeTab="{{activeTab2}}" tabBarUnderlineWidth="20px"  swipeable="{{false}}">
+  <block a:for="{{tabs2}}">
+    <tab-content key="{{index}}" tabId="{{index}}" activeTab="{{activeTab2}}" a:if="{{index === 0}}" style="height:100%">
+      <block a:if="{{monthlyDepreciationData!=''}}">
+        <collapse className="demo-collapse" collapseKey="collapse1" onChange="onChange" accordion="{{false}}">
+          <block a:for="{{monthlyDepreciationData}}" a:key="indexMonthly">
+            <collapse-item header="{{item.asset_name}}(原值:{{filter.numberToFixed(item.orginal_value)}}  净值:{{filter.numberToFixed(item.net_value)}})" itemKey="{{indexMonthly}}" collapseKey="collapse1">
+              <view class="expend-list">
+                <view class="expend-item bg-f5f5f5">
+                  <view class="a-expend">
+                    <view class="text-box">
+                      <view class="arow arow01">
+                        <view class="label">费用类别:{{item.asset_category}}</view>
+                        <view class="label-right">数量:{{item.qty}}</view>
+                      </view>
+                      <view class="arow arow01">
+                        <view class="label">单价:{{filter.numberToFixed(item.unit_price)}}</view>
+                        <view class="label-right">购买日期:{{filter.formatTime(item.puchase_date,'yyyy-MM-dd')}}</view>
+                      </view>
+                      <view class="arow arow01">
+                        <view class="label">资产原值:{{filter.numberToFixed(item.orginal_value)}}</view>
+                        <view class="label-right">本月折旧金额:{{filter.numberToFixed(item.depreciated_value)}}</view>
+                      </view>
+                      <view class="arow arow01">
+                        <view class="label">残值率(%):{{item.salvage_value_rate*100}} %</view>
+                        <view class="label-right">折旧月数:{{item.depreciation_month}}</view>
+                      </view>
+                      <view class="arow arow01">
+                        <view class="label">折旧月份:{{filter.formatTime(item.account_month)}}</view>
+                        <view class="label-right">净值:{{filter.numberToFixed(item.net_value)}}</view>
+                      </view>
+                      <view class="arow arow01">
+                        <view class="label">累计折旧金额:{{filter.numberToFixed(item.acc_value)}}</view>
+                      </view>
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </collapse-item>
+          </block>
+        </collapse>
+      </block>
+      <block a:else>
+        <view class="empty">
+          <icon class="iconfont iconkong "></icon>
+        </view>
+      </block>
+    </tab-content>
+    <tab-content key="{{index}}" tabId="{{index}}" activeTab="{{activeTab2}}" a:elif="{{index === 1}}" style="height:100%">
+      <view class="tab-content" style="height:100%">
+        <view class="page-content">
+          <view class="table ">
+            <view class="tr">
+              <view class="th th1">费用类别</view>
+              <view class="th th2">资产分类</view>
+              <view class="th th3">计提折旧</view>
+              <view class="th th4">累计折旧</view>
+            </view>
+            <block a:for="{{monthlyDepreciationDataTotal}}" a:key="level">
+              <view class='tr'>
+                <view class="td th1 ">{{item.expense_category}}</view>
+                <view class="td th2">{{item.asset_category}}</view>
+                <view class="td th3">{{filter.numberToFixed(item.depreciated_value)}}</view>
+                <view class="td th4">{{filter.numberToFixed(item.acc_value)}}</view>
+              </view>
+            </block>
+            <view class='tr'>
+              <view class="td th5">总计</view>
+              <view class="td th3">{{depreciatedTotal}}</view>
+              <view class="td th4">{{accTotal}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </tab-content>
+  </block>
+</tabs>

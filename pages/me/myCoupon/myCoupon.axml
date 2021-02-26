@@ -1,0 +1,148 @@
+<import-sjs name="filter" from="../../../utils/filter.sjs"/>
+<view>
+  <view class="personal-wrapper ">
+    <view class="weui-cell infor">
+      <view class="title">{{customerList.customer_name}}</view>
+      <view class="subtext">{{customerList.enterprise_type}}
+        <view class="van-tag primary demo-margin-right text-right">{{customerList.tax_levy_method}}</view>
+      </view>
+      <view class="subtext">{{customerList.tax_type}}</view>
+    </view>
+  </view>
+  <tabs tabs="{{tabs2}}" tabsName="activeTab2" onTabClick="handleTabClick" onChange="handleTabChange" activeTab="{{activeTab2}}" tabBarUnderlineWidth="20px" swipeable="{{false}}">
+    <block a:for="{{tabs2}}">
+      <tab-content key="{{index}}" tabId="{{index}}" activeTab="{{activeTab2}}" a:if="{{index === 0}}" style="height: 100%;">
+        <view class="tab-content" style="height: 100%;">
+          <view class="page-content">
+            <block a:if="{{myCouponList!=''}}">
+              <view class="coupons-item " a:for="{{myCouponList}}" a:key="index" style="background-image:url('{{item.wait_image_path}}');">
+                <view class="coupons-item-box">
+                  <view class="money-left">
+                    <block a:if="{{item.coupon_category=='减免'}}">
+                      <text class="free-txt">免</text></block>
+                    <block a:else>
+                      <text>¥</text>{{item.coupon_amount}}</block>
+                  </view>
+                  <view class="money-right">
+                    <view class="money-hold">{{item.coupon_desc}}</view>
+                    <view class="money-data">有效期: {{filter.formatTime(item.get_time,'yyyy-MM-dd')}} -
+										{{filter.formatTime(item.end_date,'yyyy-MM-dd') }}
+                    </view>
+                    <block a:if="{{item.is_transfer=='Y'}}">
+                      <view class="money-remark" bindtap="showPost" data-promotion_coupon_id="{{item.promotion_coupon_id}}" data-promotion_coupon_user_id="{{item.promotion_coupon_user_id}}">{{item.remark}}
+                        <icon class="./iconfont/iconzhuanfa-:before icon-share"></icon>
+                      </view>
+                    </block>
+                    <block a:if="{{item.is_transfer=='N'}}">
+                      <view class="money-remark mt-5">{{item.remark ==null?'':item.remark}}
+                      </view>
+                    </block>
+                  </view>
+                  <view class="money-home" onTap="goProduct" data-item_id="{{item.pre_product_id}}" data-coupon_category="{{item.coupon_category}}">{{item.status_desc=='未使用'?'立即使用': ''}}</view>
+                </view>
+              </view>
+            </block>
+            <block a:else>
+              <view class="empty">{{msg}}</view>
+            </block>
+          </view>
+        </view>
+      </tab-content>
+      <tab-content key="{{index}}" tabId="{{index}}" activeTab="{{activeTab2}}" a:elif="{{index === 1}}" style="height: 100%;">
+        <view class="tab-content" style="height: 100%;">
+          <view class="page-content">
+            <block a:if="{{myCouponList!=''}}">
+              <view class="coupons-item " a:for="{{myCouponList}}" a:key="index" style="background-image:url('{{item.used_image_path}}');">
+                <view class="coupons-item-box">
+                  <view class="money-left">
+                    <block a:if="{{item.coupon_category=='减免'}}">
+                      <text class="free-txt">免</text></block>
+                    <block a:else>
+                      <text>¥</text>{{item.coupon_amount}}</block>
+                  </view>
+                  <view class="money-right">
+                    <view class="money-hold">{{item.coupon_desc}}</view>
+                    <view class="money-data gray">有效期: {{filter.formatTime(item.get_time,'yyyy-MM-dd')}} -
+                      {{filter.formatTime(item.end_date,'yyyy-MM-dd') }}
+                    </view>
+                    <view class="money-remark">{{item.remark ==null?'':item.remark}}</view>
+                  </view>
+                  <view class="money-home gray">{{item.status_desc=='已使用'?'已经使用': ''}}</view>
+                </view>
+              </view>
+            </block>
+            <block a:else>
+              <view class="empty">{{msg}}</view>
+            </block>
+          </view>
+        </view>
+      </tab-content>
+      <tab-content key="{{index}}" tabId="{{index}}" activeTab="{{activeTab2}}" a:elif="{{index === 2}}" style="height: 100%;">
+        <view class="tab-content" style="height: 100%;">
+          <view class="page__bd page__bd_spacing">
+            <block a:if="{{myCouponList!=''}}">
+              <view class="coupons-item " a:for="{{myCouponList}}" a:key="index" style="background-image:url('{{item.used_image_path}}');">
+                <view class="coupons-item-box">
+                  <view class="money-left">
+                    <block a:if="{{item.coupon_category=='减免'}}">
+                      <text class="free-txt">免</text></block>
+                    <block a:else>
+                      <text>¥</text>{{item.coupon_amount}}</block>
+                  </view>
+                  <view class="money-right">
+                    <view class="money-hold">{{item.coupon_desc}}</view>
+                    <view class="money-data gray">有效期: {{filter.formatTime(item.get_time,'yyyy-MM-dd')}} -
+									{{filter.formatTime(item.end_date,'yyyy-MM-dd') }}
+                    </view>
+                    <view class="money-remark">{{item.remark ==null?'':item.remark}}</view>
+                  </view>
+                  <view class="money-home gray">{{item.status_desc=='已过期'?'已经过期': ''}}</view>
+                </view>
+              </view>
+            </block>
+            <block a:else>
+              <view class="empty">{{msg}}</view>
+            </block>
+          </view>
+        </view>
+      </tab-content>
+      <tab-content key="{{index}}" tabId="{{index}}" activeTab="{{activeTab2}}" a:elif="{{index === 3}}" style="height: 100%;">
+        <view class="tab-content" style="height: 100%;">
+          <view class="page__bd page__bd_spacing">
+            <block a:if="{{myCouponList!=''}}">
+              <view class="coupons-item " a:for="{{myCouponList}}" a:key="index" style="background-image:url('{{item.wait_image_path}}');">
+                <view class="coupons-item-box">
+                  <view class="money-left">
+                    <block a:if="{{item.coupon_category=='减免'}}">
+                      <text class="free-txt">免</text></block>
+                    <block a:else>
+                      <text>¥</text>{{item.coupon_amount}}</block>
+                  </view>
+                  <view class="money-right">
+                    <view class="money-hold">{{item.coupon_desc}}</view>
+                    <view class="money-data">有效期: {{filter.formatTime(item.get_time,'yyyy-MM-dd')}} -
+									{{filter.formatTime(item.end_date,'yyyy-MM-dd') }}
+                    </view>
+                    <block a:if="{{item.is_transfer=='Y'}}">
+                      <view class="money-remark" bindtap="showPost" data-promotion_coupon_id="{{item.promotion_coupon_id}}" data-promotion_coupon_user_id="{{item.promotion_coupon_user_id}}">{{item.remark}}
+                        <icon class="./iconfont/iconzhuanfa-:before icon-share"></icon>
+                      </view>
+                    </block>
+                    <block a:if="{{item.is_transfer=='N'}}">
+                      <view class="money-remark mt-5">{{item.remark ==null?'':item.remark}}
+                      </view>
+                    </block>
+                  </view>
+                  <view class="money-home" bindtap="BindCoupon" data-item="{{item}}">立即绑定</view>
+                </view>
+              </view>
+            </block>
+            <block a:else>
+              <view class="empty">{{msg}}</view>
+            </block>
+          </view>
+        </view>
+      </tab-content>
+    </block>
+  </tabs>
+</view>

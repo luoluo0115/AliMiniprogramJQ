@@ -1,0 +1,8 @@
+{
+  "defaultTitle": "销项发票汇总",
+  "usingComponents": {
+    "popup": "mini-ali-ui/es/popup/index",
+    "topwrapper":"/components/topwrapper/topwrapper",
+    "grid":"mini-ali-ui/es/grid/index"
+  }
+}

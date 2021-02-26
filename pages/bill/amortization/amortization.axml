@@ -1,0 +1,39 @@
+<import-sjs name="filter" from="../../../utils/filter.sjs"/>
+<view>
+  <block a:if="{{MonthlyAmortizationData!=''}}">
+    <collapse className="demo-collapse"  collapseKey="collapse1" onChange="onChange" accordion="{{false}}">
+      <block a:for="{{MonthlyAmortizationData}}" a:key="indexMonthly">
+        <collapse-item header="{{item.amortization_name}}(原值:{{filter.numberToFixed(item.amortization_cost)}}  净值:{{filter.numberToFixed(item.remained_cost)}})" itemKey="{{indexMonthly}}" collapseKey="collapse1">
+          <view class="expend-list">
+            <view class="expend-item bg-f5f5f5" >
+              <view class="a-expend">
+                <view class="text-box">
+                  <view class="arow arow01">
+                    <view class="label">起始摊销月份:{{item.amortization_month_from}}</view>
+                    <view class="label-right">本月摊销费用:{{filter.numberToFixed(item.monthly_amortization_cost)}}</view>
+                  </view>
+                  <view class="arow arow01">
+                    <view class="label">已摊销月数:{{item.amortized_month}}</view>
+                    <view class="label-right">摊销余额:{{filter.numberToFixed(item.remained_cost)}}</view>
+                  </view>
+                  <view class="arow arow01">
+                    <view class="label">原值:{{filter.numberToFixed(item.amortization_cost)}}</view>
+                    <view class="label-right">摊销月数:{{item.amortization_month}}</view>
+                  </view>
+                  <view class="arow arow01">
+                    <view class="label">累计摊销金额:{{filter.numberToFixed(item.accumulated_cost)}}</view>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </collapse-item>
+      </block>
+    </collapse>
+  </block>
+  <block a:else>
+    <view class="empty">
+      <icon class="iconfont iconkong "></icon>
+    </view>
+  </block>
+</view>

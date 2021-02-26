@@ -1,0 +1,26 @@
+<view>
+  <view class="flex-cell font-12 color-fff p-16">
+    <view class="flex-item-6">
+      <picker onChange="bindCompanyChange" value="{{customerindex}}" range="{{customerlist}}" range-key="customer_name">
+        <view class="company-content">
+          <text class="iconfont iconkehuguanli d-inline-block text-center" a:if="{{customerlist.length != 1}}" ></text>
+          <text class="iconfont iconkehuguanli d-inline-block text-center" a:else></text>
+          <view class="picker companyText d-inline-block ">
+              {{customerlist[customerindex].customer_name}}
+          </view>
+        </view>
+      </picker>
+    </view>
+    <view class="flex-item-1 text-center" a:if="{{customerlist.length>=10}}">
+      <navigator open-type="navigate" url="/pages/search/searchCompany/searchCompany" hover-class="navigator-hover">
+        <icon class="iconfont iconicon-search"></icon>
+      </navigator>
+    </view>
+    <view class="flex-item-2">
+      <view class="picker-date text-right" onTap="bindDateChange">
+        <icon class="iconfont iconrili text-left"></icon>
+        <text class="date-text"> {{pickerDate}}</text>
+      </view>
+    </view>
+  </view>
+</view>

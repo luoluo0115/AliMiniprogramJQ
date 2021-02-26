@@ -1,0 +1,9 @@
+{
+  "defaultTitle": "每月收入和利润",
+  "usingComponents": {
+    "popup": "mini-ali-ui/es/popup/index",
+    "list": "mini-ali-ui/es/list/index",
+    "list-item": "mini-ali-ui/es/list/list-item/index",
+     "f2": "@antv/my-f2"
+  }
+}

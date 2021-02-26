@@ -1,0 +1,9 @@
+{
+  "defaultTitle": "开票中心",
+  "backgroundColor": "#f5f5f5",
+  "usingComponents": {
+    "popup": "mini-ali-ui/es/popup/index",
+    "topwrapper":"/components/topwrapper/topwrapper",
+    "grid":"mini-ali-ui/es/grid/index"
+  }
+}

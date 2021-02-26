@@ -1,0 +1,131 @@
+<import-sjs name="filter" from="../../../utils/filter.sjs"/>
+<tabs tabs="{{tabs2}}" swipeable='{{false}}' tabsName="activeTab2" onTabClick="handleTabClick" onChange="handleTabChange" activeTab="{{activeTab2}}" tabBarUnderlineWidth="20px" stickyBar="{{true}}">
+  <block a:for="{{tabs2}}">
+    <tab-content key="{{index}}" tabId="{{index}}" activeTab="{{activeTab2}}" a:if="{{index === 0}}" style="height: 100%;">
+      <view class="tab-content" style="height: 100%;">
+        <view class="van-row num-wrapper">
+          <view class="van-col van-col-8">
+            <view class="num">
+              <text class="color-red">{{qty}}</text>
+            </view>
+            <text class="num-title">回单数量</text>
+          </view>
+          <view class="van-col van-col-8">
+            <view class="num">
+              <text class="color-red">{{filter.numberToFixed(cr)}}</text>
+            </view>
+            <text class="num-title">入账金额</text>
+          </view>
+          <view class="van-col van-col-8">
+            <view class="num">
+              <text class="color-red">{{filter.numberToFixed(dr)}}</text>
+            </view>
+            <text class="num-title">出账金额</text>
+          </view>
+        </view>
+        <view class="van-row pr-16">
+          <view class="van-col van-col-8">{{filename}}</view>
+          <view class="van-col van-col-16 text-right fr">
+            <button size="mini" class="top-btn bg-1e6ce8 mt-5" type="primary" onTap="chooseImg">拍照上传</button>
+            <button size="mini" class="top-btn bg-1e6ce8 mt-5" type="primary" onTap="chooseFileWeb">文件上传</button>
+          </view>
+        </view>
+        <view class="expend-list">
+          <block a:if="{{BankReceiptList!=''}}">
+            <view class="expend-item bg-f5f5f5" a:for="{{BankReceiptList}}" a:key="index">
+              <view class="title van-row">
+                <view class="van-col van-col-18">
+                  <text>{{item.trans_type=='入账'?'收方名称':'付方名称'}}:{{(item.bank_account_name)}}</text>
+                </view>
+                <view class="van-col van-col-6 text-right" a:if="{{curr_status=='N'}}">
+                  <view class="pay-btn delete" onTap="deleteFile" data-id="{{item.process_recv_file_id}}" data-data_id="{{item.am_bank_trans_data_id}}">删除</view>
+                </view>
+              </view>
+              <view class="a-expend">
+                <view class="img-box">
+                  <image mode="widthFix" src="{{FileOssUrl + item.upload_file_guid}}" data-list="{{FileOssUrl + item.upload_file_guid}}" data-src="{{FileOssUrl + item.upload_file_guid}}" onTap="previewImage" class="img" />
+                </view>
+                <view class="text-box">
+                  <view class="arow arow01">
+                    <view class="label">币种:{{item.currency}}</view>
+                    <view class="label-right">交易类型:{{(item.trans_type)}}</view>
+                  </view>
+                  <view class="arow arow01">
+                    <view class="label">借方金额:{{filter.numberToFixed(item.amount_dr)}}</view>
+                    <view class="label-right">贷方金额:{{filter.numberToFixed(item.amount_cr)}}</view>
+                  </view>
+                  <view class="arow arow01">
+                    <view class="label">交易日期:{{item.trans_date}}</view>
+                  </view>
+                  <view class="arow arow01">
+                    <view class="label">摘要:{{item.summary}}</view>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </block>
+          <block a:else>
+            <view class="empty">{{msg}}</view>
+          </block>
+        </view>
+      </view>
+    </tab-content>
+    <tab-content key="{{index}}" tabId="{{index}}" activeTab="{{activeTab2}}" a:elif="{{index === 1}}" style="height: 100%;">
+      <view class="tab-content" style="height: 100%;">
+        <view class="van-row num-wrapper">
+          <view class="van-col van-col-8">
+            <view class="num">
+              <text class="color-red">{{qty}}</text></view>
+            <text class="num-title">流水数量</text>
+          </view>
+          <view class="van-col van-col-8">
+            <view class="num">
+              <text class="color-red">{{filter.numberToFixed(cr)}}</text></view>
+            <text class="num-title">出账金额</text>
+          </view>
+          <view class="van-col van-col-8">
+            <view class="num">
+              <text class="color-red">{{filter.numberToFixed(dr)}}</text></view>
+            <text class="num-title">入账金额</text>
+          </view>
+        </view>
+        <view class="">
+          <view class="van-row p-10" a:if="{{curr_status=='N'}}">
+            <view class="van-col van-col-8">
+              <picker class="d-inline-block" mode="date" fields="month" value="{{file_month}}" start="2009-09" end="2030-09" onChange="bindDateChange">
+                <button size="mini" class="top-btn bg-1e6ce8 mt-5" type="primary">月份 {{file_month}}</button>
+              </picker>
+            </view>
+            <view class="van-col van-col-16 text-right fr">
+              <button size="mini" class="top-btn bg-1e6ce8 mt-5" type="primary" onTap="chooseFileWeb">文件上传</button>
+              <button size="mini" class="top-btn bg-1e6ce8 mt-5" type="primary" onTap="deleteBankStatement">清除数据</button>
+            </view>
+          </view>
+          <view class="expend-list">
+            <block a:if="{{BankStatementList!=''}}">
+              <view class="expend-item bg-f5f5f5" a:for="{{BankStatementList}}" a:key="index">
+                <view class="title">{{item.trans_type=='入账'?'收方名称':'付方名称'}}:{{(item.bank_account_name)}}</view>
+                <view class="a-expend ">
+                  <view class="van-row">
+                    <view class="van-col van-col-12 label">币种:{{item.currency}}</view>
+                    <view class="van-col van-col-12 label">交易类型:{{(item.trans_type)}}</view>
+                    <view class="van-col van-col-12 label">借方金额:{{filter.numberToFixed(item.amount_dr)}}</view>
+                    <view class="van-col van-col-12 label">贷方金额:{{filter.numberToFixed(item.amount_cr)}}</view>
+                    <view class="van-col van-col-12 label">交易日期:{{item.trans_date}}</view>
+                    <view class="van-col van-col-12 label"></view>
+                    <view class="van-col van-col-24 label">摘要:{{item.summary}}</view>
+                  </view>
+                </view>
+              </view>
+            </block>
+            <block a:else>
+              <view class="empty">
+                <icon class="iconfont iconkong "></icon>
+              </view>
+            </block>
+          </view>
+        </view>
+      </view>
+    </tab-content>
+  </block>
+</tabs>

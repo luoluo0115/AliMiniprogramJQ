@@ -1,0 +1,175 @@
+<import-sjs name="filter" from="../../../utils/filter.sjs"/>
+<view>
+  <tabs tabs="{{tabs2}}" tabsName="activeTab2" onTabClick="handleTabClick" onChange="handleTabChange" activeTab="{{activeTab2}}" tabBarUnderlineWidth="20px" swipeable="{{false}}">
+    <block a:for="{{tabs2}}">
+      <tab-content key="{{index}}" tabId="{{index}}" activeTab="{{activeTab2}}" a:if="{{index === 0}}">
+        <view class="tab-content" style="height: 100%;">
+          <view class="account">
+            <view class="van-row num-wrapper">
+              <view class="van-col van-col-6">
+                <view class="num">
+                  <text class="color-red">{{filter.numberToFixed(num_qty)}}</text>
+                </view>
+                <text class="title">识别总金额</text>
+              </view>
+              <view class="van-col van-col-6">
+                <view class="num">
+                  <text class="color-red">{{sum_qty}}</text></view>
+                <text class="title">总上传数</text>
+              </view>
+              <view class="van-col van-col-6">
+                <view class="num">
+                  <text class="color-red">{{succ_qty}}</text></view>
+                <text class="title">识别成功数</text>
+              </view>
+              <view class="van-col van-col-6">
+                <view class="num">
+                  <text class="color-red">{{fail_qty}}</text></view>
+                <text class="title">识别失败数</text>
+              </view>
+            </view>
+            <view class="van-row grids-wrapper" a:for="{{expendList}}" a:key="index" data-index="{{index}}" data-item="{{item}}" onTap="{{curr_status =='N' ?'gotoUpload': ''}}">
+              <view class="van-col van-col-24 card-header ">
+                <view class="van-col van-col-12 font-14">
+                  <view class="mask d-inline-block">{{index+1}}</view>
+                  <text> {{item.expense_name}}</text>
+                </view>
+                <view class="van-col van-col-12 text-right">
+                  <button size="mini" class="top-btn bg-1e6ce8 " type="primary" data-item="{{item}}" catchTap="gotoDetail">查看明细</button>
+                  <button size="mini" class="top-btn bg-1e6ce8" type="primary" a:if="{{curr_status=='N'}}">开始上传</button>
+                </view>
+              </view>
+              <view class="van-col van-col-24 mb-10">
+                    {{item.expense_desc}}
+              </view>
+              <view class="van-col van-col-6">
+                    数量：
+                <text class="color-blue">{{item.count}}</text>
+              </view>
+              <view class="van-col van-col-6" custom-class="text-right">
+                    失败：
+                <text class="color-blue">{{item.fail}}</text>
+              </view>
+              <view class="van-col van-col-12" custom-class="text-right">
+                    金额:
+                <text class="color-blue">{{filter.numberToFixed(item.amout)}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </tab-content>
+      <tab-content key="{{index}}" tabId="{{index}}" activeTab="{{activeTab2}}" a:elif="{{index === 1}}">
+        <view class="tab-content" style="height:100%">
+          <view class="account">
+            <view class="van-row num-wrapper">
+              <view class="van-col van-col-6">
+                <view class="num">
+                  <text class="color-red">{{filter.numberToFixed(num_qty_cb)}}</text></view>
+                <text class="title">识别总金额</text>
+              </view>
+              <view class="van-col van-col-6">
+                <view class="num">
+                  <text class="color-red">{{sum_qty_cb}}</text></view>
+                <text class="title">总上传数</text>
+              </view>
+              <view class="van-col van-col-6">
+                <view class="num">
+                  <text class="color-red">{{succ_qty_cb}}</text>
+                </view>
+                <text class="title">识别成功数</text>
+              </view>
+              <view class="van-col van-col-6">
+                <view class="num">
+                  <text class="color-red">{{fail_qty_cb}}</text>
+                </view>
+                <text class="title">识别失败数</text>
+              </view>
+            </view>
+            <view class="upload-list" a:if="{{curr_status=='N'}}">
+              <view class="border-bottom item">
+                <view class="van-row">
+                  <view class="van-col van-col-8">付款方式</view>
+                  <view class="van-col van-col-16 text-right">
+                    <radio-group name="payCategory" onChange="radioChange" class="d-inline-block">
+                      <label class="mr-10"><radio value="个人垫付" checked />个人垫付 </label>
+                      <label><radio value="公司转账" />公司转账</label>
+                    </radio-group>
+                  </view>
+                </view>
+              </view>
+              <view class=" border-bottom item" a:if="{{payCategory == '个人垫付'}}">
+                <picker onChange="bindEmpNameChange" value="{{listEmp[empIndex].hr_employee_id}}" range="{{listEmp}}" range-key="{{'emp_name'}}">
+                  <view class="van-row">
+                    <view class="van-col van-col-8">人员选择</view>
+                    <view class="van-col van-col-16 text-right text-666">{{listEmp[empIndex].emp_name}}<icon class="iconfont iconxiajiantou- font-12"></icon></view>
+                  </view>
+                </picker>
+              </view>
+              <view class=" border-bottom item">
+                <view class="van-row">
+                  <view class="van-col van-col-8">选择发票</view>
+                  <view class="van-col van-col-16 text-right">
+                    <button size="mini" class="top-btn bg-1e6ce8 mt-5" onTap="chooseImg" type="primary" >拍票上传</button>
+                    <button size="mini" class="top-btn bg-1e6ce8 mt-5" onTap="chooseFileWeb" type="primary" >发票上传(PDF)</button>
+                  </view>
+                </view>
+              </view>
+            </view>
+            <view class="page">
+              <view class="expend-list ">
+                <block a:if="{{expendFileList!=''}}">
+                  <view class="expend-item bg-f9f9f9" a:for="{{expendFileList}}" a:key="index">
+                    <view class="title">
+                      <view class="van-row">
+                        <view class="van-col van-col-18">
+                          <text>垫付人/垫付公司:{{item.bill_pay_name}}</text>
+                        </view>
+                        <view class="van-col van-col-6 text-right" a:if="{{curr_status=='N'}}">
+                          <view class="pay-btn delete" onTap="deleteFile" data-item="{{item}}" data-id="{{item.process_recv_file_id}}">删除</view>
+                        </view>
+                      </view>
+                    </view>
+                    <view class="a-expend">
+                      <view class="img-box">
+                        <image mode="widthFix"  src="{{FileOssUrl + item.upload_file_guid}}" data-list="{{FileOssUrl + item.upload_file_guid}}" data-src="{{FileOssUrl + item.upload_file_guid}}" onTap="previewImage" class="img" />
+                      </view>
+                      <view class="text-box {{(item.bill_non_tax_amt+item.bill_tax_amt!=item.trans_amount ||(item.process_flag=='E')) ? 'color-red':''}}">
+                        <view class="arow arow01">
+                          <view class="label">开票日期:{{item.invoice_date==null?'':item.invoice_date}}</view>
+                          <view class="label-right">
+                              金额:{{(item.bill_non_tax_amt==null?'':item.bill_non_tax_amt)}}
+                          </view>
+                        </view>
+                        <view class="arow arow01">
+                          <view class="label">
+                            费用明细:{{item.file_small_category==null?'':item.file_small_category}}
+                          </view>
+                          <view class="label-right">税额:{{(item.bill_tax_amt==null?'':item.bill_tax_amt)}}
+                          </view>
+                        </view>
+                        <view class="arow arow01">
+                          <view class="label">发票类型:{{item.bill_type==null?'':item.bill_type}}</view>
+                          <view class="label-right">
+                              价税合计:{{item.trans_amount==null?'':(item.trans_amount)}}
+                          </view>
+                        </view>
+                        <view class="arow ">
+                          <view class="label">
+                            付款方式:{{item.bill_pay_category==null?'':item.bill_pay_category}}
+                          </view>
+                        </view>
+                      </view>
+                    </view>
+                  </view>
+                </block>
+                <block a:else>
+                  <view class="empty">{{msg}}</view>
+                </block>
+              </view>
+            </view>
+          </view>
+        </view>
+      </tab-content>
+    </block>
+  </tabs>
+</view>

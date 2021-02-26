@@ -1,0 +1,178 @@
+<import-sjs name="filter" from="../../../utils/filter.sjs"/>
+<tabs tabs="{{tabs2}}" swipeable='{{false}}' tabsName="active" tabBarActiveTextColor="#1e6ce8" tabBarUnderlineColor="#1e6ce8" activeTab="{{active}}" capsule="{{false}}" tabBarUnderlineWidth="20px" stickyBar="{{true}}" onTabClick="handleTabClick" onChange="handleTabChange">
+  <block a:for="{{tabs2}}">
+    <tab-content key="{{index}}" tabId="{{index}}" activeTab="{{active}}" a:if="{{index === 0}}" style="height:100%">
+      <view class="tab-content" style="height:100%">
+        <view class="page-content area-container center-container">
+          <view class="invoice ">
+            <view class="invoice-item">
+              <view class="area-title ">
+                <view class="area-text">发票抬头</view>
+              </view>
+              <view class="van-row">
+                <view class="van-col van-col-22">
+                  <search-bar value="{{value}}" disabled="{{false}}" placeholder="输入企业名称" onInput="custChange" onSubmit="onSearch" showCancelButton="{{false}}" />
+                </view>
+                <view class="van-col van-col-2 text-right">
+                  <view onTap="goAddInvoiceCust" class="mt-5">
+                    <icon class="iconfont iconRectangleCopy8 font-24 text-1e6ce8" />
+                  </view>
+                </view>
+              </view>
+              <view class="van-row invoice-header-list" a:for="{{invoiceCustList}}" a:key="index" onTap="goEditInvoiceCust" data-item="{{item}}">
+                <view class="van-col van-col-16">
+                  <view class="title">{{item.customer_name}}</view>
+                  <view class="sub">税号：{{item.customer_tax_code}}</view>
+                </view>
+                <view class="van-col van-col-8 text-right">
+                  <button size="mini" class="top-btn bg-1e6ce8 mt-5" type="primary" catchTap='bindTapInvoiceApply' data-item="{{item}}">开票</button>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </tab-content>
+    <tab-content key="{{index}}" tabId="{{index}}" activeTab="{{active}}" a:else>
+      <view class="tab-content" style="height:100%">
+        <view class="page-content center-container">
+          <view class="invoice">
+            <search-bar value="{{value}}" disabled="{{false}}" placeholder="输入企业名称" onInput="custChangeSearch" onSubmit="onSearchList" showCancelButton="{{false}}" />
+            <block a:if="{{InvoiceApplyList!=''}}">
+              <view class="van-row grids-wrapper" a:for="{{InvoiceApplyList}}" a:key="index" data-index="{{index}}" data-item="{{item}}">
+                <view class="van-col van-col-20 font-14 text-333">
+                  <text>单位名称：</text>
+							    {{item.customer_name}}
+                </view>
+                <view class="van-col van-col-4 text-right">
+                  <view class="van-tag success">{{filter.getStatus(item.status)}}</view>
+                </view>
+                <view class="van-col van-col-12 mt-5">
+                  <text>发票类型：</text>
+							    {{item.invoice_type}}
+                </view>
+                <view class="van-col van-col-12 mt-5">
+                  <text>项目类型：</text>
+							    {{item.invoice_item_type}}
+                </view>
+                <view class="van-col van-col-12 mt-5">
+                  <text>申请日期：</text>
+							    {{filter.formatTime(item.reqeust_date,"yyyy-MM-dd")}}
+                </view>
+                <view class="van-col van-col-12 mt-5">
+                  <text>含税金额：</text>
+							    {{filter.numberToFixed(item.total_amount)}}
+                </view>
+                <view class="van-col van-col-24 card-bottom">
+                  <button size="mini" class="top-btn bg-1e6ce8 mt-5" type="primary" data-item="{{item}}" onTap="deleteApply" a:if="{{item.status=='N'}}">删除</button>
+                  <button size="mini" class="top-btn bg-1e6ce8 mt-5" type="primary" data-item="{{item}}" data-type="Edit" onTap="goEdit" a:if="{{item.status=='N'}}">修改</button>
+                  <button size="mini" class="top-btn bg-1e6ce8 mt-5" type="primary" data-item="{{item}}" onTap="goDetail">详情</button>
+                  <button size="mini" class="top-btn bg-1e6ce8 mt-5" type="primary" onTap="InvoiceSubmit" data-item="{{item}}" a:if="{{item.status=='N'}}">提交</button>
+                  <!--<van-button round color="linear-gradient(to right, #4bb0ff, #6149f6)" size="mini" data-item="{{item}}" a:if="{{item.is_can_scrap=='Y'}}" bindtap="goScrap">明细</van-button> -->
+                </view>
+              </view>
+            </block>
+            <block a:else>
+              <view class="empty">{{msg}}</view>
+            </block>
+          </view>
+        </view>
+      </view>
+    </tab-content>
+  </block>
+</tabs>
+
+<!--弹窗-->
+<modal show="{{showModal}}" onModalClose="close" onMaskClick="close" showClose="trye">
+  <view slot="header" class="font-14 text-left">开票付款</view>
+  <view class="showModal-content">
+    <list-item class="font-12"  a:if="{{is_service_fee}}" >
+      <text class="font-12 text-fa1139">按次付费服务需在每次提交申请前支付服务费</text>
+    </list-item>
+    <list-item class="font-12">
+      <text class="font-12">服务方式:</text>
+      <view slot="extra"> {{service_type}}</view>
+    </list-item>
+    <list-item class="font-12">
+      <text class="font-12">购买方:</text>
+      <view slot="extra"> {{customer_name}}</view>
+    </list-item>
+    <list-item class="font-12">
+      <text class="font-12">价税合计:</text>
+      <view slot="extra"> {{total_amount}}</view>
+    </list-item>
+    <list-item class="font-12">
+      <text class="font-12">税额:</text>
+      <view slot="extra"> {{total_tax_amt}}</view>
+    </list-item>
+    <list-item class="font-12"  a:if="{{is_service_fee}}">
+      <text class="font-12">开票服务费:</text>
+      <view slot="extra"> {{invoice_service_fee}}</view>
+    </list-item>
+    <list-item class="font-12">
+      <text class="font-12">快递服务费:</text>
+      <view slot="extra"> {{express_expense}}</view>
+    </list-item>
+    <block a:if="{{couponLength>0}}">
+      <list-item class="font-12" a:if="{{coupon_amount=='0'}}" onClick="goCoupon">
+        <text class="font-12">优惠券:</text>
+        <view slot="extra"> {{couponLength}}张可用</view>
+      </list-item>
+      <list-item class="font-12" a:else arrow="true" onClick="goCoupon">
+        <text class="font-12">优惠券:</text>
+        <view slot="extra">-{{filter.numberToFixed(coupon_amount)}}</view>
+      </list-item>
+    </block>
+    <list-item class="font-12">
+      <text class="font-12">服务费总计:</text>
+      <view slot="extra"> {{((invoice_service_fee-coupon_amount>0?invoice_service_fee-coupon_amount:0)+express_expense)}}</view>
+    </list-item>
+    <list-item class="font-12">
+      <text class="font-12">账户余额({{balance_amt}})付费:</text>
+      <view slot="extra"> {{balancepayment}}</view>
+    </list-item>
+    <list-item class="font-12" a:if="{{!isbalance_amt}}">
+      <text class="font-12">立即支付:</text>
+      <view slot="extra"> {{codepayment}}</view>
+    </list-item>
+    <list-item class="font-12" a:if="{{agentpay_show}}">
+      <text class="font-12">{{pay_customer_name}}余额({{pay_balance_amt}})代付:" value="{{agentpayment}}</text>
+    </list-item>
+  </view>
+  
+  <button type="primary" class="submit-btn mt-10" ontap="{{!payDisabled?'AffirmPay':''}}">{{isbalance_amt?'确认付款':'立即付款'}}</button>
+</modal>
+<!--优惠券弹窗-->
+<popup show="{{showCoupon}}" position="bottom" onClose="onClose">
+  <view class="bg-fff">
+    <form onSubmit="userCoupon" onReset="noCoupon">
+      <view class="page-content ">
+        <button class="nouserCoupon" formType="reset">暂不使用优惠券</button>
+        <radio-group class="radio-group" onChange="onChange" name="lib">
+          <view class="coupons-item " a:for="{{couponUseList}}" key="label-{{index}}" style="background-image:url('{{item.wait_image_path}}');">
+            <view class="coupons-item-box">
+              <block a:if="{{item.coupon_category=='减免'}}">
+                <view class="money-left">
+                  <text class="free-txt">免</text>
+                </view>
+              </block>
+              <block a:else>
+                <view class="money-left">
+                  <text>¥</text>{{item.coupon_amount}}
+                </view>
+              </block>
+              <view class="money-right">
+                <view class="money-hold">{{item.coupon_desc}}</view>
+                <view class="money-data">有效期: {{item.get_time}} - {{item.end_date}}</view>
+              </view>
+              <view class="money-home">
+                <radio value="{{index}}" checked="{{item.checked}}" disabled="{{item.disabled}}" />
+              </view>
+            </view>
+          </view>
+        </radio-group>
+        <button class="user-btn" formType="submit">立即使用</button>
+      </view>
+    </form>
+  </view>
+</popup>

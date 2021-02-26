@@ -1,0 +1,48 @@
+<import-sjs name="filter" from="../../../utils/filter.sjs"/>
+<view class="page-content invoice">
+  <form onSubmit="bindSave">
+    <view class="invoice-item">
+      <view class="area-title ">
+        <view class="area-text ">地址信息</view>
+      </view>
+      <view class="invoice-info-list font-12">
+        <list>
+          <list-item class="font-12">
+            <text class="font-12">联系人</text>
+            <view slot="extra">
+            <input name="express_contact_name" class="font-12 text-right" type="text" onInput="handleFieldChange" placeholder="请输入联系人" value="{{expressData.express_contact_name}}"  data-fieldName="express_contact_name"/>
+            </view>
+          </list-item>
+          <list-item class="font-12">
+            <text class="font-12">电话</text>
+            <view slot="extra" >
+            <input name="express_contact_phone" class="font-12 text-right" type="number" placeholder="请输入电话" value="{{expressData.express_contact_phone}}" data-fieldName="express_contact_phone" onInput="handleFieldChange"/>
+            </view>
+          </list-item>
+          <list-item class="font-12">
+            <text class="font-12">省市区</text>
+            <view slot="extra">
+            <input name="customer_bank_name" class="font-12 text-right" type="text" placeholder="请输入省市区" value="{{invoiceCustList.customer_bank_name}}" data-fieldName="customer_bank_name" onInput="handleFieldChange"/>
+            </view>
+          </list-item>
+          <list-item class="font-12">
+            <text class="font-12">详细地址</text>
+            <view slot="extra">
+              <input  name="express_address" class="font-12 text-right"  data-fieldName="express_address" value="{{ expressData.express_address}}" type="text" placeholder="请输入详细地址" onInput="handleFieldChange"/>
+            </view>
+          </list-item>
+          <list-item class="font-12">
+            <text class="font-12">备注</text>
+            <view slot="extra">
+            <input name="remark" class="font-12 text-right" type="number" placeholder="请输入备注" value="{{ expressData.remark }}"  data-fieldName="remark" onInput="handleFieldChange"/>
+            </view>
+          </list-item>
+          
+        </list>
+      </view>
+      <view class="mb-10 ">
+        <button class="submit-btn large text-fff mt-10" formType="submit">保存</button>        
+      </view>
+    </view>
+  </form>
+</view>

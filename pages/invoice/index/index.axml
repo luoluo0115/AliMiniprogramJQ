@@ -1,0 +1,63 @@
+<import-sjs name="filter" from="../../../utils/filter.sjs"/>
+<view class="account">
+  <view class="personal-header">
+    <topwrapper customerlist="{{customer_info_id_list}}" customerindex="{{index}}" pickerDate="{{pickerDate}}" a:if="{{topwrapper==true}}" onPickerDateEvent="onPickerDateEvent" onPickerCompanyEvent="onPickerCompanyEvent" ref="refCompanyInfo"></topwrapper>
+  </view>
+  <view class="section invoice-wrapper">
+    <view class="page-content">
+      <view class="account-wrapper">
+        <view class="header-title ">
+          <view class="text">发票</view>
+        </view>
+        <view class="van-row  text-center">
+          <view class="item van-col van-col-24 ">
+            <block a:for="{{iminvoicestatdata}}" a:key="{{index}}" a:if="{{item.invoice_type =='OUTCOME'}}">
+              <view class="van-col van-col-12">
+                <view class="title">
+                          进项
+                  <block a:if="{{item.v_type == 'month'}}">月度</block>
+                  <block a:if="{{item.v_type == 'quarter'}}">季度</block>开票汇总
+                </view>
+                <view class="invoice-center">
+                  <view class="van-row">
+                    <view class="left van-col van-col-10">开票金额</view>
+                    <view class="van-col van-col-14 right">{{filter.numberToFixed(item.total_invoice_amount)}}</view>
+                  </view>
+                  <view class="van-row">
+                    <view class="left van-col van-col-10">开票税额</view>
+                    <view class="van-col van-col-14 right">{{filter.numberToFixed(item.total_tax_amount)}}</view>
+                  </view>
+                </view>
+              </view>
+            </block>
+          </view>
+          <view class="item van-col van-col-24">
+            <block a:for="{{iminvoicestatdata}}" a:key="{{index}}" a:if="{{item.invoice_type =='INCOME'}}">
+              <view class="van-col van-col-12">
+                <view class="title">
+                      销项
+                  <block a:if="{{item.v_type == 'month'}}">月度</block>
+                  <block a:if="{{item.v_type == 'quarter'}}">季度</block>开票汇总
+                </view>
+                <view class="invoice-center">
+                  <view class="van-row">
+                    <view class="left van-col van-col-10">开票金额</view>
+                    <view class="van-col van-col-14 right">{{filter.numberToFixed(item.total_invoice_amount)}}</view>
+                  </view>
+                  <view class="van-row">
+                    <view class="left van-col van-col-10">开票税额</view>
+                    <view class="van-col van-col-14 right">{{filter.numberToFixed(item.total_tax_amount)}}</view>
+                  </view>
+                </view>
+              </view>
+            </block>
+          </view>
+        </view>
+      </view>
+      <!--列表-->
+      <view class="grids-wrapper van-row">
+        <grid onGridItemClick="onItemClick" columnNum="{{3}}" list="{{gridsList}}" infinite="{{true}}" gridName="newGridName" circular="{{true}}" infiniteHeight="240rpx" />
+      </view>
+    </view>
+  </view>
+</view>

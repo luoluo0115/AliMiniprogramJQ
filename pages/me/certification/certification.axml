@@ -1,0 +1,35 @@
+<import-sjs name="filter" from="../../../utils/filter.sjs"/>
+<view class="page-content">
+  <view class="certification">
+    <camera device-position="front" flash="off" binderror="error" class="camera"></camera>
+  </view>
+  <list>
+    <list-item class="font-12">
+      <text class="font-12"><text class="text-fa1139">*</text>姓名</text>
+      <view slot="extra">
+        <input placeholder="请输入姓名" disabled value="{{username}}" maxlength="18" type="text" input-align="right" onInput="nameInput" class="font-12 text-right" />
+      </view>
+    </list-item>
+    <list-item class="font-12">
+      <text class="font-12"><text class="text-fa1139">*</text>身份证号</text>
+      <view slot="extra">
+        <input placeholder="请输入身份证号" disabled value="{{IDCard}}" maxlength="18" type="idcard" input-align="right" onInput="NumberInput" class="font-12 text-right" />
+      </view>
+    </list-item>
+  </list>
+  <view class="content">
+    <view class="title">
+    温馨提示：
+    </view>
+    <view class="sub">
+    1.请将脸放在指定范围内,点击「开始认证」
+    </view>
+    <view class="sub">
+    2.请保持正对手机，光线明亮
+    </view>
+    <view class="sub">
+    3.请保持良好的网络环境
+    </view>
+  </view>
+  <button class="submit-btn JQBtn" type="primary" onTap="goFaceVerifiy" style='color:{{color}}; border-color: {{color}};background-color:#FFF;' disabled="{{disabled}}">{{getTxt}}</button>
+</view>

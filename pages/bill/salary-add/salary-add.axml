@@ -1,0 +1,249 @@
+<import-sjs name="filter" from="../../../utils/filter.sjs"/>
+<tabs tabs="{{tabs2}}" tabsName="active" onTabClick="handleTabClick" onChange="handleTabChange" activeTab="{{active}}" tabBarUnderlineWidth="20px">
+  <block a:for="{{tabs2}}">
+    <tab-content key="{{index}}" tabId="{{index}}" activeTab="{{active}}" a:if="{{tabs2[index].title == '月工资' && is_show_salary}}" style="height:100%">
+      <view class="tab-content" style="height: 100%;">
+        <form onSubmit="bindSave">
+          <view class="page-content">
+            <view class="user-list-wrapper">
+              <view class="form-box">
+                <view class="divLine">基本信息</view>
+                <picker onChange="bindEmpNameChange" value="{{listEmp[empIndex].hr_employee_id}}" range="{{listEmp}}" range-key="{{'emp_name'}}">
+                  <view class="row-wrap">
+                    <view class="label">员工姓名</view>
+                    <view class="label-right text-right text-666">{{emp_default}}
+                      <icon class="iconfont iconxiajiantou- font-12"></icon></view>
+                  </view>
+                </picker>
+                <view class="row-wrap">
+                  <view class="label">基本工资</view>
+                  <view class="label-right">
+                    <input name="base_salary" class="input" type="digit" onInput="baseSalaryChange" placeholder="请输入基本工资" value="{{SalaryList.base_salary}}" />
+                  </view>
+                </view>
+                <view class="row-wrap">
+                  <view class="label">岗位工资</view>
+                  <view class="label-right">
+                    <input name="job_salary" class="input" type="digit" placeholder="请输入岗位工资" value="{{SalaryList.job_salary}}" />
+                  </view>
+                </view>
+                <view class="row-wrap">
+                  <view class="label">加班工资</view>
+                  <view class="label-right">
+                    <input name="oevrtime_salary" class="input" type="digit" placeholder="请输入加班工资" value="{{SalaryList.oevrtime_salary}}" />
+                  </view>
+                </view>
+                <view class="row-wrap">
+                  <view class="label">奖金工资</view>
+                  <view class="label-right">
+                    <input name="bonus_salary" class="input" type="digit" placeholder="请输入奖金工资" value="{{SalaryList.bonus_salary}}" />
+                  </view>
+                </view>
+                <view class="row-wrap">
+                  <view class="label">补贴工资</view>
+                  <view class="label-right">
+                    <input name="allowance_salary" class="input" type="digit" placeholder="请输入补贴工资" value="{{SalaryList.allowance_salary}}" />
+                  </view>
+                </view>
+                <view class="row-wrap">
+                  <view class="label">扣除工资</view>
+                  <view class="label-right">
+                    <input name="deduct_salary" class="input" type="digit" placeholder="请输入扣除工资" value="{{SalaryList.deduct_salary}}" />
+                  </view>
+                </view>
+                <view class="row-wrap">
+                  <view class="label">手机号码</view>
+                  <view class="label-right">
+                    <input name="mobile_phone" class="input" type="text" placeholder="请输入手机号码" value="{{SalaryList.mobile_phone}}" />
+                  </view>
+                </view>
+                <!-- <picker onChange="bindPayMethodChange" value="{{info.salaryPayMethodList[index].code_name}}" range="{{info.salaryPayMethodList}}" range-key="{{'code_name'}}">
+                  <view class="row-wrap">
+                    <view class="label">薪资发放方式</view>
+                    <view class="label-right text-right text-666">{{salary_pay_method}}
+                      <icon class="iconfont iconxiajiantou- font-12"></icon></view>
+                  </view>
+                </picker> -->
+                <view class="row-wrap">
+                  <view class="label">备注</view>
+                  <view class="label-right">
+                    <input name="remark" class="input" type="text" placeholder="备注" value="{{SalaryList.remark}}" />
+                  </view>
+                </view>
+                <view class="divLine">专项扣除</view>
+                <view class="row-wrap">
+                  <view class="label">社保基数</view>
+                  <view class="label-right">
+                    <input name="social_insurance_base_amount" class="input" type="digit" placeholder="请输入社保基数" value="{{SalaryList.social_insurance_base_amount}}" onInput="insuranceChange" />
+                  </view>
+                </view>
+                <view class="row-wrap">
+                  <view class="label">个人医疗保险</view>
+                  <view class="label-right">
+                    <input name="personal_medical_insurance" class="input" type="digit" placeholder="请输入个人医疗保险" value="{{SalaryList.personal_medical_insurance}}" />
+                  </view>
+                </view>
+                <view class="row-wrap">
+                  <view class="label">个人失业保险</view>
+                  <view class="label-right">
+                    <input name="personal_unemployment_insurance" class="input" type="digit" placeholder="请输入个人失业保险" value="{{SalaryList.personal_unemployment_insurance}}" />
+                  </view>
+                </view>
+                <view class="row-wrap">
+                  <view class="label">个人养老保险</view>
+                  <view class="label-right">
+                    <input name="personal_pension_insurance" class="input" type="digit" placeholder="请输入个人养老保险" value="{{SalaryList.personal_pension_insurance}}" />
+                  </view>
+                </view>
+                <view class="row-wrap">
+                  <view class="label">公积金基数</view>
+                  <view class="label-right">
+                    <input name="housing_fund_base_amount" class="input" type="digit" placeholder="请输入公积金基数" value="{{SalaryList.housing_fund_base_amount}}" onInput="housingChange" />
+                  </view>
+                </view>
+                <view class="row-wrap">
+                  <view class="label">个人公积金</view>
+                  <view class="label-right">
+                    <input name="personal_housing_fund" class="input" type="digit" placeholder="请输入个人公积金" value="{{SalaryList.personal_housing_fund}}" />
+                  </view>
+                </view>
+                <view class="divLine">专项附加扣除</view>
+                <view class="row-wrap">
+                  <view class="label">子女教育</view>
+                  <view class="label-right">
+                    <input name="children_edu_deduct_amount" class="input" type="digit" placeholder="请输入子女教育抵扣额" value="{{SalaryList.children_edu_deduct_amount}}" />
+                  </view>
+                </view>
+                <view class="row-wrap">
+                  <view class="label">租房租金</view>
+                  <view class="label-right">
+                    <input name="housing_rent_deduct_amount" class="input" type="digit" placeholder="请输入租房租金抵扣额" value="{{SalaryList.housing_rent_deduct_amount}}" />
+                  </view>
+                </view>
+                <view class="row-wrap">
+                  <view class="label">住房贷款</view>
+                  <view class="label-right">
+                    <input name="loan_interest_deduct_amount" class="input" type="digit" placeholder="请输入住房贷款抵扣额" value="{{SalaryList.loan_interest_deduct_amount}}" />
+                  </view>
+                </view>
+                <view class="row-wrap">
+                  <view class="label">赡养老人</view>
+                  <view class="label-right">
+                    <input name="support_elder_deduct_amount" class="input" type="digit" placeholder="请输入赡养老人抵扣额" value="{{SalaryList.support_elder_deduct_amount}}" />
+                  </view>
+                </view>
+                <view class="row-wrap">
+                  <view class="label">学历教育</view>
+                  <view class="label-right">
+                    <input name="diploma_edu_deduct_amount" class="input" type="digit" placeholder="请输入学历教育抵扣额" value="{{SalaryList.diploma_edu_deduct_amount}}" />
+                  </view>
+                </view>
+                <view class="row-wrap">
+                  <view class="label">职业教育</view>
+                  <view class="label-right">
+                    <input name="vocational_edu_deduct_amount" class="input" type="digit" placeholder="请输入职业教育抵扣额" value="{{SalaryList.vocational_edu_deduct_amount}}" />
+                  </view>
+                </view>
+              </view>
+            </view>
+            <view class="mb-10">
+              <button class="save-btn" formType="submit" size="large">保存</button>
+            </view>
+          </view>
+        </form>
+      </view>
+    </tab-content>
+    <tab-content key="{{index}}" tabId="{{index}}" activeTab="{{active}}" a:if="{{tabs2[index].title == '劳务报酬' && is_show_labour}}" style="height:100%">
+      <view class="tab-content" style="height: 100%">
+        <form onSubmit="bindSaveLabour">
+          <view class="page-content">
+            <view class="user-list-wrapper">
+              <view class="form-box">
+                <view class="row-wrap">
+                  <view class="label">员工姓名</view>
+                  <view class="label-right">
+                    <input name="emp_name" class="input" type="text" placeholder="请输入员工姓名" value="{{SalaryList.emp_name}}" />
+                  </view>
+                </view>
+                <view class="row-wrap">
+                  <view class="label">劳务工资</view>
+                  <view class="label-right">
+                    <input name="base_salary" class="input" type="digit" placeholder="请输入劳务工资" value="{{SalaryList.base_salary}}" />
+                  </view>
+                </view>
+                <picker onChange="bindIdentificationTypeChange" value="{{info.identityList[index].code_name}}" range="{{info.identityList}}" range-key="{{'code_name'}}">
+                  <view class="row-wrap">
+                    <view class="label">证件类型</view>
+                    <view class="label-right text-right text-666">{{identification_type}}
+                      <icon class="iconfont iconxiajiantou- font-12"></icon></view>
+                  </view>
+                </picker>
+                <view class="row-wrap">
+                  <view class="label">身份证号</view>
+                  <view class="label-right">
+                    <input name="identification_number" class="input" type="text" maxlength="18" placeholder="请输入身份证号" value="{{SalaryList.identification_number}}" />
+                  </view>
+                </view>
+                <view class="row-wrap">
+                  <view class="label">手机号码</view>
+                  <view class="label-right">
+                    <input name="mobile_phone" class="input" type="text" placeholder="请输入手机号码" value="{{SalaryList.mobile_phone}}" />
+                  </view>
+                </view>
+                <view class="row-wrap">
+                  <view class="label">备注</view>
+                  <view class="label-right">
+                    <input name="remark" class="input" type="text" placeholder="备注" value="{{SalaryList.remark}}" />
+                  </view>
+                </view>
+              </view>
+            </view>
+            <view class="mb-10">
+              <button class="save-btn" formType="submit" size="large">保存</button>
+            </view>
+          </view>
+        </form>
+      </view>
+    </tab-content>
+    <tab-content key="{{index}}" tabId="{{index}}" activeTab="{{active}}" a:if="{{tabs2[index].title == '年终奖' && is_show_bonus}}"  style="height:100%">
+      <view class="tab-content" style="height: 100%">
+        <form onSubmit="bindSaveBonus">
+          <view class="page-content">
+            <view class="user-list-wrapper">
+              <view class="form-box">
+                <picker onChange="bindEmpNameChange" value="{{listEmp[empIndex].hr_employee_id}}" range="{{listEmp}}" range-key="{{'emp_name'}}">
+                  <view class="row-wrap">
+                    <view class="label">员工姓名</view>
+                    <view class="label-right text-right text-666">{{emp_default}}
+                      <icon class="iconfont iconxiajiantou- font-12"></icon></view>
+                  </view>
+                </picker>
+                <view class="row-wrap">
+                  <view class="label">奖金工资</view>
+                  <view class="label-right">
+                    <input name="bonus_salary" class="input" type="digit" placeholder="请输入奖金工资" value="{{SalaryList.bonus_salary}}" />
+                  </view>
+                </view>
+                <view class="row-wrap">
+                  <view class="label">手机号码</view>
+                  <view class="label-right">
+                    <input name="mobile_phone" class="input" type="text" placeholder="请输入手机号码" value="{{SalaryList.mobile_phone}}" />
+                  </view>
+                </view>
+                <view class="row-wrap">
+                  <view class="label">备注</view>
+                  <view class="label-right">
+                    <input name="remark" class="input" type="text" placeholder="备注" value="{{SalaryList.remark}}" />
+                  </view>
+                </view>
+              </view>
+            </view>
+            <view class="mb-10">
+              <button class="save-btn" formType="submit" size="large">保存</button>
+            </view>
+          </view>
+        </form>
+      </view>
+    </tab-content>
+  </block>
+</tabs>

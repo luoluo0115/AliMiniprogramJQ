@@ -1,0 +1,74 @@
+<import-sjs name="filter" from="../../../utils/filter.sjs"/>
+<view >
+  <view  class="banner">
+      <image src="{{productList.product_image}}" class="img" mode="widthFix" ></image>
+  </view>
+    
+  <view class=" page detail-wrapper"> 
+      <view class="product_price">
+        <text>¥ {{productList.product_price}}</text>
+        {{productList.is_param=='Y'?'起':''}} 
+      </view>
+      <view class="product_name">{{productList.product_name}}</view>
+  </view>
+  <view class="hr"></view>
+  <view class="container">
+      <rich-text nodes="{{nodes}}" ></rich-text>
+  </view>
+  <view class="fixed-footer">
+    <flex >
+      <view class="placeholder inline goods-action-btn" onTap="onMessage">
+        <icon class="iconfont iconzi_xun d-block"></icon>
+        <text class="font-10  d-block">在线咨询</text>
+      </view>
+      <view class="placeholder text-center goods-action-button " onTap="bindGuiGeTap">
+        我要下单
+      </view>
+    </flex>
+  </view>
+  <!--底部弹窗-->
+  <popup show="{{showShopPopup}}" position="bottom" onClose="onPopupClose">
+      <view class="popup-contents">
+          <form onSubmit="buyNow">
+              <view class="pop-goods-info">
+                  <view class="pop-img-box">
+                  <image src="{{productList.product_image}}" class="goods-thumbnail" />
+                  </view>
+                  <view class="pop-goods-des">
+                      <view class="pop-goods-title">{{productList.product_name}}</view>
+                      <view class="pop-goods-price" a:if="{{productPrice==''}}">¥ {{filter.numberToFixed(productList.product_price)}}</view>
+                      <view class="pop-goods-price" a:else>¥ {{filter.numberToFixed(productPrice)}}</view>                      
+                  </view>
+                  <view class="pop-goods-close " onTap="closePopupTap">
+                    <icon class="iconfont iconguanbi" >
+                    </icon>
+                  </view>
+                 
+              </view>
+              <view class="size-label-box">
+                  <view class="size-label-box-item" a:for="{{productParamsList}}" a:for-item="property" a:for-index="idx" a:key="id"> 
+                      <view class="label">{{property.param_name}}</view>
+                      <block a:if="{{property.param_type=='S'}}">
+                          <view class="label-item-box" >
+                                  <view  class="label-item {{item.active?'active' : '' }}" a:for="{{property.paramDataList}}" a:key="id"   onTap="labelItemTap" data-propertyindex="{{idx}}" data-propertyid="{{property.pre_product_params_id}}" data-propertyname="{{property.param_name}}" data-propertychildindex="{{index}}"
+                                  data-propertychildid="{{item.id}}" data-propertychildname="{{item.paramData}}" >
+                                  {{item.paramData}} 
+                                  </view>
+                          </view>
+                      </block>
+                      <block a:if="{{property.param_type=='E'}}">
+                          <view class="label-item-box" >
+                              <input  onInput="getFillInInf" data-index="{{idx}}" name="paramname{{property.pre_product_params_id}}" class="input" type="text" placeholder="请输入{{property.param_name}}" value="{{property.param_data}}" />
+                          </view>
+                      </block>
+                  
+                  </view>
+                  
+              </view>
+              <view class="">
+                  <button class="popup-join-btn  {{iphone}}" formType="submit" size="large" >提交订单</button>
+              </view>
+          </form>
+      </view>
+  </popup>
+</view>

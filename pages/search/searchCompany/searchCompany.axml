@@ -1,0 +1,12 @@
+<view>
+  <search-bar value="{{value}}" focus="{{true}}" disabled="{{false}}" maxLength="{{20}}" showVoice="{{showVoice}}" placeholder="搜索" onInput="input1" onClear="onClear" onSubmit="confirm1" />
+  <view class=" searchbar-result">
+    <view class="van-row userinfor pl-16 pr-16">
+      <block a:for="{{customer_List}}" a:key="{{index}}" a:if="{{index<10}}">
+        <view class="van-col-24 van-col item font-14" a:if="{{item.show}}" onTap="returnPre" data-customer_info_id="{{item.customer_info_id}}" data-class_type_id="{{index}}" data-index="0">
+            {{item.customer_name}}
+        </view>
+      </block>
+    </view>
+  </view>
+</view>

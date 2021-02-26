@@ -1,0 +1,147 @@
+<import-sjs name="filter" from="../../../utils/filter.sjs"/>
+<tabs tabs="{{tabs2}}" swipeable='{{false}}' tabsName="active" onTabClick="handleTabClick" onChange="handleTabChange" activeTab="{{active}}" tabBarUnderlineWidth="20px">
+  <block a:for="{{tabs2}}">
+    <tab-content key="{{index}}" tabId="{{index}}" activeTab="{{active}}" a:if="{{index === 0}}" style="height:100%">
+      <view class="tab-content" style="height:100%">
+        <view class="goods-list">
+          <block a:if="{{orderList!=''}}">
+            <view class="goods-item" a:for="{{orderList}}" a:key="index">
+              <view class="a-goods" onTap='onTapProductDetail' data-item_id="{{item.pre_product_id}}">
+                <view class="img-box">
+                  <image src="{{item.product_image}}" class="img" />
+                </view>
+                <view class="text-box">
+                  <view class="arow arow01">
+                    <view class="goods-name">{{item.product_name}}</view>
+                    <view class="goods-price">¥ {{filter.numberToFixed(item.need_pay_amount)}}</view>
+                  </view>
+                  <view class="arow">
+                    <view class="goods-label">{{item.pre_product_price_value}}</view>
+                  </view>
+                  <view class="arow bottom-time">
+                      下单时间:{{item.sbumit_time}}
+                  </view>
+                </view>
+              </view>
+              <view class="remark" a:if="{{item.remark!=''}}">备注: {{item.remark}}</view>
+              <view class="van-row">
+                <view class="van-col van-col-24 bottom-wrapper">
+                  <block a:if="{{item.status=='A'}}">
+                    <view class="pay-btn " onTap="goPayWay" data-item="{{item}}">去支付</view>
+                  </block>
+                  <view class="pay-btn cancel" onTap="onCancel" data-pre_order_id="{{item.pre_order_id}}">取消</view>
+                </view>
+              </view>
+            </view>
+          </block>
+          <block a:else>
+            <view class="empty">{{msg}}</view>
+          </block>
+        </view>
+      </view>
+    </tab-content>
+    <tab-content key="{{index}}" tabId="{{index}}" activeTab="{{active}}" a:elif="{{index === 1}}">
+      <view class="tab-content" style="height:100%">
+        <view class="goods-list">
+          <block a:if="{{orderList!=''}}">
+            <view class="goods-item" a:for="{{orderList}}" a:key="index">
+              <view class="a-goods" onTap='onTapProductDetail' data-item_id="{{item.pre_product_id}}">
+                <view class="img-box">
+                  <image src="{{item.product_image}}" class="img" />
+                </view>
+                <view class="text-box">
+                  <view class="arow arow01">
+                    <view class="goods-name">{{item.product_name}}</view>
+                    <view class="goods-price">¥ {{filter.numberToFixed(item.need_pay_amount)}}</view>
+                  </view>
+                  <view class="arow">
+                    <view class="goods-label">{{item.pre_product_price_value}}</view>
+                  </view>
+                  <view class="arow bottom-time van-row">
+                    <view class="van-col van-col-12">
+                        下单时间:{{item.sbumit_time}}
+                    </view>
+                    <view class="van-col van-col-12">
+                        付款时间:{{item.full_paid_time}}
+                    </view>
+                  </view>
+                </view>
+              </view>
+              <view class="remark" a:if="{{item.remark!=''}}">备注: {{item.remark}}</view>
+              <view class="van-row">
+                <view class="van-col van-col-24 bottom-wrapper">
+                  <block a:if="{{item.status=='R'}}">
+                    <view class="pay-btn {{item.status==S?'':'purple'}}">{{item.status_desc}}</view>
+                  </block>
+                  <block a:if="{{item.status=='B'}}">
+                    <view class="pay-btn cancel">{{item.status_desc}}</view>
+                  </block>
+                </view>
+              </view>
+            </view>
+          </block>
+          <block a:else>
+            <view class="empty">{{msg}}</view>
+          </block>
+        </view>
+      </view>
+    </tab-content>
+  </block>
+</tabs>
+<popup show="{{showPayWay}}" position="bottom" onClose="onClose">
+  <view class="box bottom ">
+    <view class="peisong-way border-efefef ">
+      <view class="van-row border-bottom">
+        <view class="van-col van-col-18 pay-way  font-16">支付方式</view>
+         <view class="van-col van-col-6 text-right" onTap="onClose">
+            <icon class="iconfont iconclose5 font-12 mr-10 mt-10" ></icon>
+         </view>
+      </view>
+      <view>
+        <radio-group class="radio-group" onChange="onPayChange" name="lib" value="{{ radioPay }}">
+          <label class="d-block">
+            <view class="radio-item flex-cell ">
+              <view class="flex-item-5">
+                <text class="radio-text color-blue font-14">支付宝支付</text>
+              </view>
+              <view class="flex-item-1 text-right">
+                <radio value="1" name="1" checked color="#1e6ce8"/>
+              </view>
+            </view>
+          </label>
+          <label class="d-block">
+            <view class="radio-item flex-cell ">
+              <view class="flex-item-5">
+                <text class="radio-text color-blue d-inline-block  font-14">余额支付</text>
+                <text class="radio-text text-666 d-inline-block text-right font-10">(可用余额:￥{{filter.numberToFixed(available_balance)}})</text>
+                <text class="radio-text text-999 d-block text-left font-10">{{customer_name}}</text>
+              </view>
+              <view class="flex-item-1 text-right">
+                <radio value="2" name="2" color="#1e6ce8"/>
+              </view>
+            </view>
+          </label>
+          <label class="d-block" a:if="{{agent_pay}}">
+            <view class="radio-item flex-cell ">
+              <view class="flex-item-5">
+                <text class="radio-text color-blue d-inline-block">代理支付</text>
+                <text class="radio-text text-666 d-inline-block text-right font-10">(可用余额:￥{{filter.numberToFixed(par_available_balance)}})</text>
+                <text class="radio-text text-999 d-block text-left font-10">{{par_customer_name}}</text>
+              </view>
+              <view class="flex-item-1 text-right">
+                <radio value="3" name="3" color="#1e6ce8"/>
+              </view>
+            </view>
+          </label>
+        </radio-group>
+        <list-item class="font-12">
+          <text class="font-12">应付金额:</text>
+          <view slot="extra">￥{{filter.numberToFixed(pay_amount)}}</view>
+        </list-item>
+      </view>
+      <view class="pop-pay-btn">
+          <button class="submit-btn large" type="primary" onTap="toPayTap">立即支付</button>
+      </view>
+    </view>
+  </view>
+</popup>
